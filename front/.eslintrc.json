@@ -1,0 +1,22 @@
+//https://eslint.org/docs/latest/rules/
+
+// ADD EXTENSION "plugin:@typescript-eslint/recommended" ?
+{
+    "extends": [
+        "next",
+        "eslint:recommended",
+        "plugin:@typescript-eslint/recommended"
+    ],
+    "root": true,
+    "parser": "@typescript-eslint/parser",
+    "plugins": ["@typescript-eslint"],
+    "rules": {
+        "no-console": "error",
+        "@typescript-eslint/no-empty-function": "warn"
+    },
+    "globals": {
+        "React": true,
+        "google": true
+    },
+    "ignorePatterns": ["*cy.js", "cypress"]
+}
