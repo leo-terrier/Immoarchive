@@ -13,8 +13,8 @@ import {
     TablePagination,
     CircularProgress
 } from '@mui/material'
-import { stripArrondissement } from './map/helpers'
 import { ListedDealType } from '../types'
+import { stripArrondissement } from '@/utils/utilityFunctions'
 
 type Order = 'asc' | 'desc'
 

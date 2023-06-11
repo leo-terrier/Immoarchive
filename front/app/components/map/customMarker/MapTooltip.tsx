@@ -5,13 +5,13 @@ import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew'
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
 import HomeIcon from '@mui/icons-material/Home'
 import MapsHomeWorkIcon from '@mui/icons-material/MapsHomeWork'
+import { format } from 'date-fns'
 import { useAppContext } from '@/app/context/Context'
 import { AgglomeratedDealType, OpenDealsType } from '@/app/types'
-import { stripArrondissement } from '../helpers'
 import { CloseButton } from '@/app/components/common/CloseButton'
 import { Lighter } from '../../common/Lighter'
-import { format } from 'date-fns'
 import { TooltipContainer } from '../../common/TooltipContainer'
+import { stripArrondissement } from '@/utils/utilityFunctions'
 
 export const MapTooltip = () => {
     const { openDeals: deals, setOpenDeals } = useAppContext()

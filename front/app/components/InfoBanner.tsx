@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-
 import {
     Box,
     LinearProgress,
@@ -8,8 +7,8 @@ import {
     Typography,
     useMediaQuery
 } from '@mui/material'
-import { useAppContext } from '../context/Context'
 import FmdGoodIcon from '@mui/icons-material/FmdGood'
+import { useAppContext } from '../context/Context'
 
 export const InfoBanner = () => {
     const { mapParams, length, isLoading, isClustered } = useAppContext()

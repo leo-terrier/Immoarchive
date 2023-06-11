@@ -11,9 +11,9 @@ import { format } from 'date-fns'
 import styled from '@emotion/styled'
 import { useAppContext } from '@/app/context/Context'
 import { ListedDealType } from '@/app/types'
-import { stripArrondissement } from './map/helpers'
 import { Lighter } from './common/Lighter'
 import { SeeOnMapButton } from './common/SeeOnMapButton'
+import { stripArrondissement } from '@/utils/utilityFunctions'
 
 const StyledPagination = styled(Pagination)`
     ul {

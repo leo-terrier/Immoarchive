@@ -1,6 +1,4 @@
 'use client'
-// slow next https://stackoverflow.com/questions/75563499/next-js-app-loading-very-slow-in-development-enviorment
-// PB WITH SWC => https://www.reddit.com/r/nextjs/comments/swciuj/next_dev_is_slow/
 import { createContext, useContext, useEffect, useRef, useState } from 'react'
 import axios, { CancelTokenSource } from 'axios'
 import { CssBaseline, ThemeProvider } from '@mui/material'

@@ -1,5 +1,5 @@
-import { useAppContext } from '@/app/context/Context'
 import { Button } from '@mui/material'
+import { useAppContext } from '@/app/context/Context'
 
 export const SearchFilterButtonLg = () => {
     const { setIsFiltersOpen: setOpenFilters } = useAppContext()

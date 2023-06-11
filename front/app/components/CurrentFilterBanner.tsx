@@ -1,6 +1,6 @@
 import { Box, Typography } from '@mui/material'
-import { rancho } from '../page'
 import CircleIcon from '@mui/icons-material/Circle'
+import { rancho } from '../page'
 import { useAppContext } from '../context/Context'
 
 const filterLabels: { [key: string]: string } = {

@@ -1,5 +1,4 @@
 //https://react-google-maps-api-docs.netlify.app/#googlemap
-
 import {
     Card,
     useMediaQuery,

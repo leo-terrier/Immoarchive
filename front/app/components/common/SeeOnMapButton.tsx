@@ -1,8 +1,8 @@
-import { useAppContext } from '@/app/context/Context'
-import { LatLng } from '@/app/types'
 import { Button, Theme } from '@mui/material'
 import MapIcon from '@mui/icons-material/Map'
 import styled from '@emotion/styled'
+import { LatLng } from '@/app/types'
+import { useAppContext } from '@/app/context/Context'
 
 type StyledButtonType = {
     isDarkMode: boolean

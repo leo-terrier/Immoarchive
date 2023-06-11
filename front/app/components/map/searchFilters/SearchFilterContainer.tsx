@@ -1,7 +1,7 @@
 import { Box, Paper } from '@mui/material'
 import React from 'react'
-import { SearchFilterForm } from './SearchFilterForm'
 import { useMediaQuery, Theme } from '@mui/material'
+import { SearchFilterForm } from './SearchFilterForm'
 
 export const SearchFilterContainer = () => {
     const breakpointSmall = useMediaQuery((theme: Theme) =>

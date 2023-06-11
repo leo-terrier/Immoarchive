@@ -98,7 +98,8 @@ export const PriceSurfaceScatter = () => {
                         (maxData: number) =>
                             Math.max(
                                 maxData,
-                                graphData?.priceSurfaceScatter?.endPoint.y
+                                graphData?.priceSurfaceScatter?.endPoint
+                                    .y as number
                             )
                     ]}
                     mirror={!breakpointsSmall}
@@ -121,7 +122,10 @@ export const PriceSurfaceScatter = () => {
                 <ReferenceLine
                     segment={[
                         { x: 0, y: 0 },
-                        graphData?.priceSurfaceScatter?.endPoint
+                        graphData?.priceSurfaceScatter?.endPoint as {
+                            x: number
+                            y: number
+                        }
                     ]}
                     strokeWidth={2}
                     stroke="red"
@@ -133,7 +137,7 @@ export const PriceSurfaceScatter = () => {
                         <CustomLegend
                             averagePricePerMeter={
                                 graphData?.priceSurfaceScatter
-                                    ?.averagePricePerMeterSquare
+                                    ?.averagePricePerMeterSquare as number
                             }
                         />
                     }

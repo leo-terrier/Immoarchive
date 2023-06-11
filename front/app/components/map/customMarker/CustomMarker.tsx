@@ -1,7 +1,7 @@
-import { useAppContext } from '@/app/context/Context'
-import { AgglomeratedDealsObjType } from '@/app/types'
 import { Marker } from '@react-google-maps/api'
 import { useTheme } from '@mui/material'
+import { AgglomeratedDealsObjType } from '@/app/types'
+import { useAppContext } from '@/app/context/Context'
 
 export const CustomMarker = ({
     agglomeratedDeals: locationDeal,

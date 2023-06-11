@@ -48,3 +48,12 @@ export const roundNumber = (number: number, decimals = 0) => {
     const factor = 10 ** decimals
     return Math.round(number * factor) / factor
 }
+
+export const stripArrondissement = (str: string): string => {
+    if (str.includes('Arrondissement')) {
+        //arr.splice(arr.length - 2, 2);
+        return str.split(' ')[0]
+    } else {
+        return str
+    }
+}

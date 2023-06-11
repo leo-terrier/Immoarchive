@@ -1,6 +1,6 @@
-import { LatLng } from '@/app/types'
 import { Marker } from '@react-google-maps/api'
 import { useTheme } from '@mui/material'
+import { LatLng } from '@/app/types'
 
 export const ClusteredMarker = ({
     location,

@@ -1,4 +1,3 @@
-import { useAppContext } from '@/app/context/Context'
 import {
     BarChart,
     Bar,
@@ -9,8 +8,9 @@ import {
     Legend,
     ResponsiveContainer
 } from 'recharts'
-import CustomTooltip from './tooltip/CustomTooltip'
 import { Theme, useMediaQuery, useTheme } from '@mui/material'
+import { useAppContext } from '@/app/context/Context'
+import CustomTooltip from './tooltip/CustomTooltip'
 
 export function SurfaceHisto() {
     const theme = useTheme()
