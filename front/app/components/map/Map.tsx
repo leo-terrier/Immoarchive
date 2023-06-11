@@ -12,43 +12,43 @@ import {
     /*  HeatmapLayer, */ InfoWindow
 } from '@react-google-maps/api'
 import React, { useCallback, useRef } from 'react'
-
 import { useAppContext } from '@/app/context/Context'
-import { LocationDealsObjType, LatLng } from '@/app/types'
+import { AgglomeratedDealsObjType, LatLng } from '@/app/types'
 import { AddressForm } from './addressForm/AddressForm'
 import { SearchFilterContainer } from './searchFilters/SearchFilterContainer'
 import { CustomMarker } from './customMarker/CustomMarker'
-import { TooltipContent } from './customMarker/TooltipContent'
-import {
-    getUrlQueryParams,
-    useSetUrlQueryParams
-} from '@/utils/utilityFunctions'
+import { MapTooltip } from './customMarker/MapTooltip'
+import { ClusteredMarker } from './ClusteredMarker'
+import { roundNumber } from '@/utils/utilityFunctions'
+import { SearchFilterButtonLg } from './searchFilters/SearchFilterButtonLg'
 
 const Map: React.FC = () => {
     const {
-        handleChangeMapParams,
-        locationDeals,
+        handleMapChange,
+        agglomeratedDeals,
         openDeals,
         isLoading,
-        setCenter,
-        center
+        clusters,
+        mapParams,
+        isClustered,
+        isFiltersOpen,
+        length,
+        queryParams: { isMobile: isMobileStr }
     } = useAppContext()
 
+    const isMobile = isMobileStr === 'true' ? true : false
     const breakpointsMedium = useMediaQuery((theme: Theme) =>
         theme.breakpoints.up('md')
     )
-    const setUrlQueryParams = useSetUrlQueryParams()
-    const { zoom } = getUrlQueryParams()
     const mapRef = useRef<google.maps.Map>({} as google.maps.Map)
     const timeoutRef = useRef<ReturnType<typeof setTimeout>>()
-    const isFirstFetchRef = useRef<boolean>(true)
 
-    const changeZoom = (type = 'increment') => {
-        if (type === 'increment') {
+    const changeZoom = (zoomType: 'increment' | 'initial' = 'increment') => {
+        if (zoomType === 'increment') {
             const currentZoom = mapRef.current?.getZoom() as number
             mapRef.current?.setZoom(currentZoom + 1)
-        } else if (type === 'initial') {
-            mapRef.current?.setZoom(15)
+        } else {
+            mapRef.current?.setZoom(18)
         }
     }
 
@@ -61,58 +61,43 @@ const Map: React.FC = () => {
     }, [])
 
     const handleBoundsChange = React.useCallback(() => {
-        if (timeoutRef.current) {
-            clearTimeout(timeoutRef.current)
-        }
-        timeoutRef.current = setTimeout(() => {
-            if (mapRef.current) {
+        if (mapRef.current) {
+            if (timeoutRef.current) {
+                clearTimeout(timeoutRef.current)
+            }
+            timeoutRef.current = setTimeout(() => {
                 const { east, south, north, west } = JSON.parse(
                     JSON.stringify(mapRef.current.getBounds())
                 )
-                const bounds = {
-                    lats: south.toFixed(5),
-                    latn: north.toFixed(5),
-                    lngw: west.toFixed(5),
-                    lnge: east.toFixed(5)
-                }
                 const { lat, lng } = JSON.parse(
                     JSON.stringify(mapRef.current.getCenter())
                 )
-                const center = {
-                    lat,
-                    lng
-                }
-                const centerStr = {
-                    lat: lat.toFixed(5),
-                    lng: lng.toFixed(5)
-                }
-                const currentZoom = (
-                    mapRef.current?.getZoom() as number
-                ).toString()
+                const zoom = JSON.parse(
+                    JSON.stringify(mapRef.current.getZoom())
+                )
 
-                setCenter(center)
-                handleChangeMapParams(bounds)
-                if (isFirstFetchRef.current) {
-                    isFirstFetchRef.current = false
-                } else {
-                    setUrlQueryParams({
-                        ...bounds,
-                        ...centerStr,
-                        zoom: currentZoom
-                    })
-                }
-            }
-        }, 500)
+                handleMapChange({
+                    lnge: roundNumber(east, 5),
+                    lngw: roundNumber(west, 5),
+                    latn: roundNumber(north, 5),
+                    lats: roundNumber(south, 5),
+                    lat: roundNumber(lat, 5),
+                    lng: roundNumber(lng, 5),
+                    zoom
+                })
+            }, 500)
+        }
     }, [])
 
     const mapOptions: google.maps.MapOptions = {
-        disableDefaultUI: false, // Disable all default UI controls
-        zoomControl: true, // Disable the zoom control
-        mapTypeControl: breakpointsMedium ? true : false, // Disable the map type control
-        scaleControl: true, // Disable the scale control
-        streetViewControl: true, // Disable the street view control
-        rotateControl: true, // Disable the rotate control
-        fullscreenControl: false,
+        disableDefaultUI: true, // Disabled most controls as it was causing chrome to raise accessibility "issues" (missing label for formfield)
+        //mapTypeControl: breakpointsMedium ? true : false,
+        //scaleControl: true,
+        //rotateControl: true,
+        //fullscreenControl: false,
+
+        zoomControl: true,
+        streetViewControl: isMobile ? false : true,
         clickableIcons: false,
         gestureHandling: 'cooperative',
         minZoom: 13,
@@ -124,16 +109,14 @@ const Map: React.FC = () => {
                 west: -5.2,
                 east: 9.9
             }
-        },
-        styles: [
+        }
+        /* styles: [
             {
                 elementType: '',
                 stylers: []
             }
-        ]
+        ] */
     }
-
-    const defaultZoom = zoom ? parseInt(zoom, 10) : 15
 
     return (
         <Box position="relative">
@@ -141,47 +124,57 @@ const Map: React.FC = () => {
             <Card
                 sx={{
                     width: '100%',
-                    height: {
-                        xs: '80vh',
-                        sm: '70vh'
-                    },
+                    height: 'min(90vh, 700px)',
                     boxShadow: '0'
                 }}
-                //id="map-container"
             >
                 <GoogleMap
                     mapContainerStyle={{
                         width: '100%',
                         height: '100%'
                     }}
-                    center={center}
-                    zoom={defaultZoom}
+                    center={mapParams.center}
+                    zoom={mapParams.zoom}
                     onLoad={onLoad}
-                    onZoomChanged={handleBoundsChange}
-                    onDrag={handleBoundsChange}
+                    onZoomChanged={isMobile ? () => {} : handleBoundsChange}
+                    onDrag={isMobile ? () => {} : handleBoundsChange}
+                    onBoundsChanged={isMobile ? handleBoundsChange : () => {}}
                     streetView={undefined}
                     options={mapOptions}
                 >
-                    {locationDeals?.map(
-                        (locationDeal: LocationDealsObjType) => {
-                            return (
-                                <CustomMarker
-                                    setMapCenter={setMapCenter}
-                                    locationDeal={locationDeal}
-                                    key={Object.values(
-                                        locationDeal.lnglat
-                                    ).join('-')}
-                                    isSelected={
-                                        JSON.stringify(openDeals?.lnglat) ===
-                                        JSON.stringify(locationDeal.lnglat)
-                                    }
-                                    changeZoom={changeZoom}
-                                />
-                            )
-                        }
-                    )}
+                    {isClustered &&
+                        length > 0 &&
+                        clusters?.map((cluster) => (
+                            <ClusteredMarker
+                                key={Object.values(cluster).join('-')}
+                                location={cluster}
+                                changeZoom={changeZoom}
+                                setMapCenter={setMapCenter}
+                            />
+                        ))}
 
-                    {isLoading ? (
+                    {!isClustered &&
+                        length > 0 &&
+                        agglomeratedDeals?.map(
+                            (locationDeals: AgglomeratedDealsObjType) => {
+                                return (
+                                    <CustomMarker
+                                        key={Object.values(
+                                            locationDeals.lnglat
+                                        ).join('-')}
+                                        isSelected={
+                                            JSON.stringify(
+                                                openDeals?.lnglat
+                                            ) ===
+                                            JSON.stringify(locationDeals.lnglat)
+                                        }
+                                        agglomeratedDeals={locationDeals}
+                                    />
+                                )
+                            }
+                        )}
+
+                    {isLoading && (
                         <Box
                             sx={{
                                 height: '100%',
@@ -194,15 +187,14 @@ const Map: React.FC = () => {
                         >
                             <CircularProgress />
                         </Box>
-                    ) : (
-                        <></>
                     )}
 
-                    {openDeals && (
+                    {openDeals !== null && (
                         <InfoWindow
                             position={openDeals.lnglat}
                             options={{
-                                maxWidth: 350
+                                maxWidth: 350,
+                                minWidth: 320
                                 /* pixelOffset: infoWindowPixelOffset */
                             }}
                             onPositionChanged={() => {
@@ -212,28 +204,18 @@ const Map: React.FC = () => {
                             }}
                             zIndex={3}
                         >
-                            <TooltipContent />
+                            <MapTooltip />
                         </InfoWindow>
                     )}
                 </GoogleMap>
             </Card>
-            <SearchFilterContainer />
+            {isFiltersOpen ? (
+                <SearchFilterContainer />
+            ) : (
+                <SearchFilterButtonLg />
+            )}
         </Box>
     )
 }
 
 export default React.memo(Map)
-
-/* {false ? (
-    <HeatmapLayer
-        data={locationDeals.map((location) => ({
-            location: new google.maps.LatLng(
-                location.lnglat.lat,
-                location.lnglat.lng
-            ),
-            weight: location.deals[0].prix_metre_carre
-        }))}
-    />
-) : (
-    <></>
-)} */

@@ -1,94 +1,109 @@
 // https://mui.com/material-ui/customization/default-theme/?expand-path=$.typography
 
-import {
-    ThemeOptions,
-    createTheme,
-    responsiveFontSizes
-} from '@mui/material/styles'
+import { ThemeOptions, createTheme } from '@mui/material/styles'
 
 import { TypographyOptions } from '@mui/material/styles/createTypography'
 
+//TODO : read => https://www.digitalocean.com/community/tutorials/typescript-module-augmentation && apply it to MUI
+
 declare module '@mui/material/styles' {
-    interface Theme {
-        status: {
-            danger: React.CSSProperties['color']
-        }
-    }
     interface Palette {
         greish: Palette['primary']
-        redish: Palette['primary']
+        green: Palette['primary']
+        ash: Palette['primary']
     }
-
     interface PaletteOptions {
         greish: PaletteOptions['primary']
-        redish: PaletteOptions['primary']
+        green: PaletteOptions['primary']
+        ash: PaletteOptions['primary']
     }
-
     interface PaletteColor {
         darker?: string
     }
-
     interface SimplePaletteColorOptions {
         darker?: string
     }
-
-    interface ThemeOptions {
-        status: {
-            danger: React.CSSProperties['color']
-        }
-    }
 }
-
 declare module '@mui/material/Typography' {
     interface TypographyPropsVariantOverrides {
         tooltipTypo: true
-        mapLgTypo: true
+        mapLgTypo1: true
+        mapLgTypo2: true
     }
 }
-
 interface ExtendedTypographyOptions extends TypographyOptions {
     tooltipTypo: React.CSSProperties
-    mapLgTypo: React.CSSProperties
+    mapLgTypo1: React.CSSProperties
+    mapLgTypo2: React.CSSProperties
 }
 
 // eslint-disable-next-line no-unused-vars
-let theme = createTheme({
-    status: {
-        danger: '#e53e3e'
-    },
+const theme = createTheme({
     palette: {
-        /* primary: {
-            main: '#3f51b5',
-            darker: '#002984'
-        }, */
+        primary: {
+            main: '#5773EF'
+        },
         secondary: {
-            main: '#f44336'
+            main: '#E76F51'
+        },
+        error: {
+            main: '#E76F51'
+        },
+        info: {
+            main: '#3a0ca3'
         },
         greish: {
-            main: '#f5f5f5',
-            dark: 'rgb(86, 86, 86)',
-            contrastText: '#fff'
+            main: '#cccccc',
+            light: 'rgba(255, 255, 255, .9)'
         },
-        redish: {
-            main: '#f44336',
-            dark: '#ba000d'
+        green: {
+            main: '#61988E'
+        },
+        ash: {
+            main: '#A0B2A6'
         }
     },
     typography: {
-        fontFamily: 'Roboto',
-        fontSize: 14,
-        color: 'rgb(86, 86, 86)',
         tooltipTypo: {
             fontWeight: 'bold',
-            fontSize: 14
+            fontSize: 16
         },
         mapLgTypo: {
             fontWeight: 'bold',
+            fontSize: '1.35rem'
+        },
+        mapLgTypo1: {
+            fontWeight: 'bold',
             fontSize: '1.25rem'
+        },
+        mapLgTypo2: {
+            fontWeight: 'bold',
+            fontSize: '1.1rem'
         }
-    } as ExtendedTypographyOptions
+    } as ExtendedTypographyOptions,
+    components: {
+        MuiButton: {
+            styleOverrides: {
+                root: {
+                    cursor: 'pointer'
+                }
+            }
+        },
+        MuiIconButton: {
+            styleOverrides: {
+                root: {
+                    cursor: 'pointer'
+                }
+            }
+        },
+        MuiButtonBase: {
+            styleOverrides: {
+                root: {
+                    cursor: 'pointer'
+                }
+            }
+        }
+    }
 } as ThemeOptions)
-
-theme = responsiveFontSizes(theme)
 
 export default theme

@@ -27,19 +27,23 @@ const pool = promise_1.default.createPool({
 });
 pool.getConnection()
     .then(() => {
+    // eslint-disable-next-line no-console
     console.log('Can reach database');
 })
     .catch((err) => {
+    // eslint-disable-next-line no-console
     console.error(err);
 });
 function queryDataBase(query, values = []) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const parametrizedQuery = (0, mysql2_1.format)(query, values);
+            //console.log(parametrizedQuery)
             const [data] = yield pool.query(parametrizedQuery);
             return data;
         }
         catch (e) {
+            // eslint-disable-next-line no-console
             console.log(e);
         }
     });

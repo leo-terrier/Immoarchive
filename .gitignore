@@ -11,7 +11,7 @@ datacleaning.sql
 test.js
 structure.js
 /coverage
-.sh
+*.sh
 
 #front
 .env.local

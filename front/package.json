@@ -12,7 +12,6 @@
     "dependencies": {
         "@emotion/react": "^11.11.0",
         "@emotion/styled": "^11.11.0",
-        "@googlemaps/js-api-loader": "^1.15.1",
         "@mui/icons-material": "^5.11.16",
         "@mui/material": "^5.13.0",
         "@react-google-maps/api": "^2.18.1",
@@ -20,11 +19,14 @@
         "@types/node": "20.1.5",
         "@types/react": "18.2.6",
         "@types/react-dom": "18.2.4",
+        "@types/recharts": "^1.8.24",
         "axios": "^1.4.0",
         "date-fns": "^2.30.0",
-        "next": "13.4.2",
+        "next": "^13.4.5-canary.9",
         "react": "18.2.0",
         "react-dom": "18.2.0",
+        "react-material-ui-carousel": "^3.4.2",
+        "recharts": "^2.6.2",
         "use-places-autocomplete": "^4.0.0"
     },
     "devDependencies": {

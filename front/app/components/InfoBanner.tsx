@@ -1,12 +1,21 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 
-import { Box, Typography } from '@mui/material'
+import {
+    Box,
+    LinearProgress,
+    Theme,
+    Typography,
+    useMediaQuery
+} from '@mui/material'
 import { useAppContext } from '../context/Context'
+import FmdGoodIcon from '@mui/icons-material/FmdGood'
 
 export const InfoBanner = () => {
-    const { center, length } = useAppContext()
-
+    const { mapParams, length, isLoading, isClustered } = useAppContext()
+    const breakpointsSmall = useMediaQuery((theme: Theme) =>
+        theme.breakpoints.up('sm')
+    )
     const [text, setText] = useState('')
 
     const reverseGeoCoding = async (
@@ -26,36 +35,79 @@ export const InfoBanner = () => {
         } else setText('')
     }
 
-    const { lat, lng } = center
+    const { lat, lng } = mapParams.center
 
     useEffect(() => {
-        reverseGeoCoding(lat, lng)
+        if (lat && lng) {
+            reverseGeoCoding(lat, lng)
+        }
     }, [lat, lng])
+
+    const desc = () => {
+        if (length === 0) return 'Aucun résultat'
+        if (length === 1500)
+            return 'Trop de résultats, filtrer ou zoomer (transactions : + de 1500)'
+        if (isClustered)
+            return `Trop résultat pour la carte, filtrer ou zoomer (transactions : ${length})`
+        return `Nombre de transactions: ${length}`
+    }
 
     return (
         <Box
             display="flex"
-            gap={'20px'}
+            gap={breakpointsSmall ? 2 : 1}
             justifyContent="center"
             alignItems="center"
+            height="120px"
+            width="100%"
+            flexDirection={breakpointsSmall ? 'row' : 'column-reverse'}
+            textAlign="center"
         >
-            <Typography variant="mapLgTypo">{text}</Typography>
-            <Typography
-                variant="mapLgTypo"
-                display={length && text ? 'initial' : 'none'}
-            >
-                -
-            </Typography>
-            <Typography
-                variant="mapLgTypo"
-                display={length ? 'initial' : 'none'}
-            >
-                {length === '500'
-                    ? 'Trop de résultats (filtrer ou zoomer)'
-                    : length === '0'
-                    ? 'Aucun résultat'
-                    : `Nombre de transactions: ${length}`}
-            </Typography>
+            {isLoading ? (
+                <LinearProgress color="inherit" sx={{ width: '30%' }} />
+            ) : (
+                <>
+                    <Box
+                        display="flex"
+                        alignItems="center"
+                        justifyContent="center"
+                        gap={1}
+                    >
+                        <FmdGoodIcon />
+                        <Typography
+                            sx={{
+                                typography: {
+                                    xs: 'mapLgTypo2',
+                                    sm: 'mapLgTypo1',
+                                    whiteSpace: 'nowrap'
+                                }
+                            }}
+                        >
+                            {text}
+                        </Typography>
+                    </Box>
+
+                    {breakpointsSmall && (
+                        <Typography
+                            sx={{
+                                typography: {
+                                    xs: 'mapLgTypo2',
+                                    sm: 'mapLgTypo1'
+                                }
+                            }}
+                        >
+                            —
+                        </Typography>
+                    )}
+                    <Typography
+                        sx={{
+                            typography: { xs: 'mapLgTypo2', sm: 'mapLgTypo1' }
+                        }}
+                    >
+                        {desc()}
+                    </Typography>
+                </>
+            )}
         </Box>
     )
 }

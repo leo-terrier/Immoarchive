@@ -1,23 +1,24 @@
-import express, { Request, Response } from "express";
+import express, { Response } from 'express'
+import dotenv from 'dotenv'
+import cors from 'cors'
+import { getDeals } from './getDeals'
+import { checkValidators, validators } from './validatorMiddleware'
 
-import dotenv from "dotenv";
-import { getDeals } from "./fetchDeals";
-import cors from "cors";
+const app = express()
 
-const app = express();
+dotenv.config()
 
-dotenv.config();
+app.use(cors())
 
-app.use(cors());
+const port = process.env.PORT
 
-const port = process.env.PORT;
+app.get('/', (res: Response) => {
+    res.send('Express server')
+})
 
-app.get("/", (res: Response) => {
-  res.send("Express server");
-});
-
-app.get("/deals", getDeals);
+app.get('/deals', validators, checkValidators, getDeals)
 
 app.listen(port, () => {
-  console.log(`⚡️[server]: Server is running at http://localhost:${port}`);
-});
+    // eslint-disable-next-line no-console
+    console.log(`⚡️[server]: Server is running at http://localhost:${port}`)
+})

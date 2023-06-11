@@ -1,6 +1,3 @@
-import { useAppContext } from '@/app/context/Context'
-import { LatLng } from '@/app/types'
-import { Close } from '@mui/icons-material'
 import {
     Box,
     Button,
@@ -16,18 +13,22 @@ import usePlacesAutocomplete, {
     getGeocode,
     getLatLng
 } from 'use-places-autocomplete'
+import { Close } from '@mui/icons-material'
+import { useAppContext } from '@/app/context/Context'
+import { LatLng } from '@/app/types'
 
-type SuggestionType = { id: string; description: string }
-
-type Props = {
-    changeZoom: (type?: string) => void
+type AddressFormPropTypes = {
+    changeZoom: (zoomType?: 'increment' | 'initial') => void
     setMapCenter: (lnglat: LatLng) => void
 }
 
-export const AddressForm = ({ setMapCenter, changeZoom }: Props) => {
-    const { setOpenFilters } = useAppContext()
+export const AddressForm = ({
+    setMapCenter,
+    changeZoom
+}: AddressFormPropTypes) => {
+    const { setIsFiltersOpen: setOpenFilters } = useAppContext()
 
-    // TODO : pass parameters instead of filtering after on specific terms
+    // TODO : pass parameters insgreend of filtering after on specific terms
     const {
         /* ready, */
         value,
@@ -46,6 +47,7 @@ export const AddressForm = ({ setMapCenter, changeZoom }: Props) => {
         setValue(e.target.value)
     }
 
+    type SuggestionType = { id: string; description: string }
     const handleSelect = ({ id, description }: SuggestionType) => {
         setValue(description, false)
         clearSuggestions()
@@ -70,7 +72,7 @@ export const AddressForm = ({ setMapCenter, changeZoom }: Props) => {
                 id: suggestion.place_id,
                 description: suggestion.terms
                     .filter((term) => term.value !== 'France')
-                    .map((term) => term.value)
+                    .map((term) => term.value) //TODO : review
                     .join(', ')
             }))
 
@@ -82,7 +84,7 @@ export const AddressForm = ({ setMapCenter, changeZoom }: Props) => {
                     sx={{
                         backgroundColor: 'white',
                         '&:hover': {
-                            backgroundColor: (theme) => theme.palette.grey[200]
+                            backgroundColor: (theme) => theme.palette.grey[300]
                         }
                     }}
                 >
@@ -100,31 +102,36 @@ export const AddressForm = ({ setMapCenter, changeZoom }: Props) => {
                 width: {
                     xs: 'calc(100% - 20px)',
                     sm: '70%',
-                    md: '45%' // Subtract 20px padding from the width'
+                    md: '45%'
                 },
                 top: 10,
                 right: 10,
-                backgroundColor: 'white'
+                backgroundColor: 'white',
+                boxShadow: 'rgba(0, 0, 0, 0.3) 0px 1px 4px -1px;'
             }}
         >
             <TextField
                 sx={{
-                    backgroundColor:
-                        'white' /* (theme) => theme.palette.greish.main */,
-                    height: '40px',
-                    boxShadow: 'rgba(0, 0, 0, 0.3) 0px 1px 4px -1px;'
+                    height: '40px'
                 }}
                 autoComplete="off"
                 type="text"
                 value={value}
                 onChange={handleInput}
+                id="adressForm"
                 fullWidth
-                /* label={
-                    <Typography sx={{ fontSize: '18px' }}>{label()}</Typography>
-                } */
-                placeholder={`Addresse / Point d'intérêt`}
+                label={value ? '' : `Addresse / Point d'intérêt`}
+                aria-label={`Addresse / Point d'intérêt`}
                 InputLabelProps={{
-                    shrink: false
+                    shrink: false,
+                    sx: {
+                        height: '100%',
+                        mt: -1,
+                        fontSize: {
+                            xs: 16,
+                            sm: 18
+                        }
+                    }
                 }}
                 InputProps={{
                     sx: {
@@ -150,9 +157,10 @@ export const AddressForm = ({ setMapCenter, changeZoom }: Props) => {
                             }}
                         >
                             <IconButton
+                                //Sm screens and up
                                 data-cy="close"
                                 onClick={() => {
-                                    setValue('')
+                                    setValue('', false)
                                     clearSuggestions()
                                 }}
                                 sx={{
@@ -170,6 +178,7 @@ export const AddressForm = ({ setMapCenter, changeZoom }: Props) => {
                                 <Close fontSize="medium" />
                             </IconButton>
                             <Divider
+                                //Xs screens
                                 orientation="vertical"
                                 sx={{
                                     height: '30px',
@@ -177,11 +186,10 @@ export const AddressForm = ({ setMapCenter, changeZoom }: Props) => {
                                 }}
                             />
                             <Button
+                                // Xs screens
                                 sx={{
-                                    margin: '5px',
                                     padding: '4px 8px',
                                     fontSize: '0.8rem',
-                                    maxWidth: '40px',
                                     display: { sx: 'flex', sm: 'none' },
                                     flexDirection: 'column',
                                     justifyContent: 'center',
@@ -189,8 +197,8 @@ export const AddressForm = ({ setMapCenter, changeZoom }: Props) => {
                                     color: (theme) =>
                                         theme.palette.text.primary,
                                     fontWeight: 'bold',
-                                    fontFamily: 'Roboto',
-                                    lineHeight: '115%'
+                                    lineHeight: '125%',
+                                    mb: '-1.5px'
                                 }}
                                 onClick={() => setOpenFilters(true)}
                             >

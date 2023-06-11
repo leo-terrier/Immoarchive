@@ -1,14 +1,16 @@
 import { Box, Typography } from '@mui/material'
+import { rancho } from '../page'
+import CircleIcon from '@mui/icons-material/Circle'
 import { useAppContext } from '../context/Context'
 
 const filterLabels: { [key: string]: string } = {
-    maxNbOfRooms: 'Pièce(s) < ',
+    maxNbOfRooms: 'Pièces < ',
     maxPrice: 'Prix (€) < ',
     maxPricePerMeterSquare: 'Prix (€) / m² < ',
     maxSurface: 'Surface (m²) < ',
     maxSurfaceLand: 'Terrain (m²) < ',
     maxYear: 'Avant le 31/12/',
-    minNbOfRooms: 'Pièce(s) > ',
+    minNbOfRooms: 'Pièces > ',
     minPrice: 'Prix (€) > ',
     minPricePerMeterSquare: 'Prix (€) / m² > ',
     minSurface: 'Surface (m²) > ',
@@ -21,36 +23,60 @@ export const CurrentFilterBanner = () => {
 
     const mapParamsArr = ['lats', 'latn', 'lngw', 'lnge', 'zoom', 'isMobile']
 
-    // Take from param state only filters params, that are not empty strings
-    const filtersArr: [string, string][] = Object.entries(queryParams).filter(
+    // Display from query state only filters params that are not empty strings
+    const filtersArr = Object.entries(queryParams).filter(
         ([key, value]) => !mapParamsArr.includes(key) && value
     )
 
     return filtersArr.length ? (
-        <Box mt="20px">
-            <Typography variant="mapLgTypo">
-                Filtres des transactions :{' '}
-            </Typography>{' '}
-            <ul
-                style={{
-                    marginBottom: 0,
-                    marginTop: '8px',
-                    height: '80px',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    flexWrap: 'wrap',
-                    alignItems: 'flex-start',
-                    alignContent: 'start',
-                    justifyContent: 'start'
+        <Box
+            sx={{
+                display: 'flex',
+                flexDirection: 'row',
+                alignItems: 'end',
+                justifyContent: 'flex-start',
+                flexWrap: 'wrap',
+                mb: 3
+            }}
+        >
+            <Typography
+                sx={{
+                    fontSize: { xs: 30, sm: 42 },
+                    height: { xs: '35px', sm: '50px' },
+                    width: { xs: '100%', sm: 'initial' },
+                    mr: 5,
+                    ...rancho.style,
+                    textDecoration: 'underline',
+                    textDecorationThickness: '2px',
+                    textUnderlineOffset: '5px'
                 }}
             >
-                {filtersArr.map(([key, value]) => (
-                    <li style={{ margin: '0 20px' }} key={key}>
-                        {filterLabels[key]}
-                        {key.includes('Year') ? value : value.toLocaleString()}
-                    </li>
-                ))}
-            </ul>
+                Filtres actifs :
+            </Typography>
+            {filtersArr.map(([key, value]) => (
+                <Typography
+                    sx={{
+                        mr: 5,
+                        whiteSpace: 'nowrap',
+                        fontWeight: 'bold',
+                        fontSize: '17px',
+                        display: 'flex',
+                        alignItems: 'end',
+                        gap: '7px',
+                        height: { xs: '35px', sm: '50px' }
+                    }}
+                    key={key}
+                >
+                    <CircleIcon
+                        fontSize="inherit"
+                        sx={{ marginBottom: '3.5%' }}
+                    />
+                    {filterLabels[key]}
+                    {key.includes('Year')
+                        ? value
+                        : parseInt(value as string, 10).toLocaleString()}
+                </Typography>
+            ))}
         </Box>
     ) : (
         <></>

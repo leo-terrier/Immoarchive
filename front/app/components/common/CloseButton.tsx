@@ -4,20 +4,22 @@ import DisabledByDefaultRoundedIcon from '@mui/icons-material/DisabledByDefaultR
 
 type propsType = {
     handleClose: () => void
+    top?: number
+    right?: number
 }
-export const CloseButton = ({ handleClose }: propsType) => {
+export const CloseButton = ({ handleClose, top = 0, right = 0 }: propsType) => {
     return (
         <IconButton
             disableRipple
             sx={{
                 position: 'absolute',
-                right: 0,
-                top: 0
+                right,
+                top
             }}
             onClick={handleClose}
         >
             <DisabledByDefaultRoundedIcon
-                sx={{ color: (theme) => theme.palette.redish.main }}
+                sx={{ color: (theme) => theme.palette.secondary.main }}
             />
         </IconButton>
     )

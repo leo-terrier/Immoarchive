@@ -9,6 +9,7 @@ export const metadata: Metadata = {
     keywords: [
         'etalab',
         'data',
+        'prospection immobilière',
         'données immobilières',
         'carte',
         'transactions'
@@ -16,13 +17,8 @@ export const metadata: Metadata = {
     authors: [{ name: 'Leo Terrier' }],
     viewport: {
         width: 'device-width',
-        initialScale: 1,
-        maximumScale: 1.1
-
-        /* TODO prevent unzooming  minimumScale: 0.9,
-        userScalable: false NOT WORKING*/
-    }, // https://stackoverflow.com/questions/33979317/when-to-set-viewport-maximum-scale-1-and-user-scalable-yes
-    //metadataBase: new URL('yoururl.com')/* -> TRY WITHOUT  https://nextjs.org/docs/app/api-reference/functions/generate-metadata#manifest */,
+        initialScale: 1
+    },
     icons: {
         icon: '/icon.png',
         shortcut: '/icon.png',
@@ -38,7 +34,6 @@ export default function RootLayout({
     return (
         <html lang="en">
             <body>
-                {' '}
                 <AppContextProvider>{children}</AppContextProvider>
             </body>
         </html>

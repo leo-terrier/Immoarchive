@@ -1,11 +1,36 @@
 import React, { useRef, useState } from 'react'
-import { TextField, Slider, Typography, Button, Box } from '@mui/material'
-import { useAppContext } from '@/app/context/Context'
-import { FilterParamsType } from '@/app/types'
 import {
-    getUrlQueryParams,
-    useSetUrlQueryParams
-} from '@/utils/utilityFunctions'
+    TextField,
+    Slider,
+    Typography,
+    Button,
+    Box,
+    useMediaQuery,
+    Theme
+} from '@mui/material'
+import { useAppContext } from '@/app/context/Context'
+import { handleChangeFilterType } from '@/app/types'
+import { getUrlQueryParams } from '@/utils/utilityFunctions'
+import { CloseButton } from '../../common/CloseButton'
+
+// Event listeners for keydown and mouse scroll to prevent negative values
+
+type MaxValues = {
+    [key: string]: number
+}
+
+const maxValues: MaxValues = {
+    minPricePerMeterSquare: 20000,
+    maxPricePerMeterSquare: 20000,
+    minPrice: 40000000,
+    maxPrice: 40000000,
+    minSurface: 2000,
+    maxSurface: 2000,
+    minSurfaceLand: 20000,
+    maxSurfaceLand: 20000,
+    minNbOfRooms: 20,
+    maxNbOfRooms: 20
+}
 
 const handleChange = (
     e: React.ChangeEvent<HTMLInputElement> | React.WheelEvent<HTMLInputElement>
@@ -14,10 +39,9 @@ const handleChange = (
     if ((target as HTMLInputElement).value.includes('-'))
         (target as HTMLInputElement).value = '0'
 }
-// Set the new value in the input field
 
 const handleInput = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === '-') {
+    if (event.key === '-' || event.key === '.') {
         event.preventDefault()
     }
 }
@@ -40,7 +64,8 @@ const CustomNumberTextField = (props: InputProps) => {
             inputProps={{
                 onInput: handleChange,
                 onKeyDown: handleInput,
-                id: name
+                id: name,
+                max: maxValues[name as keyof MaxValues]
             }}
             label={label}
             name={name}
@@ -63,8 +88,8 @@ const CustomMinMaxFieldBoxes = ({
     label,
     minName,
     maxName,
-    minDefaultValue = '',
-    maxDefaultValue = '',
+    minDefaultValue,
+    maxDefaultValue,
     togglePricePerMeter = () => {},
     isPricePerMeter
 }: CustomBoxesType) => {
@@ -73,7 +98,7 @@ const CustomMinMaxFieldBoxes = ({
             width={{ xs: '110px', sm: '120px' }}
             display="flex"
             flexDirection="column"
-            gap="8px"
+            gap={1}
         >
             <Typography
                 variant="subtitle1"
@@ -90,9 +115,9 @@ const CustomMinMaxFieldBoxes = ({
                 {minName.includes('Price') ? (
                     <select
                         onChange={togglePricePerMeter}
-                        value={isPricePerMeter ? 'm2' : 'total'}
+                        value={isPricePerMeter ? 'm²' : 'total'}
                     >
-                        <option value="m2">/ m2</option>
+                        <option value="m²">/ m²</option>
                         <option value="total">Total</option>
                     </select>
                 ) : (
@@ -114,7 +139,12 @@ const CustomMinMaxFieldBoxes = ({
 }
 
 export const SearchFilterForm = () => {
-    const { handleChangeFilters, isLoading } = useAppContext()
+    const { handleChangeFilters, deleteAllSearchFilters, setIsFiltersOpen } =
+        useAppContext()
+    const breakpoint1440 = useMediaQuery('(min-width: 1440px)')
+    const breakpointSmall = useMediaQuery((theme: Theme) =>
+        theme.breakpoints.up('sm')
+    )
 
     const {
         minYear,
@@ -130,8 +160,6 @@ export const SearchFilterForm = () => {
         minNbOfRooms,
         maxNbOfRooms
     } = getUrlQueryParams()
-
-    const setUrlQueryParams = useSetUrlQueryParams()
 
     const minMaxYearRef = useRef<number[]>([
         minYear ? parseInt(minYear as string, 10) : 2017,
@@ -151,7 +179,7 @@ export const SearchFilterForm = () => {
         const formData = new FormData(event.currentTarget)
         const data: { [key: string]: string } = {}
 
-        //Running validation
+        //Preventing min value from being above max value (replacing it by 0)
         for (const [key, value] of formData.entries()) {
             const elt = document.getElementById(key) as HTMLInputElement
             if (key.includes('min')) {
@@ -160,18 +188,19 @@ export const SearchFilterForm = () => {
                 ) as HTMLInputElement
                 if (
                     maxElt.value &&
-                    parseInt(maxElt.value, 10) <= parseInt(value as string, 10)
+                    parseInt(maxElt.value, 10) < parseInt(value as string, 10)
                 ) {
                     elt.value = '0'
                 }
             }
         }
 
-        //Creating response object (and resetting undisplayed field)
+        //Creating response object and resetting undisplayed and '0' min fields field to ''
         const formattedForm = new FormData(event.currentTarget)
-        formattedForm.forEach(
-            (value, key) => (data[key] = value !== '0' ? (value as string) : '')
-        )
+        for (const [key, value] of formattedForm.entries()) {
+            if (typeof value === 'string')
+                data[key] = key.includes('min') && value === '0' ? '' : value
+        }
         const [minYear, maxYear] = minMaxYearRef.current
         const queriesToAdd = {
             ...data,
@@ -181,8 +210,8 @@ export const SearchFilterForm = () => {
             minYear: minYear !== 2017 ? minYear.toString() : '',
             maxYear: maxYear !== 2022 ? maxYear.toString() : ''
         }
-        handleChangeFilters(queriesToAdd as FilterParamsType)
-        setUrlQueryParams(queriesToAdd)
+        handleChangeFilters(queriesToAdd as handleChangeFilterType)
+        if (!breakpointSmall) setIsFiltersOpen(false)
     }
 
     return (
@@ -190,16 +219,17 @@ export const SearchFilterForm = () => {
             component="form"
             onSubmit={handleSubmit}
             sx={{
-                minHeight: { xs: '520px', sm: 'initial' },
                 display: 'flex',
+                alignItems: 'center',
                 justifyContent: 'space-evenly',
                 alignContent: 'space-around',
                 flexWrap: 'wrap',
-                alignItems: 'center',
                 height: '100%',
-                gap: '20px'
+                gap: 2
             }}
         >
+            <CloseButton handleClose={() => setIsFiltersOpen(false)} />
+
             {isPricePerMeter ? (
                 <CustomMinMaxFieldBoxes
                     isPricePerMeter={isPricePerMeter}
@@ -239,7 +269,7 @@ export const SearchFilterForm = () => {
             />
 
             <CustomMinMaxFieldBoxes
-                label="Pièce(s)"
+                label="Pièces"
                 minDefaultValue={minNbOfRooms || ''}
                 minName="minNbOfRooms"
                 maxDefaultValue={maxNbOfRooms || ''}
@@ -283,10 +313,33 @@ export const SearchFilterForm = () => {
                     />
                 </Box>
             </Box>
-            <Box display="flex" justifyContent={'center'} alignSelf="end">
-                <Button type="submit" variant="contained" disabled={isLoading}>
-                    Appliquer
-                </Button>
+            <Box
+                display="flex"
+                gap={2}
+                flexDirection={breakpoint1440 ? 'column' : 'row'}
+                alignSelf={breakpoint1440 ? 'flex-end' : 'center'}
+                marginLeft={breakpointSmall ? 'auto' : 'initial'}
+            >
+                <Box display="flex" justifyContent={'center'} alignSelf="end">
+                    <Button
+                        variant="outlined"
+                        color="secondary"
+                        onClick={deleteAllSearchFilters}
+                    >
+                        restaurer
+                    </Button>
+                </Box>
+                <Box display="flex" justifyContent={'center'} alignSelf="end">
+                    <Button
+                        type="submit"
+                        variant="contained"
+                        sx={{
+                            px: '17px'
+                        }}
+                    >
+                        Appliquer
+                    </Button>
+                </Box>
             </Box>
         </Box>
     )
