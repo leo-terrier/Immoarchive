@@ -1,5 +1,5 @@
 import { Box, CircularProgress, Paper, Typography } from '@mui/material'
-import { TooltipContainer } from '../common/TooltipContainer'
+import { TooltipContainer } from '../../common/TooltipContainer'
 import { useAppContext } from '@/app/context/Context'
 
 type Props = {

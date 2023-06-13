@@ -1,5 +1,3 @@
-import { useAppContext } from '@/app/context/Context'
-import { useTheme, useMediaQuery, Theme } from '@mui/material'
 import {
     BarChart,
     Bar,
@@ -10,19 +8,21 @@ import {
     Legend,
     ResponsiveContainer
 } from 'recharts'
-import CustomTooltip from './tooltip/CustomTooltip'
+import { Theme, useMediaQuery, useTheme } from '@mui/material'
+import { useAppContext } from '@/app/context/Context'
+import CustomTooltip from '../tooltip/CustomTooltip'
 
-export function PriceHisto() {
-    const { graphData } = useAppContext()
+export function RoomsHisto() {
     const theme = useTheme()
-    const unit = ' €'
+    const { graphData } = useAppContext()
+    const unit = ''
     const breakpointsSmall = useMediaQuery((theme: Theme) =>
         theme.breakpoints.up('sm')
     )
     return (
-        <ResponsiveContainer width="100%" minHeight={0} height={485}>
+        <ResponsiveContainer width='100%' minHeight={0} height={485}>
             <BarChart
-                data={graphData?.priceHisto}
+                data={graphData?.roomsHisto}
                 margin={{
                     top: 0,
                     right: 40,
@@ -30,9 +30,9 @@ export function PriceHisto() {
                     bottom: 0
                 }}
             >
-                <CartesianGrid strokeDasharray="3 3" />
+                <CartesianGrid strokeDasharray='3 3' />
                 <XAxis
-                    dataKey="name"
+                    dataKey='name'
                     tickFormatter={(value) => {
                         if (!breakpointsSmall && value === 0) return ''
                         else return value.toLocaleString() + unit
@@ -42,17 +42,16 @@ export function PriceHisto() {
                     mirror={!breakpointsSmall}
                     tickFormatter={(value) => {
                         if (!breakpointsSmall && value === 0) return ''
-                        else return value.toLocaleString()
+                        else return value.toLocaleString() + unit
                     }}
                     allowDecimals={false}
                 />
-
                 <Tooltip content={<CustomTooltip unit={unit} />} />
-                <Legend align="right" />
+                <Legend align='right' />
                 <Bar
-                    dataKey="count"
-                    name="Nombre de transactions"
-                    fill={theme.palette.secondary.main}
+                    dataKey='count'
+                    name='Nombre de transactions'
+                    fill={theme.palette.green.main}
                 />
             </BarChart>
         </ResponsiveContainer>

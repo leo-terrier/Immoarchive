@@ -61,6 +61,7 @@ export const MapTooltip = () => {
     return Object.keys(deal).length ? (
         <TooltipContainer p={{ xs: 1.4, sm: 2 }}>
             <Grid
+                data-cy='mapTooltip'
                 container
                 spacing={{ xs: 1.4, sm: 2 }}
                 sx={{
@@ -85,14 +86,14 @@ export const MapTooltip = () => {
                             }}
                         >
                             {type === 'Complexe' ? (
-                                <MapsHomeWorkIcon fontSize="inherit" />
+                                <MapsHomeWorkIcon fontSize='inherit' />
                             ) : type === 'Maison' ? (
-                                <HomeIcon fontSize="inherit" />
+                                <HomeIcon fontSize='inherit' />
                             ) : (
-                                <ApartmentIcon fontSize="inherit" />
+                                <ApartmentIcon fontSize='inherit' />
                             )}
                         </Box>
-                        <Typography variant="tooltipTypo">{type}</Typography>
+                        <Typography variant='tooltipTypo'>{type}</Typography>
                     </Box>
                 </Grid>
                 <Grid item xs={8}>
@@ -105,7 +106,7 @@ export const MapTooltip = () => {
                         }}
                     >
                         <Typography
-                            variant="tooltipTypo"
+                            variant='tooltipTypo'
                             sx={{
                                 fontSize: '22px',
                                 letterSpacing: 1.05,
@@ -117,7 +118,7 @@ export const MapTooltip = () => {
                             {deal?.valeur_fonciere.toLocaleString()} €
                         </Typography>
                         <Typography
-                            variant="tooltipTypo"
+                            variant='tooltipTypo'
                             sx={{
                                 display: 'flex',
                                 flexDirection: 'column',
@@ -145,7 +146,7 @@ export const MapTooltip = () => {
                         justifyContent: 'center'
                     }}
                 >
-                    <Typography variant="tooltipTypo">
+                    <Typography variant='tooltipTypo'>
                         Surface :{' '}
                         <Lighter>
                             {deal?.total_surface_reelle_bati.toLocaleString()}{' '}
@@ -158,7 +159,7 @@ export const MapTooltip = () => {
                     xs={6}
                     sx={{ display: 'flex', justifyContent: 'center' }}
                 >
-                    <Typography variant="tooltipTypo">
+                    <Typography variant='tooltipTypo'>
                         Prix / m² :{' '}
                         <Lighter>
                             {deal?.prix_metre_carre.toLocaleString()} €
@@ -170,7 +171,7 @@ export const MapTooltip = () => {
                     xs={6}
                     sx={{ display: 'flex', justifyContent: 'center' }}
                 >
-                    <Typography variant="tooltipTypo">
+                    <Typography variant='tooltipTypo'>
                         Pièces :{' '}
                         <Lighter>
                             {deal?.total_nombre_pieces_principales.toLocaleString()}
@@ -182,7 +183,7 @@ export const MapTooltip = () => {
                     xs={6}
                     sx={{ display: 'flex', justifyContent: 'center' }}
                 >
-                    <Typography variant="tooltipTypo">
+                    <Typography variant='tooltipTypo'>
                         Terrain :{' '}
                         <Lighter>
                             {deal?.total_surface_terrain.toLocaleString()} m²
@@ -194,7 +195,7 @@ export const MapTooltip = () => {
                     xs={12}
                     sx={{ display: 'flex', justifyContent: 'center' }}
                 >
-                    <Typography variant="tooltipTypo">
+                    <Typography variant='tooltipTypo'>
                         <Lighter>
                             Vendu le{' '}
                             {format(
@@ -208,17 +209,17 @@ export const MapTooltip = () => {
                     <Grid
                         item
                         xs={12}
-                        justifySelf="center"
-                        display="flex"
-                        justifyContent="center"
-                        alignItems="center"
+                        justifySelf='center'
+                        display='flex'
+                        justifyContent='center'
+                        alignItems='center'
                         maxHeight={'40px'}
-                        gap="10px"
+                        gap='10px'
                     >
                         <IconButton
                             disabled={indexRef.current === 0}
                             onClick={handlePrev}
-                            size="large"
+                            size='large'
                         >
                             <ArrowBackIosNewIcon />
                         </IconButton>
@@ -228,7 +229,7 @@ export const MapTooltip = () => {
                         <IconButton
                             disabled={indexRef.current === length - 1}
                             onClick={handleNext}
-                            size="large"
+                            size='large'
                         >
                             <ArrowForwardIosIcon />
                         </IconButton>

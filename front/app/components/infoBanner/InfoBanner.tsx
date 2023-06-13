@@ -8,7 +8,7 @@ import {
     useMediaQuery
 } from '@mui/material'
 import FmdGoodIcon from '@mui/icons-material/FmdGood'
-import { useAppContext } from '../context/Context'
+import { useAppContext } from '../../context/Context'
 
 export const InfoBanner = () => {
     const { mapParams, length, isLoading, isClustered } = useAppContext()
@@ -53,27 +53,28 @@ export const InfoBanner = () => {
 
     return (
         <Box
-            display="flex"
+            display='flex'
             gap={breakpointsSmall ? 2 : 1}
-            justifyContent="center"
-            alignItems="center"
-            height="120px"
-            width="100%"
+            justifyContent='center'
+            alignItems='center'
+            height='120px'
+            width='100%'
             flexDirection={breakpointsSmall ? 'row' : 'column-reverse'}
-            textAlign="center"
+            textAlign='center'
         >
             {isLoading ? (
-                <LinearProgress color="inherit" sx={{ width: '30%' }} />
+                <LinearProgress color='inherit' sx={{ width: '30%' }} />
             ) : (
                 <>
                     <Box
-                        display="flex"
-                        alignItems="center"
-                        justifyContent="center"
+                        display='flex'
+                        alignItems='center'
+                        justifyContent='center'
                         gap={1}
                     >
                         <FmdGoodIcon />
                         <Typography
+                            data-cy='centerLocationName'
                             sx={{
                                 typography: {
                                     xs: 'mapLgTypo2',

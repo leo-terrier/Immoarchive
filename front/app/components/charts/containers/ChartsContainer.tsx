@@ -1,15 +1,15 @@
-import { PriceHisto } from './PriceHisto'
+import { PriceHisto } from '@/app/components/charts/charts/PriceHisto'
 import { IconButton } from '@mui/material'
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew'
 import ArrowForwardIosNewIcon from '@mui/icons-material/ArrowForwardIos'
 import Carousel from 'react-material-ui-carousel'
-import { PricePerMeterHisto } from './PricePerMeterHisto'
-import { SurfaceHisto } from './SurfaceHisto'
-import { RoomsHisto } from './RoomsHisto'
-import { PriceSurfaceScatter } from './PriceSurfaceScatter'
+import { PricePerMeterHisto } from '@/app/components/charts/charts/PricePerMeterHisto'
+import { SurfaceHisto } from '@/app/components/charts/charts/SurfaceHisto'
+import { RoomsHisto } from '@/app/components/charts/charts/RoomsHisto'
+import { PriceSurfaceScatter } from '@/app/components/charts/charts/PriceSurfaceScatter'
 import { useAppContext } from '@/app/context/Context'
-import { PlaceholderChart } from './PlaceholderChart'
-import { PricePerMeterIncreaseLine } from './PricePerMeterIncreaseLine'
+import { PlaceholderChart } from '@/app/components/charts/charts/PlaceholderChart'
+import { PricePerMeterIncreaseLine } from '@/app/components/charts/charts/PricePerMeterIncreaseLine'
 import { ChartContainer } from './ChartContainer'
 
 // https://github.com/Learus/react-material-ui-carousel
@@ -54,7 +54,7 @@ export const ChartsContainer = () => {
     ) : (
         <Carousel
             autoPlay={false}
-            animation="slide"
+            animation='slide'
             swipe={false}
             navButtonsAlwaysVisible
             fullHeightHover={false}
@@ -63,6 +63,7 @@ export const ChartsContainer = () => {
             }}
             NavButton={({ onClick, next }) => (
                 <IconButton
+                    data-cy={(next ? 'next' : 'prev') + 'NavCarroussel'}
                     disableFocusRipple
                     disableTouchRipple
                     sx={{
@@ -78,9 +79,9 @@ export const ChartsContainer = () => {
                     onClick={() => onClick()}
                 >
                     {next ? (
-                        <ArrowForwardIosNewIcon color="inherit" />
+                        <ArrowForwardIosNewIcon color='inherit' />
                     ) : (
-                        <ArrowBackIosNewIcon color="inherit" />
+                        <ArrowBackIosNewIcon color='inherit' />
                     )}
                 </IconButton>
             )}

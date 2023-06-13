@@ -29,7 +29,7 @@ const googleLibraries: (
     | 'localContext'
 )[] = ['places', 'visualization']
 
-type ContextValueType = {
+export type ContextValueType = {
     mapParams: MapParamsType
     queryParams: QueryParamsType
     handleMapChange: (params: HandleChangeMapType) => void
@@ -50,7 +50,9 @@ type ContextValueType = {
     handlePopTooltip: (obj: { lnglat: LatLng; idx: number }) => void
     deleteAllSearchFilters: () => void
 }
-const AppContext = createContext<ContextValueType>({} as ContextValueType)
+export const AppContext = createContext<ContextValueType>(
+    {} as ContextValueType
+)
 
 export const AppContextProvider = ({
     children
@@ -73,7 +75,6 @@ export const AppContextProvider = ({
         zoom: urlQueryParams.zoom ? parseInt(urlQueryParams.zoom, 10) : 18
     })
 
-    // get initial query params from url or set to default (empty for filters and default coordinates boundaries coordinates params)
     const [queryParams, setQueryParams] = useState<QueryParamsType>({
         maxNbOfRooms: urlQueryParams.maxNbOfRooms || '',
         maxPrice: urlQueryParams.maxPrice || '',
@@ -87,10 +88,10 @@ export const AppContextProvider = ({
         minSurface: urlQueryParams.minSurface || '',
         minSurfaceLand: urlQueryParams.minSurfaceLand || '',
         minYear: urlQueryParams.minYear || '',
-        lats: urlQueryParams.lats || '48.88528',
-        latn: urlQueryParams.latn || '48.88762',
-        lngw: urlQueryParams.lngw || '2.33385',
-        lnge: urlQueryParams.lnge || '2.34137',
+        lats: urlQueryParams.lats || '',
+        latn: urlQueryParams.latn || '',
+        lngw: urlQueryParams.lngw || '',
+        lnge: urlQueryParams.lnge || '',
         isMobile: 'false'
     })
 
@@ -178,70 +179,73 @@ export const AppContextProvider = ({
     }
 
     const queryJSONObj = JSON.stringify(queryParams)
-
     useEffect(() => {
         const fetchDeals = async (source: CancelTokenSource) => {
-            setIsLoading(true)
-            const url =
-                `${process.env.NEXT_PUBLIC_API_ENDPOINT}/deals` +
-                '?' +
-                buildQueryString(queryParams)
-            // eslint-disable-next-line no-console
-            console.table(queryParams)
-            try {
-                const res = await axios.get(url, {
-                    cancelToken: source.token
-                })
-                setIsClustered(res.data.isClustered)
-                setClusters(res.data.clusteredDeals)
-                setAgglomeratedDeals(res.data.agglomeratedDeals)
-                setListedDeals(res.data.listedDeals)
-                setLength(res.data.length)
-                setGraphData(res.data.graphData)
-                if (openDeals) {
-                    if (res.data.length === 0 || res.data.isClustered) {
-                        setOpenDeals(null)
-                    } else {
-                        const isOpenDealsNotFetchedAgain =
-                            openDeals &&
-                            res.data.agglomeratedDeals.findIndex(
-                                (location: AgglomeratedDealsObjType) =>
-                                    JSON.stringify(location.lnglat) ===
-                                    JSON.stringify(openDeals.lnglat)
-                            ) === -1
-                        if (isOpenDealsNotFetchedAgain) {
+            if (queryParams.latn) {
+                setIsLoading(true)
+                const url =
+                    `${process.env.NEXT_PUBLIC_API}/deals` +
+                    '?' +
+                    buildQueryString(queryParams)
+                // eslint-disable-next-line no-console
+                console.table(queryParams)
+                try {
+                    const res = await axios.get(url, {
+                        cancelToken: source.token
+                    })
+                    setIsClustered(res.data.isClustered)
+                    setClusters(res.data.clusteredDeals)
+                    setAgglomeratedDeals(res.data.agglomeratedDeals)
+                    setListedDeals(res.data.listedDeals)
+                    setLength(res.data.length)
+                    setGraphData(res.data.graphData)
+                    if (openDeals) {
+                        if (res.data.length === 0 || res.data.isClustered) {
                             setOpenDeals(null)
+                        } else {
+                            const isOpenDealsNotFetchedAgain =
+                                openDeals &&
+                                res.data.agglomeratedDeals.findIndex(
+                                    (location: AgglomeratedDealsObjType) =>
+                                        JSON.stringify(location.lnglat) ===
+                                        JSON.stringify(openDeals.lnglat)
+                                ) === -1
+                            if (isOpenDealsNotFetchedAgain) {
+                                setOpenDeals(null)
+                            }
                         }
                     }
-                }
-                // eslint-disable-next-line no-console
-                console.log({ MB: res.data.MB, length: res.data.length })
-                if (res.data.bytsAbove) {
-                    alert(
-                        `${res.data.bits} MB request made => ${buildQueryString(
-                            queryParams
-                        )}`
-                    )
-                }
-                if (isFirstRenderRef.current) {
-                    isFirstRenderRef.current = false
-                } else {
-                    setUrlQueryParams({
-                        ...queryParams,
-                        lat: mapParams.center.lat.toString(),
-                        lng: mapParams.center.lng.toString(),
-                        zoom: mapParams.zoom.toString()
-                    })
-                }
-                setIsLoading(false)
-            } catch (error) {
-                // eslint-disable-next-line no-empty
-                if (axios.isCancel(error)) {
-                } else {
                     // eslint-disable-next-line no-console
-                    console.log('Error', error)
-                    alert('Error : ' + error)
+                    console.log({ MB: res.data.MB, length: res.data.length })
+                    if (res.data.bytsAbove) {
+                        alert(
+                            `${
+                                res.data.bits
+                            } MB request made => ${buildQueryString(
+                                queryParams
+                            )}`
+                        )
+                    }
+                    if (isFirstRenderRef.current) {
+                        isFirstRenderRef.current = false
+                    } else {
+                        setUrlQueryParams({
+                            ...queryParams,
+                            lat: mapParams.center.lat.toString(),
+                            lng: mapParams.center.lng.toString(),
+                            zoom: mapParams.zoom.toString()
+                        })
+                    }
                     setIsLoading(false)
+                } catch (error) {
+                    // eslint-disable-next-line no-empty
+                    if (axios.isCancel(error)) {
+                    } else {
+                        // eslint-disable-next-line no-console
+                        console.log('Error', error)
+                        alert('Error : ' + error)
+                        setIsLoading(false)
+                    }
                 }
             }
         }

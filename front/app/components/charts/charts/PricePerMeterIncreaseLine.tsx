@@ -10,7 +10,7 @@ import {
     ResponsiveContainer
 } from 'recharts'
 import { Theme, useMediaQuery, useTheme } from '@mui/material'
-import CustomTooltip from './tooltip/CustomTooltip'
+import CustomTooltip from '../tooltip/CustomTooltip'
 
 export const PricePerMeterIncreaseLine = () => {
     const { graphData } = useAppContext()
@@ -21,7 +21,7 @@ export const PricePerMeterIncreaseLine = () => {
     )
 
     return (
-        <ResponsiveContainer width="100%" minHeight={0} height={485}>
+        <ResponsiveContainer width='100%' minHeight={0} height={485}>
             <LineChart
                 data={graphData?.pricePerMeterIncreaseLine}
                 margin={{
@@ -31,10 +31,10 @@ export const PricePerMeterIncreaseLine = () => {
                     bottom: 0
                 }}
             >
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="name" />
+                <CartesianGrid strokeDasharray='3 3' />
+                <XAxis dataKey='name' />
                 <YAxis
-                    type="number"
+                    type='number'
                     tickFormatter={(value) => value.toLocaleString()}
                     domain={[
                         (dataMin: number) =>
@@ -48,10 +48,10 @@ export const PricePerMeterIncreaseLine = () => {
                     padding={{ bottom: !breakpointsSmall ? 20 : 0 }}
                 />
                 <Tooltip content={<CustomTooltip unit={''} />} />
-                <Legend align="right" />
+                <Legend align='right' />
                 <Line
-                    type="monotone"
-                    dataKey="Prix / m²"
+                    type='monotone'
+                    dataKey='Prix / m²'
                     strokeWidth={'3px'}
                     stroke={theme.palette.primary.main}
                     activeDot={{ r: 8 }}

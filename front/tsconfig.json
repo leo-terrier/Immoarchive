@@ -32,5 +32,5 @@
         ".next/types/**/*.ts",
         "app/context/theme"
     ],
-    "exclude": ["node_modules", "**/*.cy.tsx"]
+    "exclude": ["node_modules"]
 }

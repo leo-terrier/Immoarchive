@@ -11,8 +11,8 @@ import { format } from 'date-fns'
 import styled from '@emotion/styled'
 import { useAppContext } from '@/app/context/Context'
 import { ListedDealType } from '@/app/types'
-import { Lighter } from './common/Lighter'
-import { SeeOnMapButton } from './common/SeeOnMapButton'
+import { Lighter } from '../common/Lighter'
+import { SeeOnMapButton } from '../common/SeeOnMapButton'
 import { stripArrondissement } from '@/utils/utilityFunctions'
 
 const StyledPagination = styled(Pagination)`
@@ -70,6 +70,7 @@ export const DealCards = () => {
                         )
                         .map((deal) => (
                             <Paper
+                                data-cy='dealCard'
                                 key={deal.id_mutation}
                                 sx={{
                                     p: 2,
@@ -95,7 +96,7 @@ export const DealCards = () => {
                                         }}
                                     >
                                         <Typography
-                                            variant="tooltipTypo"
+                                            variant='tooltipTypo'
                                             sx={{
                                                 fontSize: '22px',
                                                 letterSpacing: 1.05,
@@ -109,7 +110,7 @@ export const DealCards = () => {
                                     </Grid>
                                     <Grid item xs={6}>
                                         <Typography
-                                            variant="tooltipTypo"
+                                            variant='tooltipTypo'
                                             sx={{
                                                 display: 'flex',
                                                 flexDirection: 'column',
@@ -128,7 +129,7 @@ export const DealCards = () => {
                                         </Typography>
                                     </Grid>
                                     <Grid item xs={6}>
-                                        <Typography variant="tooltipTypo">
+                                        <Typography variant='tooltipTypo'>
                                             Surface :{' '}
                                             <Lighter>
                                                 {deal?.total_surface_reelle_bati.toLocaleString()}{' '}
@@ -137,7 +138,7 @@ export const DealCards = () => {
                                         </Typography>
                                     </Grid>
                                     <Grid item xs={6}>
-                                        <Typography variant="tooltipTypo">
+                                        <Typography variant='tooltipTypo'>
                                             Prix / m² :{' '}
                                             <Lighter>
                                                 {deal?.prix_metre_carre.toLocaleString()}{' '}
@@ -146,7 +147,7 @@ export const DealCards = () => {
                                         </Typography>
                                     </Grid>
                                     <Grid item xs={6}>
-                                        <Typography variant="tooltipTypo">
+                                        <Typography variant='tooltipTypo'>
                                             Pièces :{' '}
                                             <Lighter>
                                                 {deal?.total_nombre_pieces_principales.toLocaleString()}
@@ -154,7 +155,7 @@ export const DealCards = () => {
                                         </Typography>
                                     </Grid>
                                     <Grid item xs={6}>
-                                        <Typography variant="tooltipTypo">
+                                        <Typography variant='tooltipTypo'>
                                             Terrain :{' '}
                                             <Lighter>
                                                 {deal?.total_surface_terrain.toLocaleString()}{' '}
@@ -163,7 +164,7 @@ export const DealCards = () => {
                                         </Typography>
                                     </Grid>
                                     <Grid item xs={6}>
-                                        <Typography variant="tooltipTypo">
+                                        <Typography variant='tooltipTypo'>
                                             <Lighter>
                                                 {format(
                                                     new Date(
@@ -190,7 +191,7 @@ export const DealCards = () => {
                     <Typography>
                         {isClustered
                             ? 'Trop de transactions'
-                            : 'Pas de transaction'}
+                            : 'Aucune transaction'}
                     </Typography>
                 )}
             </Box>
@@ -201,7 +202,7 @@ export const DealCards = () => {
                         setPage(pageNumber - 1)
                     }
                     page={page + 1}
-                    size="medium"
+                    size='medium'
                     sx={{
                         mx: 'auto',
                         height: '120px',

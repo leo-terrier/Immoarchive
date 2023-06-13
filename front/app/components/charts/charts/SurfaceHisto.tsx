@@ -10,19 +10,19 @@ import {
 } from 'recharts'
 import { Theme, useMediaQuery, useTheme } from '@mui/material'
 import { useAppContext } from '@/app/context/Context'
-import CustomTooltip from './tooltip/CustomTooltip'
+import CustomTooltip from '../tooltip/CustomTooltip'
 
-export function RoomsHisto() {
+export function SurfaceHisto() {
     const theme = useTheme()
     const { graphData } = useAppContext()
-    const unit = ''
+    const unit = ' m²'
     const breakpointsSmall = useMediaQuery((theme: Theme) =>
         theme.breakpoints.up('sm')
     )
     return (
-        <ResponsiveContainer width="100%" minHeight={0} height={485}>
+        <ResponsiveContainer width='100%' minHeight={0} height={485}>
             <BarChart
-                data={graphData?.roomsHisto}
+                data={graphData?.surfaceHisto}
                 margin={{
                     top: 0,
                     right: 40,
@@ -30,9 +30,9 @@ export function RoomsHisto() {
                     bottom: 0
                 }}
             >
-                <CartesianGrid strokeDasharray="3 3" />
+                <CartesianGrid strokeDasharray='3 3' />
                 <XAxis
-                    dataKey="name"
+                    dataKey='name'
                     tickFormatter={(value) => {
                         if (!breakpointsSmall && value === 0) return ''
                         else return value.toLocaleString() + unit
@@ -42,16 +42,16 @@ export function RoomsHisto() {
                     mirror={!breakpointsSmall}
                     tickFormatter={(value) => {
                         if (!breakpointsSmall && value === 0) return ''
-                        else return value.toLocaleString() + unit
+                        else return value.toLocaleString()
                     }}
                     allowDecimals={false}
                 />
                 <Tooltip content={<CustomTooltip unit={unit} />} />
-                <Legend align="right" />
+                <Legend align='right' />
                 <Bar
-                    dataKey="count"
-                    name="Nombre de transactions"
-                    fill={theme.palette.green.main}
+                    dataKey='count'
+                    name='Nombre de transactions'
+                    fill={theme.palette.ash.main}
                 />
             </BarChart>
         </ResponsiveContainer>

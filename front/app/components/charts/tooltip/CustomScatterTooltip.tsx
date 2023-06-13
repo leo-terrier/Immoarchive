@@ -40,7 +40,7 @@ const CustomScatterTooltip = (props: any) => {
 
                 <ListItem sx={{ p: 0 }}>
                     <Typography
-                        variant="subtitle2"
+                        variant='subtitle2'
                         sx={{ width: '100%', textAlign: 'center' }}
                     >
                         &#8594;{' '}

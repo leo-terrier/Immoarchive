@@ -1,3 +1,4 @@
+import { roundToLeadingDigit } from './utils'
 import {
     Bar,
     GenerateHistoType,
@@ -6,8 +7,6 @@ import {
     ListedDealType,
     OriginalDealType
 } from './types'
-
-import { roundToLeadingDigit } from './utils'
 
 const generateHistoStep = ({ deals, range, prop }: GenerateHistoType) => {
     // If the smallest  of the highest 10% deals falls below last interval value, return step, else increase step

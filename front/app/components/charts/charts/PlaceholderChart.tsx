@@ -126,7 +126,7 @@ export function PlaceholderChart() {
     )
     const unit = ' m²'
     return (
-        <ResponsiveContainer width="100%" minHeight={0} height={485}>
+        <ResponsiveContainer width='100%' minHeight={0} height={485}>
             <ScatterChart
                 margin={{
                     top: 0,
@@ -136,18 +136,18 @@ export function PlaceholderChart() {
                 }}
             >
                 <XAxis
-                    type="number"
-                    dataKey="valeur_fonciere"
-                    name="Prix"
+                    type='number'
+                    dataKey='valeur_fonciere'
+                    name='Prix'
                     tickFormatter={(value) => {
                         if (!breakpointsSmall && value === 0) return ''
                         else return value.toLocaleString() + unit
                     }}
                 />
                 <YAxis
-                    type="number"
-                    dataKey="total_surface_reelle_bati"
-                    name="Surface"
+                    type='number'
+                    dataKey='total_surface_reelle_bati'
+                    name='Surface'
                     mirror={!breakpointsSmall}
                     tickFormatter={(value) => {
                         if (!breakpointsSmall && value === 0) return ''
@@ -157,7 +157,7 @@ export function PlaceholderChart() {
                 <Scatter
                     data={data}
                     fill={theme.palette.primary.main}
-                    name="Transactions"
+                    name='Transactions'
                 />
                 <ReferenceLine
                     segment={[
@@ -165,9 +165,9 @@ export function PlaceholderChart() {
                         { x: 200000, y: 80 }
                     ]}
                     strokeWidth={2}
-                    stroke="red"
+                    stroke='red'
                     isFront
-                    name="Moyenne prix / m²"
+                    name='Moyenne prix / m²'
                 />
             </ScatterChart>
         </ResponsiveContainer>

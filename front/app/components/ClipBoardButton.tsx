@@ -44,18 +44,18 @@ export const ClipboardButton = () => {
 
     return (
         <Box
-            display="flex"
-            gap="30px"
-            justifyContent="center"
-            alignItems="center"
-            width="100%"
+            display='flex'
+            gap='30px'
+            justifyContent='center'
+            alignItems='center'
+            width='100%'
         >
             {breakpointsSm && (
                 <Typography
                     component={'label'}
-                    htmlFor="clipboard"
-                    fontSize="45px"
-                    fontWeight="bold"
+                    htmlFor='clipboard'
+                    fontSize='45px'
+                    fontWeight='bold'
                     whiteSpace={'nowrap'}
                     style={rancho.style}
                 >
@@ -77,7 +77,7 @@ export const ClipboardButton = () => {
                 <Tooltip
                     open={isTooltipShown}
                     title={
-                        <Typography fontWeight="bolder">
+                        <Typography fontWeight='bolder'>
                             {tooltipMessage}
                         </Typography>
                     }
@@ -100,13 +100,13 @@ export const ClipboardButton = () => {
                         onMouseEnter={() => setIsTooltipShown(true)}
                         onMouseLeave={() => setIsTooltipShown(false)}
                         onClick={handleClick}
-                        color="inherit"
+                        color='inherit'
                     >
                         <ContentCopyIcon />
                     </IconButton>
                 </Tooltip>
                 <Divider
-                    orientation="vertical"
+                    orientation='vertical'
                     sx={{
                         backgroundColor: (theme) => theme.palette.grey[400],
                         height: '80%',
@@ -121,15 +121,15 @@ export const ClipboardButton = () => {
                         width: '100%',
                         padding: '0 14px'
                     }}
-                    variant="standard"
-                    margin="normal"
-                    aria-label="Lien de recherche"
+                    variant='standard'
+                    margin='normal'
+                    aria-label='Lien de recherche'
                     required
-                    id="clipboard"
                     value={href}
-                    type="text"
+                    type='text'
                     InputProps={{
                         disableUnderline: true,
+                        id: 'clipboardInput',
                         sx: {
                             borderRadius: 0,
                             height: '100%',

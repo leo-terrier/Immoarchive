@@ -3,13 +3,13 @@
 import { Box, Typography, useMediaQuery, Theme } from '@mui/material'
 import { Roboto } from 'next/font/google'
 import { Rancho } from 'next/font/google'
-import { InfoBanner } from './components/InfoBanner'
+import { InfoBanner } from './components/infoBanner/InfoBanner'
 import Map from './components/map/Map'
 import { CurrentFilterBanner } from './components/CurrentFilterBanner'
-import { ChartsContainer } from './components/charts/ChartsContainer'
-import { DealTable } from './components/DealTable'
+import { ChartsContainer } from './components/charts/containers/ChartsContainer'
+import { DealTable } from './components/dealTable/DealTable'
 import { ClipboardButton } from './components/ClipBoardButton'
-import { DealCards } from './components/DealCards'
+import { DealCards } from './components/dealCards/DealCards'
 
 // https://nextjs.org/docs/app/building-your-application/optimizing/fonts#local-fonts
 
@@ -51,13 +51,13 @@ const Home: React.FC = () => {
                 color: (theme) => theme.palette.grey['200']
             }}
             className={roboto.className}
-            display="flex"
-            flexDirection="column"
-            mx="auto"
+            display='flex'
+            flexDirection='column'
+            mx='auto'
         >
             <Box>
                 <Typography
-                    component="h1"
+                    component='h1'
                     sx={{
                         fontSize: { xs: 50, sm: 90 }
                         /*  mb: { xs: 2 } */

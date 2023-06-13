@@ -39,40 +39,41 @@ const Map: React.FC = () => {
     const breakpointsMedium = useMediaQuery((theme: Theme) =>
         theme.breakpoints.up('md')
     )
-    const mapRef = useRef<google.maps.Map>({} as google.maps.Map)
+    const mapRef = useRef<google.maps.Map | null>(null)
     const timeoutRef = useRef<ReturnType<typeof setTimeout>>()
 
     const changeZoom = (zoomType: 'increment' | 'initial' = 'increment') => {
         if (zoomType === 'increment') {
-            const currentZoom = mapRef.current?.getZoom() as number
-            mapRef.current?.setZoom(currentZoom + 1)
+            const currentZoom = mapRef.current!.getZoom() as number
+            mapRef.current!.setZoom(currentZoom + 1)
         } else {
-            mapRef.current?.setZoom(18)
+            mapRef.current!.setZoom(18)
         }
     }
 
     const setMapCenter = (lnglat: LatLng) => {
-        mapRef.current?.setCenter(lnglat)
+        mapRef.current!.setCenter(lnglat)
     }
 
     const onLoad = useCallback(function callback(map: google.maps.Map) {
         mapRef.current = map as google.maps.Map
+        handleBoundsChange()
     }, [])
 
     const handleBoundsChange = React.useCallback(() => {
-        if (mapRef.current) {
+        if (mapRef.current !== null) {
             if (timeoutRef.current) {
                 clearTimeout(timeoutRef.current)
             }
             timeoutRef.current = setTimeout(() => {
                 const { east, south, north, west } = JSON.parse(
-                    JSON.stringify(mapRef.current.getBounds())
+                    JSON.stringify(mapRef.current!.getBounds())
                 )
                 const { lat, lng } = JSON.parse(
-                    JSON.stringify(mapRef.current.getCenter())
+                    JSON.stringify(mapRef.current!.getCenter())
                 )
                 const zoom = JSON.parse(
-                    JSON.stringify(mapRef.current.getZoom())
+                    JSON.stringify(mapRef.current!.getZoom())
                 )
 
                 handleMapChange({
@@ -109,18 +110,13 @@ const Map: React.FC = () => {
                 east: 9.9
             }
         }
-        /* styles: [
-            {
-                elementType: '',
-                stylers: []
-            }
-        ] */
     }
 
     return (
-        <Box position="relative">
+        <Box position='relative'>
             <AddressForm changeZoom={changeZoom} setMapCenter={setMapCenter} />
             <Card
+                data-cy='mapCard'
                 sx={{
                     width: '100%',
                     height: 'min(90vh, 700px)',
@@ -198,7 +194,7 @@ const Map: React.FC = () => {
                             }}
                             onPositionChanged={() => {
                                 if (!breakpointsMedium) {
-                                    mapRef.current.panTo(openDeals.lnglat)
+                                    mapRef.current!.panTo(openDeals.lnglat)
                                 }
                             }}
                             zIndex={3}

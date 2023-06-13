@@ -80,7 +80,7 @@ export const AddressForm = ({
                 <MenuItem
                     key={id}
                     onClick={() => handleSelect({ id, description })}
-                    data-cy="suggestion"
+                    data-cy='suggestion'
                     sx={{
                         backgroundColor: 'white',
                         '&:hover': {
@@ -88,7 +88,7 @@ export const AddressForm = ({
                         }
                     }}
                 >
-                    <Typography color="text.primary">{description}</Typography>
+                    <Typography color='text.primary'>{description}</Typography>
                 </MenuItem>
             ))
         }
@@ -114,11 +114,10 @@ export const AddressForm = ({
                 sx={{
                     height: '40px'
                 }}
-                autoComplete="off"
-                type="text"
+                autoComplete='off'
+                type='text'
                 value={value}
                 onChange={handleInput}
-                id="adressForm"
                 fullWidth
                 label={value ? '' : `Addresse / Point d'intérêt`}
                 aria-label={`Addresse / Point d'intérêt`}
@@ -134,6 +133,7 @@ export const AddressForm = ({
                     }
                 }}
                 InputProps={{
+                    id: 'addressFormInput',
                     sx: {
                         borderRadius: '0',
                         height: '100%',
@@ -144,7 +144,7 @@ export const AddressForm = ({
                     },
                     endAdornment: (
                         <InputAdornment
-                            position="end"
+                            position='end'
                             sx={{
                                 display: 'flex',
                                 justifyContent: 'space-evenly',
@@ -158,7 +158,7 @@ export const AddressForm = ({
                         >
                             <IconButton
                                 //Sm screens and up
-                                data-cy="close"
+                                data-cy='close'
                                 onClick={() => {
                                     setValue('', false)
                                     clearSuggestions()
@@ -175,11 +175,11 @@ export const AddressForm = ({
                                     }
                                 }}
                             >
-                                <Close fontSize="medium" />
+                                <Close fontSize='medium' />
                             </IconButton>
                             <Divider
                                 //Xs screens
-                                orientation="vertical"
+                                orientation='vertical'
                                 sx={{
                                     height: '30px',
                                     display: { sm: 'none' }
@@ -211,8 +211,8 @@ export const AddressForm = ({
             />
             {data.length > 0 && (
                 <MenuList
-                    sx={{ backgroudColor: 'white' }}
-                    data-cy="suggestions"
+                    sx={{ backgroudColor: 'white', overflowX: 'hidden' }}
+                    data-cy='suggestions'
                 >
                     {renderSuggestions()}
                 </MenuList>

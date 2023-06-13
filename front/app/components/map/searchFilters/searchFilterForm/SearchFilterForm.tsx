@@ -10,8 +10,7 @@ import {
 } from '@mui/material'
 import { useAppContext } from '@/app/context/Context'
 import { handleChangeFilterType } from '@/app/types'
-import { getUrlQueryParams } from '@/utils/utilityFunctions'
-import { CloseButton } from '../../common/CloseButton'
+import { CloseButton } from '../../../common/CloseButton'
 
 // Event listeners for keydown and mouse scroll to prevent negative values
 
@@ -56,8 +55,8 @@ const CustomNumberTextField = (props: InputProps) => {
 
     return (
         <TextField
-            size="small"
-            type="number"
+            size='small'
+            type='number'
             InputLabelProps={{
                 sx: { fontSize: '.92rem', verticalAlign: 'center' }
             }}
@@ -96,13 +95,13 @@ const CustomMinMaxFieldBoxes = ({
     return (
         <Box
             width={{ xs: '110px', sm: '120px' }}
-            display="flex"
-            flexDirection="column"
+            display='flex'
+            flexDirection='column'
             gap={1}
         >
             <Typography
-                variant="subtitle1"
-                textAlign="center"
+                variant='subtitle1'
+                textAlign='center'
                 sx={{
                     marginBottom: '-4px',
                     fontSize: '.92rem',
@@ -117,20 +116,20 @@ const CustomMinMaxFieldBoxes = ({
                         onChange={togglePricePerMeter}
                         value={isPricePerMeter ? 'm²' : 'total'}
                     >
-                        <option value="m²">/ m²</option>
-                        <option value="total">Total</option>
+                        <option value='m²'>/ m²</option>
+                        <option value='total'>Total</option>
                     </select>
                 ) : (
                     ''
                 )}
             </Typography>
             <CustomNumberTextField
-                label="Max"
+                label='Max'
                 name={maxName}
                 defaultValue={maxDefaultValue}
             />
             <CustomNumberTextField
-                label="Min"
+                label='Min'
                 name={minName}
                 defaultValue={minDefaultValue}
             />
@@ -139,8 +138,12 @@ const CustomMinMaxFieldBoxes = ({
 }
 
 export const SearchFilterForm = () => {
-    const { handleChangeFilters, deleteAllSearchFilters, setIsFiltersOpen } =
-        useAppContext()
+    const {
+        handleChangeFilters,
+        deleteAllSearchFilters,
+        setIsFiltersOpen,
+        queryParams
+    } = useAppContext()
     const breakpoint1440 = useMediaQuery('(min-width: 1440px)')
     const breakpointSmall = useMediaQuery((theme: Theme) =>
         theme.breakpoints.up('sm')
@@ -159,7 +162,7 @@ export const SearchFilterForm = () => {
         maxSurfaceLand,
         minNbOfRooms,
         maxNbOfRooms
-    } = getUrlQueryParams()
+    } = queryParams
 
     const minMaxYearRef = useRef<number[]>([
         minYear ? parseInt(minYear as string, 10) : 2017,
@@ -167,7 +170,7 @@ export const SearchFilterForm = () => {
     ])
 
     const [isPricePerMeter, setIsPricePerMeter] = useState<boolean>(
-        minPrice === undefined && maxPrice === undefined
+        minPrice === '' && maxPrice === ''
     )
 
     const togglePricePerMeter = () => {
@@ -216,7 +219,7 @@ export const SearchFilterForm = () => {
 
     return (
         <Box
-            component="form"
+            component='form'
             onSubmit={handleSubmit}
             sx={{
                 display: 'flex',
@@ -234,52 +237,52 @@ export const SearchFilterForm = () => {
                 <CustomMinMaxFieldBoxes
                     isPricePerMeter={isPricePerMeter}
                     key={'minPricePerMeterSquare'}
-                    label="Prix (€)"
+                    label='Prix (€)'
                     minDefaultValue={minPricePerMeterSquare || ''}
-                    minName="minPricePerMeterSquare"
+                    minName='minPricePerMeterSquare'
                     maxDefaultValue={maxPricePerMeterSquare || ''}
-                    maxName="maxPricePerMeterSquare"
+                    maxName='maxPricePerMeterSquare'
                     togglePricePerMeter={togglePricePerMeter}
                 />
             ) : (
                 <CustomMinMaxFieldBoxes
                     isPricePerMeter={isPricePerMeter}
                     key={'minPrice'}
-                    label="Prix (€)"
+                    label='Prix (€)'
                     minDefaultValue={minPrice || ''}
-                    minName="minPrice"
+                    minName='minPrice'
                     maxDefaultValue={maxPrice || ''}
-                    maxName="maxPrice"
+                    maxName='maxPrice'
                     togglePricePerMeter={togglePricePerMeter}
                 />
             )}
             <CustomMinMaxFieldBoxes
-                label="Surface (m²)"
+                label='Surface (m²)'
                 minDefaultValue={minSurface || ''}
-                minName="minSurface"
+                minName='minSurface'
                 maxDefaultValue={maxSurface || ''}
-                maxName="maxSurface"
+                maxName='maxSurface'
             />
             <CustomMinMaxFieldBoxes
-                label="Terrain (m²)"
+                label='Terrain (m²)'
                 minDefaultValue={minSurfaceLand || ''}
-                minName="minSurfaceLand"
+                minName='minSurfaceLand'
                 maxDefaultValue={maxSurfaceLand || ''}
-                maxName="maxSurfaceLand"
+                maxName='maxSurfaceLand'
             />
 
             <CustomMinMaxFieldBoxes
-                label="Pièces"
+                label='Pièces'
                 minDefaultValue={minNbOfRooms || ''}
-                minName="minNbOfRooms"
+                minName='minNbOfRooms'
                 maxDefaultValue={maxNbOfRooms || ''}
-                maxName="maxNbOfRooms"
+                maxName='maxNbOfRooms'
             />
             <Box width={'210px'}>
                 <Typography
-                    id="year-range-slider"
-                    variant="subtitle1"
-                    textAlign="center"
+                    id='year-range-slider'
+                    variant='subtitle1'
+                    textAlign='center'
                     sx={{
                         textAlign: 'center',
                         fontSize: '.92rem',
@@ -291,20 +294,20 @@ export const SearchFilterForm = () => {
                     Années de la transaction
                 </Typography>
                 <Box
-                    width="90%"
-                    margin="0 auto"
-                    display="flex"
-                    alignItems="center"
+                    width='90%'
+                    margin='0 auto'
+                    display='flex'
+                    alignItems='center'
                 >
                     <Slider
-                        size="medium"
+                        size='medium'
                         disableSwap
                         min={2017}
                         max={2022}
                         marks
                         defaultValue={minMaxYearRef.current}
-                        valueLabelDisplay="auto"
-                        track="normal"
+                        valueLabelDisplay='auto'
+                        track='normal'
                         onChange={(_, newValue) => {
                             if (Array.isArray(newValue)) {
                                 minMaxYearRef.current = newValue
@@ -314,28 +317,30 @@ export const SearchFilterForm = () => {
                 </Box>
             </Box>
             <Box
-                display="flex"
+                display='flex'
                 gap={2}
                 flexDirection={breakpoint1440 ? 'column' : 'row'}
                 alignSelf={breakpoint1440 ? 'flex-end' : 'center'}
                 marginLeft={breakpointSmall ? 'auto' : 'initial'}
             >
-                <Box display="flex" justifyContent={'center'} alignSelf="end">
+                <Box display='flex' justifyContent={'center'} alignSelf='end'>
                     <Button
-                        variant="outlined"
-                        color="secondary"
+                        variant='outlined'
+                        color='secondary'
                         onClick={deleteAllSearchFilters}
+                        data-cy='restore'
                     >
                         restaurer
                     </Button>
                 </Box>
-                <Box display="flex" justifyContent={'center'} alignSelf="end">
+                <Box display='flex' justifyContent={'center'} alignSelf='end'>
                     <Button
-                        type="submit"
-                        variant="contained"
+                        type='submit'
+                        variant='contained'
                         sx={{
                             px: '17px'
                         }}
+                        data-cy='submit'
                     >
                         Appliquer
                     </Button>

@@ -1,6 +1,6 @@
 import './globals.css'
 import { Metadata } from 'next'
-import { AppContextProvider } from './context/Context'
+import { AppContextProvider } from '@/app/context/Context'
 
 export const metadata: Metadata = {
     title: 'ImmoArchive',
@@ -32,7 +32,7 @@ export default function RootLayout({
     children: React.ReactNode
 }) {
     return (
-        <html lang="en">
+        <html lang='en'>
             <body>
                 <AppContextProvider>{children}</AppContextProvider>
             </body>

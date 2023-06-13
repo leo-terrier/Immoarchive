@@ -16,7 +16,8 @@ exports.queryDataBase = void 0;
 const promise_1 = __importDefault(require("mysql2/promise"));
 const mysql2_1 = require("mysql2");
 const dotenv_1 = __importDefault(require("dotenv"));
-dotenv_1.default.config();
+const path_1 = __importDefault(require("path"));
+dotenv_1.default.config({ path: path_1.default.resolve(__dirname, '.env') });
 const pool = promise_1.default.createPool({
     host: process.env.DB_HOST,
     port: parseInt(process.env.DB_PORT, 10),

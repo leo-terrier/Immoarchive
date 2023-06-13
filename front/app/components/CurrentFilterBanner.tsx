@@ -38,6 +38,7 @@ export const CurrentFilterBanner = () => {
                 flexWrap: 'wrap',
                 mb: 3
             }}
+            data-cy='filterBannerBox'
         >
             <Typography
                 sx={{
@@ -68,7 +69,7 @@ export const CurrentFilterBanner = () => {
                     key={key}
                 >
                     <CircleIcon
-                        fontSize="inherit"
+                        fontSize='inherit'
                         sx={{ marginBottom: '3.5%' }}
                     />
                     {filterLabels[key]}

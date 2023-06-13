@@ -7,7 +7,8 @@
         "build": "next build",
         "start": "next start",
         "lint": "next lint",
-        "cypress": "npx cypress run --component"
+        "format": "npx prettier --write",
+        "testDev": "start-server-and-test dev http://localhost:3000 cyo"
     },
     "dependencies": {
         "@emotion/react": "^11.11.0",
@@ -27,17 +28,17 @@
         "react-dom": "18.2.0",
         "react-material-ui-carousel": "^3.4.2",
         "recharts": "^2.6.2",
+        "start-server-and-test": "^2.0.0",
         "use-places-autocomplete": "^4.0.0"
     },
     "devDependencies": {
-        "cypress": "^12.12.0",
+        "cypress": "^12.14.0",
         "dotenv": "^16.0.3",
         "eslint": "^8.40.0",
         "eslint-config-next": "^13.4.2",
         "eslint-plugin-react": "^7.32.2",
         "husky": "^8.0.3",
         "mysql2": "^3.3.1",
-        "prettier": "^2.8.8",
         "typescript": "^5.0.4"
     }
 }

@@ -25,6 +25,7 @@ export const CustomMarker = ({
 
     return (
         <Marker
+            data-cy='marker'
             position={locationDeal.lnglat}
             onClick={() => {
                 setOpenDeals(locationDeal)

@@ -26,6 +26,7 @@ export const SearchFilterButtonLg = () => {
                 width: 'fit-content'
             }}
             onClick={() => setOpenFilters(true)}
+            data-cy='searchFilterButtonLg'
         >
             Recherche Avancée
         </Button>

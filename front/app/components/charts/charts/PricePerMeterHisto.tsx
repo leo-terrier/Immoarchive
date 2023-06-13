@@ -1,3 +1,5 @@
+import { useAppContext } from '@/app/context/Context'
+import { Theme, useMediaQuery, useTheme } from '@mui/material'
 import {
     BarChart,
     Bar,
@@ -8,21 +10,19 @@ import {
     Legend,
     ResponsiveContainer
 } from 'recharts'
-import { Theme, useMediaQuery, useTheme } from '@mui/material'
-import { useAppContext } from '@/app/context/Context'
-import CustomTooltip from './tooltip/CustomTooltip'
+import CustomTooltip from '../tooltip/CustomTooltip'
 
-export function SurfaceHisto() {
-    const theme = useTheme()
+export function PricePerMeterHisto() {
     const { graphData } = useAppContext()
-    const unit = ' m²'
+    const theme = useTheme()
+    const unit = ' €'
     const breakpointsSmall = useMediaQuery((theme: Theme) =>
         theme.breakpoints.up('sm')
     )
     return (
-        <ResponsiveContainer width="100%" minHeight={0} height={485}>
+        <ResponsiveContainer width='100%' minHeight={0} height={485}>
             <BarChart
-                data={graphData?.surfaceHisto}
+                data={graphData?.pricePerMeterHisto}
                 margin={{
                     top: 0,
                     right: 40,
@@ -30,9 +30,9 @@ export function SurfaceHisto() {
                     bottom: 0
                 }}
             >
-                <CartesianGrid strokeDasharray="3 3" />
+                <CartesianGrid strokeDasharray='3 3' />
                 <XAxis
-                    dataKey="name"
+                    dataKey='name'
                     tickFormatter={(value) => {
                         if (!breakpointsSmall && value === 0) return ''
                         else return value.toLocaleString() + unit
@@ -47,11 +47,12 @@ export function SurfaceHisto() {
                     allowDecimals={false}
                 />
                 <Tooltip content={<CustomTooltip unit={unit} />} />
-                <Legend align="right" />
+                <Legend align='right' />
                 <Bar
-                    dataKey="count"
-                    name="Nombre de transactions"
-                    fill={theme.palette.ash.main}
+                    data-cy='PpmsBar'
+                    dataKey='count'
+                    name='Nombre de transactions'
+                    fill={theme.palette.primary.main}
                 />
             </BarChart>
         </ResponsiveContainer>

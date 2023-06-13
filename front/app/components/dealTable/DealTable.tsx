@@ -1,4 +1,4 @@
-import { useAppContext } from '../context/Context'
+import { useAppContext } from '../../context/Context'
 import { useEffect, useState } from 'react'
 import { format } from 'date-fns'
 import {
@@ -13,7 +13,7 @@ import {
     TablePagination,
     CircularProgress
 } from '@mui/material'
-import { ListedDealType } from '../types'
+import { ListedDealType } from '../../types'
 import { stripArrondissement } from '@/utils/utilityFunctions'
 
 type Order = 'asc' | 'desc'
@@ -108,7 +108,7 @@ export const DealTable = () => {
                                 col.name !== 'Adresse' ? (
                                     <TableCell
                                         key={col.name}
-                                        align="center"
+                                        align='center'
                                         sx={{ whiteSpace: 'nowrap' }}
                                     >
                                         <TableSortLabel
@@ -122,7 +122,7 @@ export const DealTable = () => {
                                         </TableSortLabel>
                                     </TableCell>
                                 ) : (
-                                    <TableCell align="center" key={col.name}>
+                                    <TableCell align='center' key={col.name}>
                                         {col.name}
                                     </TableCell>
                                 )
@@ -145,6 +145,7 @@ export const DealTable = () => {
                                 )
                                 .map((item) => (
                                     <TableRow
+                                        data-cy='dealTableRow'
                                         key={item.id_mutation}
                                         hover={true}
                                         sx={{
@@ -163,7 +164,7 @@ export const DealTable = () => {
                                         }}
                                     >
                                         <TableCell
-                                            align="center"
+                                            align='center'
                                             sx={{ whiteSpace: 'nowrap' }}
                                         >
                                             {format(
@@ -171,7 +172,7 @@ export const DealTable = () => {
                                                 'dd-MM-yyyy'
                                             )}
                                         </TableCell>
-                                        <TableCell align="center">
+                                        <TableCell align='center'>
                                             {item.adresse_numero +
                                                 ' ' +
                                                 item.adresse_suffixe +
@@ -185,34 +186,34 @@ export const DealTable = () => {
                                                 )}
                                         </TableCell>
                                         <TableCell
-                                            align="center"
+                                            align='center'
                                             sx={{ whiteSpace: 'nowrap' }}
                                         >
                                             {item.valeur_fonciere.toLocaleString() +
                                                 ' €'}{' '}
                                         </TableCell>
                                         <TableCell
-                                            align="center"
+                                            align='center'
                                             sx={{ whiteSpace: 'nowrap' }}
                                         >
                                             {item.total_surface_reelle_bati.toLocaleString() +
                                                 ' m²'}
                                         </TableCell>
                                         <TableCell
-                                            align="center"
+                                            align='center'
                                             sx={{ whiteSpace: 'nowrap' }}
                                         >
                                             {item.prix_metre_carre.toLocaleString() +
                                                 ' €'}
                                         </TableCell>
                                         <TableCell
-                                            align="center"
+                                            align='center'
                                             sx={{ whiteSpace: 'nowrap' }}
                                         >
                                             {item.total_nombre_pieces_principales.toLocaleString()}
                                         </TableCell>
                                         <TableCell
-                                            align="center"
+                                            align='center'
                                             sx={{ whiteSpace: 'nowrap' }}
                                         >
                                             {item.total_surface_terrain.toLocaleString() +
@@ -223,7 +224,7 @@ export const DealTable = () => {
                         ) : (
                             <TableRow hover={false}>
                                 <TableCell
-                                    align="center"
+                                    align='center'
                                     colSpan={'100%' as unknown as number}
                                 >
                                     {isLoading ? (
@@ -241,7 +242,7 @@ export const DealTable = () => {
             </TableContainer>
             <TablePagination
                 rowsPerPageOptions={[25, 50, 100]}
-                component="div"
+                component='div'
                 count={length}
                 rowsPerPage={rowsPerPage}
                 page={page}
@@ -251,7 +252,7 @@ export const DealTable = () => {
                     }
                 }}
                 labelRowsPerPage={
-                    <label htmlFor="rowsPerPage">Lignes par pages</label>
+                    <label htmlFor='rowsPerPage'>Lignes par pages</label>
                 }
                 onPageChange={handleChangePage}
                 onRowsPerPageChange={handleChangeRowsPerPage}

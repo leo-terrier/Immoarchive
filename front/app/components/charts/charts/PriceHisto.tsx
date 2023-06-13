@@ -1,5 +1,5 @@
 import { useAppContext } from '@/app/context/Context'
-import { Theme, useMediaQuery, useTheme } from '@mui/material'
+import { useTheme, useMediaQuery, Theme } from '@mui/material'
 import {
     BarChart,
     Bar,
@@ -10,9 +10,9 @@ import {
     Legend,
     ResponsiveContainer
 } from 'recharts'
-import CustomTooltip from './tooltip/CustomTooltip'
+import CustomTooltip from '../tooltip/CustomTooltip'
 
-export function PricePerMeterHisto() {
+export function PriceHisto() {
     const { graphData } = useAppContext()
     const theme = useTheme()
     const unit = ' €'
@@ -20,9 +20,9 @@ export function PricePerMeterHisto() {
         theme.breakpoints.up('sm')
     )
     return (
-        <ResponsiveContainer width="100%" minHeight={0} height={485}>
+        <ResponsiveContainer width='100%' minHeight={0} height={485}>
             <BarChart
-                data={graphData?.pricePerMeterHisto}
+                data={graphData?.priceHisto}
                 margin={{
                     top: 0,
                     right: 40,
@@ -30,9 +30,9 @@ export function PricePerMeterHisto() {
                     bottom: 0
                 }}
             >
-                <CartesianGrid strokeDasharray="3 3" />
+                <CartesianGrid strokeDasharray='3 3' />
                 <XAxis
-                    dataKey="name"
+                    dataKey='name'
                     tickFormatter={(value) => {
                         if (!breakpointsSmall && value === 0) return ''
                         else return value.toLocaleString() + unit
@@ -46,12 +46,13 @@ export function PricePerMeterHisto() {
                     }}
                     allowDecimals={false}
                 />
+
                 <Tooltip content={<CustomTooltip unit={unit} />} />
-                <Legend align="right" />
+                <Legend align='right' />
                 <Bar
-                    dataKey="count"
-                    name="Nombre de transactions"
-                    fill={theme.palette.primary.main}
+                    dataKey='count'
+                    name='Nombre de transactions'
+                    fill={theme.palette.secondary.main}
                 />
             </BarChart>
         </ResponsiveContainer>

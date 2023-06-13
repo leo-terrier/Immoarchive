@@ -31,8 +31,9 @@ export const SeeOnMapButton = ({
     //const theme = useTheme()
     return (
         <StyledButton
-            variant="contained"
-            size="small"
+            data-cy='seeOnMapButton'
+            variant='contained'
+            size='small'
             startIcon={<MapIcon />}
             onClick={() => {
                 handlePopTooltip({
