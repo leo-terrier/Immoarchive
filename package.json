@@ -10,7 +10,8 @@
         "dev": "concurrently \"cd back && npx tsc -w\" \" nodemon -q index.js --prefix back\" \"npm run dev --prefix front\"",
         "test-e2e": "cd front && npx cypress run",
         "dev:test-e2e": "start-server-and-test dev http://localhost:3000 test-e2e",
-        "pre-commit": "npx lint-staged && cd front && npx cypress run --component && cd ../ && npm run dev:test-e2e"
+        "pre-commit": "npx lint-staged && cd front && npx cypress run --component && cd ../ && npm run dev:test-e2e",
+        "dev:function": "CLOUD_FUNCTION=true concurrently \"npm run dev --prefix front\" \" cd back && npx tsc && npx functions-framework --target=app --port=5001 [--signature-type=http] \""
     },
     "lint-staged": {
         "*.{ts,tsx}": [
