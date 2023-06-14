@@ -17,14 +17,14 @@ const roboto = Roboto({
     style: ['normal', 'italic'],
     subsets: ['latin']
 })
-export const rancho = Rancho({
+const rancho = Rancho({
     weight: ['400'],
     display: 'swap',
     style: ['normal'],
     subsets: ['latin']
 })
 
-const Home: React.FC = () => {
+const Home = () => {
     const breakpointsMedium = useMediaQuery((theme: Theme) =>
         theme.breakpoints.up('md')
     )

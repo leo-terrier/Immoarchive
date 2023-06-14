@@ -12,7 +12,14 @@ import {
 } from '@mui/material'
 import ContentCopyIcon from '@mui/icons-material/ContentCopy'
 import { useAppContext } from '../context/Context'
-import { rancho } from '../page'
+import { Rancho } from 'next/font/google'
+
+const rancho = Rancho({
+    weight: ['400'],
+    display: 'swap',
+    style: ['normal'],
+    subsets: ['latin']
+})
 
 export const ClipboardButton = () => {
     const breakpointsSm = useMediaQuery((theme: Theme) =>

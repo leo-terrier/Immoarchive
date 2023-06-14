@@ -1,7 +1,14 @@
 import { Box, Typography } from '@mui/material'
 import CircleIcon from '@mui/icons-material/Circle'
-import { rancho } from '../page'
+import { Rancho } from 'next/font/google'
 import { useAppContext } from '../context/Context'
+
+const rancho = Rancho({
+    weight: ['400'],
+    display: 'swap',
+    style: ['normal'],
+    subsets: ['latin']
+})
 
 const filterLabels: { [key: string]: string } = {
     maxNbOfRooms: 'Pièces < ',
