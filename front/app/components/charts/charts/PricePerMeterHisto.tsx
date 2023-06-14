@@ -1,4 +1,3 @@
-import { useAppContext } from '@/app/context/Context'
 import { Theme, useMediaQuery, useTheme } from '@mui/material'
 import {
     BarChart,
@@ -11,6 +10,7 @@ import {
     ResponsiveContainer
 } from 'recharts'
 import CustomTooltip from '../tooltip/CustomTooltip'
+import { useAppContext } from '@/app/context/Context'
 
 export function PricePerMeterHisto() {
     const { graphData } = useAppContext()

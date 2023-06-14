@@ -118,7 +118,7 @@ describe('<SearchFilterForm/>', () => {
         cy.get('#' + maxField).should('have.value', max)
     })
 
-    it(`It submits with minPrice = '' after user inputs value in minPrice and price per meter is finally selected `, () => {
+    it(`It submits with minPrice = '' after user inputs value in minPrice but then selects pricePerMeterSquare`, () => {
         const value = '10000'
         cy.get('select').select('total').invoke('val').should('eq', 'total')
         cy.get('#minPrice').type(value)

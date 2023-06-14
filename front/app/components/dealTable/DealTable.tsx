@@ -129,14 +129,7 @@ export const DealTable = () => {
                             )}
                         </TableRow>
                     </TableHead>
-                    <TableBody
-                    /* sx={{
-                            width: '100%',
-                            height: '100%',
-                            display: 'flex',
-                            justifyContent: 'center'
-                        }} */
-                    >
+                    <TableBody>
                         {!isLoading && !isClustered && length > 0 ? (
                             tableItems
                                 .slice(

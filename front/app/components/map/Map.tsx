@@ -1,4 +1,3 @@
-//https://react-google-maps-api-docs.netlify.app/#googlemap
 import {
     Card,
     useMediaQuery,
@@ -95,7 +94,6 @@ const Map: React.FC = () => {
         //scaleControl: true,
         //rotateControl: true,
         //fullscreenControl: false,
-
         zoomControl: true,
         streetViewControl: isMobile ? false : true,
         clickableIcons: false,
@@ -214,3 +212,5 @@ const Map: React.FC = () => {
 }
 
 export default React.memo(Map)
+
+//https://react-google-maps-api-docs.netlify.app/#googlemap

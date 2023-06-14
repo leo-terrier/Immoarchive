@@ -1,6 +1,5 @@
 import { AppContext, ContextValueType } from '@/app/context/Context'
 import { ThemeProvider } from '@mui/material'
-
 import theme from '@/app/context/theme/Theme'
 import { mockContext } from '@/cypress/mockContext'
 import { InfoBanner } from './InfoBanner'
@@ -22,7 +21,7 @@ const context: ContextValueType = {
 }
 
 describe('<InfoBanner/>', () => {
-    it(`Mounts and displays : 'no results' (when length = 0) and town name and postal code (for random location)`, () => {
+    it(`Mounts and displays 'no results' when length = 0 and town name and postal code for random location`, () => {
         cy.mount(
             <AppContext.Provider
                 value={{

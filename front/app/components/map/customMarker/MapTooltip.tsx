@@ -38,7 +38,7 @@ export const MapTooltip = () => {
         setOpenDeals(null)
     }
 
-    // User  clicks on other marker while open => change content of tooltip
+    // UseEffect for when user clicks on other marker while open => change content of tooltip of infoWindow
 
     const {
         lnglat: { lng, lat }

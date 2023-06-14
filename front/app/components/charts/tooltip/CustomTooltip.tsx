@@ -1,6 +1,3 @@
-//https://stackoverflow.com/questions/21247278/about-d-ts-in-typescript
-//https://stackoverflow.com/questions/65913461/typescript-interface-for-recharts-custom-tooltip
-
 import { TooltipItemType } from '@/app/types'
 import { DefaultTooltipContent } from 'recharts/lib/component/DefaultTooltipContent'
 
@@ -41,7 +38,6 @@ const CustomTooltip = (props: any) => {
                 payload={newPayload}
             />
         )
-        /* } */
     } else {
         return <DefaultTooltipContent {...props} />
     }

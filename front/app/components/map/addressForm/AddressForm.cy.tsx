@@ -8,9 +8,6 @@ const props = {
 
 describe('<AddressForm>', () => {
     it('Mounts', () => {
-        cy.mount(<AddressForm {...props} />)
-    })
-    it('Mounts with map api', () => {
         cy.mount(
             <AppContextProvider>
                 <AddressForm {...props} />
@@ -35,9 +32,7 @@ describe('<AddressForm>', () => {
         )
         const typedText = 'Champs Elysées'
         cy.get('input').type(typedText)
-        cy.get('[data-cy="suggestions"]')
-            .find('[data-cy="suggestion"]')
-            .should('have.length.above', 1)
+        cy.get('[data-cy=suggestion]').should('have.length.above', 1)
     })
     it('Applies selected suggestion to text input and calls zoom and center function', () => {
         const setMapCenter = cy.spy().as('setMapCenter')
@@ -52,7 +47,7 @@ describe('<AddressForm>', () => {
         )
         const typedText = 'Champs Elysées'
         cy.get('input').type(typedText)
-        cy.get('[data-cy="suggestion"]')
+        cy.get('[data-cy=suggestion]')
             .first()
             .invoke('text')
             .then((suggestionText) => {
@@ -85,6 +80,7 @@ describe('<AddressForm>', () => {
         cy.get('[data-cy=close]').click()
         cy.get('[data-cy="suggestion"]').should('not.exist')
     })
+    // Breakpoint Sm & up
     it('Clears input on close button click', () => {
         cy.viewport(605, 800)
         cy.mount(

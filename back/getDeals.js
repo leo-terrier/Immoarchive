@@ -114,9 +114,7 @@ function getDeals(req, res) {
                     }
                 }
             }
-            let bytsAbove = false;
             if (mb > 53) {
-                bytsAbove = true;
                 fs_1.default.appendFile('./bigQueryLogManyBytes.txt', `\n${mb.toFixed(0)} MB request at ${req.url}`, (err) => {
                     if (err) {
                         // eslint-disable-next-line no-console
@@ -133,7 +131,6 @@ function getDeals(req, res) {
                 agglomeratedDeals,
                 listedDeals,
                 MB: mb.toFixed(0),
-                bytsAbove,
                 graphData
             });
         }

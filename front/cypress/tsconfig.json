@@ -7,5 +7,5 @@
         "resolveJsonModule": true,
         "esModuleInterop": true
     },
-    "include": ["**/*.ts", "support/commands.tsx"]
+    "include": ["**/*.ts", "support/commands.ts"]
 }

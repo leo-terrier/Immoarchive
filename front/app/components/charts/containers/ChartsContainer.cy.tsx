@@ -8,7 +8,7 @@ import data from '@/cypress/fixtures/dataLengthFixture.json'
 import { GraphDataType } from '@/app/types'
 
 describe('<ChartsContainer/>', () => {
-    it(`Mounts with carroussel when  0 < length < 1500 (graph limit)`, () => {
+    it(`Mounts with carroussel when 0 < length < 1500 (graph limit)`, () => {
         cy.mount(
             <AppContext.Provider
                 value={{
@@ -24,7 +24,7 @@ describe('<ChartsContainer/>', () => {
         )
         cy.get('[data-cy=nextNavCarroussel]')
     })
-    it(`Mounts without carroussel and with placeholder when  length = 0 `, () => {
+    it(`Mounts without carroussel and with placeholder when length = 0 `, () => {
         cy.mount(
             <AppContext.Provider
                 value={{

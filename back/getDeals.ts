@@ -144,10 +144,7 @@ export async function getDeals(req: Request, res: Response) {
                 }
             }
         }
-
-        let bytsAbove = false
         if (mb > 53) {
-            bytsAbove = true
             fs.appendFile(
                 './bigQueryLogManyBytes.txt',
                 `\n${mb.toFixed(0)} MB request at ${req.url}`,
@@ -169,7 +166,6 @@ export async function getDeals(req: Request, res: Response) {
             agglomeratedDeals,
             listedDeals,
             MB: mb.toFixed(0),
-            bytsAbove,
             graphData
         })
     }

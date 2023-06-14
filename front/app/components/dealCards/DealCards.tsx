@@ -27,7 +27,6 @@ const StyledPagination = styled(Pagination)`
         }
     }
 `
-
 export const DealCards = () => {
     const { listedDeals, isLoading, isClustered, length } = useAppContext()
 

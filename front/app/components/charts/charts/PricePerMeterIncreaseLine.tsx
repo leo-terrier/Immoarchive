@@ -1,4 +1,3 @@
-import { useAppContext } from '@/app/context/Context'
 import {
     LineChart,
     Line,
@@ -11,6 +10,7 @@ import {
 } from 'recharts'
 import { Theme, useMediaQuery, useTheme } from '@mui/material'
 import CustomTooltip from '../tooltip/CustomTooltip'
+import { useAppContext } from '@/app/context/Context'
 
 export const PricePerMeterIncreaseLine = () => {
     const { graphData } = useAppContext()

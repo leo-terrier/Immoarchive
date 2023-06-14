@@ -11,8 +11,6 @@ import { DealTable } from './components/dealTable/DealTable'
 import { ClipboardButton } from './components/ClipBoardButton'
 import { DealCards } from './components/dealCards/DealCards'
 
-// https://nextjs.org/docs/app/building-your-application/optimizing/fonts#local-fonts
-
 const roboto = Roboto({
     weight: ['300', '400', '500', '700'],
     display: 'swap',
@@ -27,7 +25,6 @@ export const rancho = Rancho({
 })
 
 const Home: React.FC = () => {
-    //const { mode, setMode } = useAppContext()
     const breakpointsMedium = useMediaQuery((theme: Theme) =>
         theme.breakpoints.up('md')
     )
@@ -60,7 +57,6 @@ const Home: React.FC = () => {
                     component='h1'
                     sx={{
                         fontSize: { xs: 50, sm: 90 }
-                        /*  mb: { xs: 2 } */
                     }}
                     style={rancho.style}
                 >
@@ -78,3 +74,5 @@ const Home: React.FC = () => {
 }
 
 export default Home
+
+// https://nextjs.org/docs/app/building-your-application/optimizing/fonts#local-fonts

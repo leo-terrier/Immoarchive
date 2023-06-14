@@ -28,7 +28,6 @@ export const SeeOnMapButton = ({
     isDarkMode = false
 }: ButtonType) => {
     const { handlePopTooltip } = useAppContext()
-    //const theme = useTheme()
     return (
         <StyledButton
             data-cy='seeOnMapButton'

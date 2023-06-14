@@ -1,6 +1,3 @@
-//https://stackoverflow.com/questions/21247278/about-d-ts-in-typescript
-//https://stackoverflow.com/questions/65913461/typescript-interface-for-recharts-custom-tooltip
-
 import { List, ListItem, Typography } from '@mui/material'
 import { TooltipContainer } from '../../common/TooltipContainer'
 import { ListedDealType } from '@/app/types'

@@ -12,8 +12,6 @@ import { PlaceholderChart } from '@/app/components/charts/charts/PlaceholderChar
 import { PricePerMeterIncreaseLine } from '@/app/components/charts/charts/PricePerMeterIncreaseLine'
 import { ChartContainer } from './ChartContainer'
 
-// https://github.com/Learus/react-material-ui-carousel
-
 export const ChartsContainer = () => {
     const { isClustered, length } = useAppContext()
 
@@ -110,3 +108,5 @@ export const ChartsContainer = () => {
         </Carousel>
     )
 }
+
+// https://github.com/Learus/react-material-ui-carousel

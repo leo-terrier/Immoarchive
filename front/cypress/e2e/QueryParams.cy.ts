@@ -3,7 +3,7 @@ type StrObj = {
 }
 
 describe('Query params are working at initiation stage and on update', () => {
-    it('Updates filters and filterBanner on filter change', () => {
+    it('Updates filterBanner on filter change', () => {
         cy.visit('/')
         const values: StrObj = {
             minPricePerMeterSquare: '1000',
@@ -21,12 +21,15 @@ describe('Query params are working at initiation stage and on update', () => {
             else cy.get('#' + key).clear()
         })
         cy.get('[data-cy=submit]').click()
+        cy.contains('Pièces > 2')
+        cy.contains('Prix (€) / m² > 1 000')
+        cy.contains('Surface (m²) > 100')
+        cy.contains('Terrain (m²) > 10')
+
+        /*Failing in cypress (see below) :
         Object.entries(values).forEach(([key, value]) => {
-            cy.get('#' + key).should('have.value', value)
-            /*Failing in cypress :
             cy.url().should('include', `${key}=${value}`)
             cy.get('#clipboardInput').should('include', `${key}=${value}`) */
-        })
     })
     it('Clears filters and filter banner on clicking restore button', () => {
         cy.visit('/')
@@ -48,9 +51,10 @@ describe('Query params are working at initiation stage and on update', () => {
         cy.get('[data-cy=submit]').click()
         cy.get('[data-cy=restore]').click()
         cy.get('[data-cy=searchFilterButtonLg]').click()
+
         Object.keys(values).forEach((key) => {
             cy.get('#' + key).should('have.value', '')
-            /*  * Failing in cypress :
+            /* Failing in cypress (see below) :
             cy.url().should('have.value', 'http://localhost:3000'}`)
             cy.get('#clipboardInput').should('have.value', 'http://localhost:3000'}`) */
         })
@@ -88,4 +92,4 @@ describe('Query params are working at initiation stage and on update', () => {
     })
 })
 
-// Failing in cypress : URLSearchParams method do not work
+// Failing in cypress : URLSearchParams methods do not work

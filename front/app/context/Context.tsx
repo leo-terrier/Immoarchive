@@ -65,8 +65,9 @@ export const AppContextProvider = ({
 
     const urlQueryParams = getUrlQueryParams()
 
+    // Get default values from url or set it to default coordinates & zoom or ''
+
     // Map Params for 1) initial map params 2) reverse geolocation in infoBanner 3) add mapParams to url for future render
-    // Get from url or set it to default coordinates
     const [mapParams, setMapParams] = useState<MapParamsType>({
         center: {
             lat: urlQueryParams.lat ? parseFloat(urlQueryParams.lat) : 48.88645,
@@ -95,7 +96,7 @@ export const AppContextProvider = ({
         isMobile: 'false'
     })
 
-    // // Results states
+    // // UI states
 
     const [isLoading, setIsLoading] = useState<boolean>(false)
     const [isClustered, setIsClustered] = useState<boolean>(false)
@@ -159,6 +160,7 @@ export const AppContextProvider = ({
         setIsFiltersOpen(false)
     }
 
+    // Allows opening mapToolTip from scatter chart and dealTable
     const handlePopTooltip = ({
         lnglat,
         idx
@@ -214,17 +216,6 @@ export const AppContextProvider = ({
                                 setOpenDeals(null)
                             }
                         }
-                    }
-                    // eslint-disable-next-line no-console
-                    console.log({ MB: res.data.MB, length: res.data.length })
-                    if (res.data.bytsAbove) {
-                        alert(
-                            `${
-                                res.data.bits
-                            } MB request made => ${buildQueryString(
-                                queryParams
-                            )}`
-                        )
                     }
                     if (isFirstRenderRef.current) {
                         isFirstRenderRef.current = false

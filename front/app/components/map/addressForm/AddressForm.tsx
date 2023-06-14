@@ -28,9 +28,7 @@ export const AddressForm = ({
 }: AddressFormPropTypes) => {
     const { setIsFiltersOpen: setOpenFilters } = useAppContext()
 
-    // TODO : pass parameters insgreend of filtering after on specific terms
     const {
-        /* ready, */
         value,
         suggestions: { status, data },
         setValue,
@@ -38,7 +36,6 @@ export const AddressForm = ({
     } = usePlacesAutocomplete({
         requestOptions: {
             componentRestrictions: { country: 'fr' }
-            //googleMaps(TODO)
         },
         debounce: 300
     })
@@ -72,7 +69,7 @@ export const AddressForm = ({
                 id: suggestion.place_id,
                 description: suggestion.terms
                     .filter((term) => term.value !== 'France')
-                    .map((term) => term.value) //TODO : review
+                    .map((term) => term.value)
                     .join(', ')
             }))
 

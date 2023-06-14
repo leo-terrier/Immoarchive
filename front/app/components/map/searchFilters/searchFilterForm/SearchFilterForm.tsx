@@ -12,8 +12,6 @@ import { useAppContext } from '@/app/context/Context'
 import { handleChangeFilterType } from '@/app/types'
 import { CloseButton } from '../../../common/CloseButton'
 
-// Event listeners for keydown and mouse scroll to prevent negative values
-
 type MaxValues = {
     [key: string]: number
 }
@@ -31,6 +29,8 @@ const maxValues: MaxValues = {
     maxNbOfRooms: 20
 }
 
+// Event listeners are to listen to keydown events and all events affecting spinners, to prevent negative and decimals
+
 const handleChange = (
     e: React.ChangeEvent<HTMLInputElement> | React.WheelEvent<HTMLInputElement>
 ) => {
@@ -38,7 +38,6 @@ const handleChange = (
     if ((target as HTMLInputElement).value.includes('-'))
         (target as HTMLInputElement).value = '0'
 }
-
 const handleInput = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === '-' || event.key === '.') {
         event.preventDefault()
@@ -169,6 +168,7 @@ export const SearchFilterForm = () => {
         maxYear ? parseInt(maxYear as string, 10) : 2022
     ])
 
+    // Form defaults to pricePerMeterSquare instead of total price
     const [isPricePerMeter, setIsPricePerMeter] = useState<boolean>(
         minPrice === '' && maxPrice === ''
     )
@@ -198,7 +198,7 @@ export const SearchFilterForm = () => {
             }
         }
 
-        //Creating response object and resetting undisplayed and '0' min fields field to ''
+        //Creating response object and resetting undisplayed field and '0' min fields to ''
         const formattedForm = new FormData(event.currentTarget)
         for (const [key, value] of formattedForm.entries()) {
             if (typeof value === 'string')
@@ -342,7 +342,7 @@ export const SearchFilterForm = () => {
                         }}
                         data-cy='submit'
                     >
-                        Appliquer
+                        appliquer
                     </Button>
                 </Box>
             </Box>

@@ -1,10 +1,6 @@
-// https://mui.com/material-ui/customization/default-theme/?expand-path=$.typography
-
 import { ThemeOptions, createTheme } from '@mui/material/styles'
 
 import { TypographyOptions } from '@mui/material/styles/createTypography'
-
-//TODO : read => https://www.digitalocean.com/community/tutorials/typescript-module-augmentation && apply it to MUI
 
 declare module '@mui/material/styles' {
     interface Palette {
@@ -37,7 +33,6 @@ interface ExtendedTypographyOptions extends TypographyOptions {
     mapLgTypo2: React.CSSProperties
 }
 
-// eslint-disable-next-line no-unused-vars
 const theme = createTheme({
     palette: {
         primary: {

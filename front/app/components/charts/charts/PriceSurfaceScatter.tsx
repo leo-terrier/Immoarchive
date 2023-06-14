@@ -1,4 +1,3 @@
-import { useAppContext } from '@/app/context/Context'
 import {
     ScatterChart,
     Scatter,
@@ -10,10 +9,11 @@ import {
     CartesianGrid,
     Legend
 } from 'recharts'
-import CustomScatterTooltip from '../tooltip/CustomScatterTooltip'
 import { Box, Typography, useTheme, Theme, useMediaQuery } from '@mui/material'
 import CircleIcon from '@mui/icons-material/Circle'
 import { HorizontalRule } from '@mui/icons-material'
+import { useAppContext } from '@/app/context/Context'
+import CustomScatterTooltip from '../tooltip/CustomScatterTooltip'
 
 const CustomLegend = ({
     averagePricePerMeter
