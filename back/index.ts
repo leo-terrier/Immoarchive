@@ -9,9 +9,9 @@ export const app = express()
 dotenv.config()
 
 app.use(
-    process.env.NODE_ENV === 'production'
-        ? cors({ origin: 'https://immoarchive.netlify.app' })
-        : cors()
+    process.env.IS_DEV === 'true'
+        ? cors()
+        : cors({ origin: 'https://immoarchive.netlify.app' })
 )
 
 const port = process.env.PORT

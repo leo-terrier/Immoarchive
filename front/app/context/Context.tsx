@@ -114,13 +114,12 @@ export const AppContextProvider = ({
 
     const { isLoaded } = useJsApiLoader({
         id: 'google-map-script',
-        googleMapsApiKey: (process.env.NODE_ENV === 'development'
+        googleMapsApiKey: (process.env.NEXT_PUBLIC_IS_DEV === 'true'
             ? process.env.NEXT_PUBLIC_GMAP_DEV
             : process.env.NEXT_PUBLIC_GMAP) as string,
         libraries: googleLibraries,
         mapIds: ['eb42d3e82f21e8de']
     })
-
     const handleMapChange = (mapParams: HandleChangeMapType) => {
         setQueryParams((prev) => ({
             ...prev,
@@ -188,13 +187,13 @@ export const AppContextProvider = ({
                 setIsLoading(true)
                 const url =
                     `${
-                        process.env.NODE_ENV === 'development'
+                        process.env.NEXT_PUBLIC_IS_DEV === 'true'
                             ? process.env.NEXT_PUBLIC_API_DEV
                             : process.env.NEXT_PUBLIC_API
                     }/deals` +
                     '?' +
                     buildQueryString(queryParams)
-                if (process.env.NODE_ENV === 'development') {
+                if (process.env.NEXT_PUBLIC_IS_DEV === 'true') {
                     // eslint-disable-next-line no-console
                     console.table(queryParams)
                 }

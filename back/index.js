@@ -11,9 +11,9 @@ const getDeals_1 = require("./getDeals");
 const validatorMiddleware_1 = require("./validatorMiddleware");
 exports.app = (0, express_1.default)();
 dotenv_1.default.config();
-exports.app.use(process.env.NODE_ENV === 'production'
-    ? (0, cors_1.default)({ origin: 'https://immoarchive.netlify.app' })
-    : (0, cors_1.default)());
+exports.app.use(process.env.IS_DEV === 'true'
+    ? (0, cors_1.default)()
+    : (0, cors_1.default)({ origin: 'https://immoarchive.netlify.app' }));
 const port = process.env.PORT;
 exports.app.get('/deals', validatorMiddleware_1.validators, validatorMiddleware_1.checkValidators, getDeals_1.getDeals);
 if (!process.env.CLOUD_FUNCTION) {
