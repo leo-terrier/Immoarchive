@@ -114,9 +114,7 @@ export const AppContextProvider = ({
 
     const { isLoaded } = useJsApiLoader({
         id: 'google-map-script',
-        googleMapsApiKey: (process.env.NEXT_PUBLIC_IS_DEV === 'true'
-            ? process.env.NEXT_PUBLIC_GMAP_DEV
-            : process.env.NEXT_PUBLIC_GMAP) as string,
+        googleMapsApiKey: process.env.NEXT_PUBLIC_GMAP as string,
         libraries: googleLibraries,
         mapIds: ['eb42d3e82f21e8de']
     })
