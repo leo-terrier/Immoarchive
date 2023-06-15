@@ -1,6 +1,6 @@
+import { AppContextProvider } from './context/Context'
 import './globals.css'
 import { Metadata } from 'next'
-import { AppContextProvider } from '@/app/context/Context'
 
 const title = 'ImmoArchive'
 const description = `Outil d'analyse des ventes immobilières passées.`
