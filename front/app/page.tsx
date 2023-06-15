@@ -3,13 +3,13 @@
 import { Box, Typography, useMediaQuery, Theme } from '@mui/material'
 import { Roboto } from 'next/font/google'
 import { Rancho } from 'next/font/google'
-import { InfoBanner } from './components/infoBanner/InfoBanner'
 import Map from './components/map/Map'
 import { CurrentFilterBanner } from './components/CurrentFilterBanner'
+import { InfoBanner } from './components/infoBanner/InfoBanner'
 import { ChartsContainer } from './components/charts/containers/ChartsContainer'
 import { DealTable } from './components/dealTable/DealTable'
-import { ClipboardButton } from './components/ClipBoardButton'
 import { DealCards } from './components/dealCards/DealCards'
+import { ClipboardButton } from './components/ClipBoardButton'
 
 const roboto = Roboto({
     weight: ['300', '400', '500', '700'],

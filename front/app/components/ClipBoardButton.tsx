@@ -11,8 +11,9 @@ import {
     useMediaQuery
 } from '@mui/material'
 import ContentCopyIcon from '@mui/icons-material/ContentCopy'
-import { useAppContext } from '../context/Context'
+
 import { Rancho } from 'next/font/google'
+import { useAppContext } from '../context/Context'
 
 const rancho = Rancho({
     weight: ['400'],

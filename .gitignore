@@ -24,9 +24,6 @@ structure.js
 /.pnp
 .pnp.js
 
-# production
-/build
-
 # misc
 .DS_Store
 *.pem
@@ -43,5 +40,5 @@ yarn-error.log*
 .vercel
 
 # typescript
-*.tsbuildinfo
+
 next-env.d.ts
