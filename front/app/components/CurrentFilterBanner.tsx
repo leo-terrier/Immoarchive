@@ -82,7 +82,7 @@ export const CurrentFilterBanner = () => {
                     {filterLabels[key]}
                     {key.includes('Year')
                         ? value
-                        : parseInt(value as string, 10).toLocaleString()}
+                        : parseInt(value as string, 10).toLocaleString('fr-FR')}
                 </Typography>
             ))}
         </Box>

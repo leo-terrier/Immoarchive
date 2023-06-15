@@ -182,35 +182,41 @@ export const DealTable = () => {
                                             align='center'
                                             sx={{ whiteSpace: 'nowrap' }}
                                         >
-                                            {item.valeur_fonciere.toLocaleString() +
-                                                ' €'}{' '}
+                                            {item.valeur_fonciere.toLocaleString(
+                                                'fr-FR'
+                                            ) + ' €'}{' '}
                                         </TableCell>
                                         <TableCell
                                             align='center'
                                             sx={{ whiteSpace: 'nowrap' }}
                                         >
-                                            {item.total_surface_reelle_bati.toLocaleString() +
-                                                ' m²'}
+                                            {item.total_surface_reelle_bati.toLocaleString(
+                                                'fr-FR'
+                                            ) + ' m²'}
                                         </TableCell>
                                         <TableCell
                                             align='center'
                                             sx={{ whiteSpace: 'nowrap' }}
                                         >
-                                            {item.prix_metre_carre.toLocaleString() +
-                                                ' €'}
+                                            {item.prix_metre_carre.toLocaleString(
+                                                'fr-FR'
+                                            ) + ' €'}
                                         </TableCell>
                                         <TableCell
                                             align='center'
                                             sx={{ whiteSpace: 'nowrap' }}
                                         >
-                                            {item.total_nombre_pieces_principales.toLocaleString()}
+                                            {item.total_nombre_pieces_principales.toLocaleString(
+                                                'fr-FR'
+                                            )}
                                         </TableCell>
                                         <TableCell
                                             align='center'
                                             sx={{ whiteSpace: 'nowrap' }}
                                         >
-                                            {item.total_surface_terrain.toLocaleString() +
-                                                ' m²'}
+                                            {item.total_surface_terrain.toLocaleString(
+                                                'fr-FR'
+                                            ) + ' m²'}
                                         </TableCell>
                                     </TableRow>
                                 ))

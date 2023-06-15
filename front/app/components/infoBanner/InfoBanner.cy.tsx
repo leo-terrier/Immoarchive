@@ -40,7 +40,12 @@ describe('<InfoBanner/>', () => {
         cy.wait(4000)
         cy.get('[data-cy=centerLocationName')
             .invoke('text')
-            .should('match', /^[A-Za-zÀ-ú -]+\d{5}$|^\d{5}[A-Za-zÀ-ú -]+$/) //Postal code sometime in first index, sometimes in second index
+            .then((text) => {
+                const decodedValue = decodeURIComponent(text)
+                // look for zipcode and town name
+                const pattern = /^[A-Za-zÀ-ú -]+\d{5}$|^\d{5}[A-Za-zÀ-ú -]+$/
+                expect(pattern.test(decodedValue)).to.be.true
+            })
     })
     it(`Displays 'too many results' when length = 1500 (graph limit)`, () => {
         cy.mount(

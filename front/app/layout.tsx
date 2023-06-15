@@ -2,10 +2,13 @@ import './globals.css'
 import { Metadata } from 'next'
 import { AppContextProvider } from '@/app/context/Context'
 
+const title = 'ImmoArchive'
+const description = `Outil d'analyse des ventes immobilières passées.`
+
 export const metadata: Metadata = {
-    title: 'ImmoArchive',
-    description: `L'historique des transactions immobilières`,
-    applicationName: 'ImmoArchive',
+    title,
+    description,
+    applicationName: title,
     keywords: [
         'etalab',
         'data',
@@ -23,6 +26,21 @@ export const metadata: Metadata = {
         icon: '/icon.png',
         shortcut: '/icon.png',
         apple: '/icon.png'
+    },
+    openGraph: {
+        title,
+        description,
+        url: 'immoarchive.netlify.app',
+        siteName: title,
+        images: [
+            {
+                url: 'immoarchive.netlify.app/og-img.png',
+                width: 440,
+                height: 480
+            }
+        ],
+        locale: 'fr-FR',
+        type: 'website'
     }
 }
 

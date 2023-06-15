@@ -8,13 +8,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getDeals = void 0;
 const bigquery_1 = require("@google-cloud/bigquery");
-const fs_1 = __importDefault(require("fs"));
 const database_1 = require("./database");
 const utils_1 = require("./utils");
 const graphFunctions_1 = require("./graphFunctions");
@@ -84,8 +80,6 @@ function getDeals(req, res) {
                 1048000;
             // eslint-disable-next-line no-console
             console.table({ queryParams });
-            // eslint-disable-next-line no-console
-            console.table({ length, MB: mb.toFixed(0) });
             // // If graph limit passed, fetch 4 dispersed Ids for clusters, else fetch all transaction info from IDs retreived
             const idsToFetch = (isOverGraphLimit
                 ? (0, utils_1.filterFourDispersedRows)(rows)
@@ -114,16 +108,14 @@ function getDeals(req, res) {
                     }
                 }
             }
-            if (mb > 53) {
-                fs_1.default.appendFile('./bigQueryLogManyBytes.txt', `\n${mb.toFixed(0)} MB request at ${req.url}`, (err) => {
-                    if (err) {
-                        // eslint-disable-next-line no-console
-                        return console.log(err);
-                    }
-                    // eslint-disable-next-line no-console
-                    console.log('Big query was saved!');
+            if (mb > 60)
+                // eslint-disable-next-line no-console
+                console.table({
+                    msg: 'Alert: MB Exceeded',
+                    MB: mb.toFixed(0),
+                    queryParams,
+                    length
                 });
-            }
             return res.json({
                 length,
                 isClustered,

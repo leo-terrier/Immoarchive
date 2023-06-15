@@ -1,5 +1,6 @@
 /// <reference types="cypress" />
 import { mount } from 'cypress/react18'
+import { getRandItem } from '../../utils/utilityFunctions'
 
 declare global {
     namespace Cypress {
@@ -13,12 +14,13 @@ declare global {
 }
 
 Cypress.Commands.add('checkUiElements', () => {
-    //marker
-    cy.get(
+    const markerSelector =
         '[data-cy="mapCard"] div[role="button"][style*="width: 14px; height: 14px"]'
-    )
-        .eq(1)
-        .click('center', { force: true })
+    cy.get(markerSelector).then((list) => {
+        cy.get(markerSelector)
+            .eq(getRandItem(list.length))
+            .click('center', { force: true })
+    })
     cy.get('[data-cy=mapTooltip]')
 
     cy.contains('Répartition du prix au mètre carré')

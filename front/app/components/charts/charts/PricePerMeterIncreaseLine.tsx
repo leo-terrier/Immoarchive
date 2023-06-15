@@ -35,7 +35,7 @@ export const PricePerMeterIncreaseLine = () => {
                 <XAxis dataKey='name' />
                 <YAxis
                     type='number'
-                    tickFormatter={(value) => value.toLocaleString()}
+                    tickFormatter={(value) => value.toLocaleString('fr-FR')}
                     domain={[
                         (dataMin: number) =>
                             Math.floor(Math.abs(dataMin - 1000) / 1000) * 1000,

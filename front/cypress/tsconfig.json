@@ -5,7 +5,8 @@
         "types": ["cypress", "node", "./support"],
         "jsx": "react",
         "resolveJsonModule": true,
-        "esModuleInterop": true
+        "esModuleInterop": true,
+        "moduleResolution": "node"
     },
     "include": ["**/*.ts", "support/commands.ts"]
 }

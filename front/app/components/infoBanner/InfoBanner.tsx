@@ -21,7 +21,11 @@ export const InfoBanner = () => {
         lat: string | number,
         lng: string | number
     ) => {
-        const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&result_type=locality|postal_code&key=${process.env.NEXT_PUBLIC_API_GMAP}
+        const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&result_type=locality|postal_code&key=${
+            process.env.NODE_ENV === 'development'
+                ? process.env.NEXT_PUBLIC_GMAP_DEV
+                : process.env.NEXT_PUBLIC_GMAP
+        }
     `
         const {
             data: { results }
@@ -66,26 +70,28 @@ export const InfoBanner = () => {
                 <LinearProgress color='inherit' sx={{ width: '30%' }} />
             ) : (
                 <>
-                    <Box
-                        display='flex'
-                        alignItems='center'
-                        justifyContent='center'
-                        gap={1}
-                    >
-                        <FmdGoodIcon />
-                        <Typography
-                            data-cy='centerLocationName'
-                            sx={{
-                                typography: {
-                                    xs: 'mapLgTypo2',
-                                    sm: 'mapLgTypo1',
-                                    whiteSpace: 'nowrap'
-                                }
-                            }}
+                    {text.length > 0 && (
+                        <Box
+                            display='flex'
+                            alignItems='center'
+                            justifyContent='center'
+                            gap={1}
                         >
-                            {text}
-                        </Typography>
-                    </Box>
+                            <FmdGoodIcon />
+                            <Typography
+                                data-cy='centerLocationName'
+                                sx={{
+                                    typography: {
+                                        xs: 'mapLgTypo2',
+                                        sm: 'mapLgTypo1',
+                                        whiteSpace: 'nowrap'
+                                    }
+                                }}
+                            >
+                                {text}
+                            </Typography>
+                        </Box>
+                    )}
 
                     {breakpointsSmall && (
                         <Typography

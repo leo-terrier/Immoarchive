@@ -23,7 +23,7 @@ const CustomScatterTooltip = (props: any) => {
                         color: (theme) => theme.palette.primary.main
                     }}
                 >
-                    Prix : {deal.valeur_fonciere.toLocaleString() + ' €'}
+                    Prix : {deal.valeur_fonciere.toLocaleString('fr-FR') + ' €'}
                 </ListItem>
                 <ListItem
                     sx={{
@@ -32,7 +32,8 @@ const CustomScatterTooltip = (props: any) => {
                     }}
                 >
                     Surface :{' '}
-                    {deal.total_surface_reelle_bati.toLocaleString() + ' m²'}
+                    {deal.total_surface_reelle_bati.toLocaleString('fr-FR') +
+                        ' m²'}
                 </ListItem>
 
                 <ListItem sx={{ p: 0 }}>
@@ -41,7 +42,8 @@ const CustomScatterTooltip = (props: any) => {
                         sx={{ width: '100%', textAlign: 'center' }}
                     >
                         &#8594;{' '}
-                        {deal.prix_metre_carre.toLocaleString() + ' € / m²'}
+                        {deal.prix_metre_carre.toLocaleString('fr-FR') +
+                            ' € / m²'}
                     </Typography>
                 </ListItem>
                 <ListItem

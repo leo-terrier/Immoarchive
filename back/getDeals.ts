@@ -1,5 +1,4 @@
 import { BigQuery } from '@google-cloud/bigquery'
-import fs from 'fs'
 import { Request, Response } from 'express'
 import { queryDataBase } from './database'
 import {
@@ -103,8 +102,6 @@ export async function getDeals(req: Request, res: Response) {
             1048000
         // eslint-disable-next-line no-console
         console.table({ queryParams })
-        // eslint-disable-next-line no-console
-        console.table({ length, MB: mb.toFixed(0) })
 
         // // If graph limit passed, fetch 4 dispersed Ids for clusters, else fetch all transaction info from IDs retreived
 
@@ -144,20 +141,14 @@ export async function getDeals(req: Request, res: Response) {
                 }
             }
         }
-        if (mb > 53) {
-            fs.appendFile(
-                './bigQueryLogManyBytes.txt',
-                `\n${mb.toFixed(0)} MB request at ${req.url}`,
-                (err) => {
-                    if (err) {
-                        // eslint-disable-next-line no-console
-                        return console.log(err)
-                    }
-                    // eslint-disable-next-line no-console
-                    console.log('Big query was saved!')
-                }
-            )
-        }
+        if (mb > 60)
+            // eslint-disable-next-line no-console
+            console.table({
+                msg: 'Alert: MB Exceeded',
+                MB: mb.toFixed(0),
+                queryParams,
+                length
+            })
 
         return res.json({
             length,

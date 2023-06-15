@@ -141,7 +141,7 @@ export function PlaceholderChart() {
                     name='Prix'
                     tickFormatter={(value) => {
                         if (!breakpointsSmall && value === 0) return ''
-                        else return value.toLocaleString() + unit
+                        else return value.toLocaleString('fr-FR') + unit
                     }}
                 />
                 <YAxis
@@ -151,7 +151,7 @@ export function PlaceholderChart() {
                     mirror={!breakpointsSmall}
                     tickFormatter={(value) => {
                         if (!breakpointsSmall && value === 0) return ''
-                        else return value.toLocaleString() + unit
+                        else return value.toLocaleString('fr-FR') + unit
                     }}
                 />
                 <Scatter

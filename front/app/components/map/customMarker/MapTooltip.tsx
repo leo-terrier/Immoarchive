@@ -115,7 +115,7 @@ export const MapTooltip = () => {
                                 color: (theme) => theme.palette.secondary.main
                             }}
                         >
-                            {deal?.valeur_fonciere.toLocaleString()} €
+                            {deal?.valeur_fonciere.toLocaleString('fr-FR')} €
                         </Typography>
                         <Typography
                             variant='tooltipTypo'
@@ -149,7 +149,9 @@ export const MapTooltip = () => {
                     <Typography variant='tooltipTypo'>
                         Surface :{' '}
                         <Lighter>
-                            {deal?.total_surface_reelle_bati.toLocaleString()}{' '}
+                            {deal?.total_surface_reelle_bati.toLocaleString(
+                                'fr-FR'
+                            )}{' '}
                             m²
                         </Lighter>
                     </Typography>
@@ -162,7 +164,7 @@ export const MapTooltip = () => {
                     <Typography variant='tooltipTypo'>
                         Prix / m² :{' '}
                         <Lighter>
-                            {deal?.prix_metre_carre.toLocaleString()} €
+                            {deal?.prix_metre_carre.toLocaleString('fr-FR')} €
                         </Lighter>
                     </Typography>
                 </Grid>
@@ -174,7 +176,9 @@ export const MapTooltip = () => {
                     <Typography variant='tooltipTypo'>
                         Pièces :{' '}
                         <Lighter>
-                            {deal?.total_nombre_pieces_principales.toLocaleString()}
+                            {deal?.total_nombre_pieces_principales.toLocaleString(
+                                'fr-FR'
+                            )}
                         </Lighter>
                     </Typography>
                 </Grid>
@@ -186,7 +190,10 @@ export const MapTooltip = () => {
                     <Typography variant='tooltipTypo'>
                         Terrain :{' '}
                         <Lighter>
-                            {deal?.total_surface_terrain.toLocaleString()} m²
+                            {deal?.total_surface_terrain.toLocaleString(
+                                'fr-FR'
+                            )}{' '}
+                            m²
                         </Lighter>
                     </Typography>
                 </Grid>

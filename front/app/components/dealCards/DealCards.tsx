@@ -103,7 +103,9 @@ export const DealCards = () => {
                                                 justifySelf: 'start'
                                             }}
                                         >
-                                            {deal?.valeur_fonciere.toLocaleString()}{' '}
+                                            {deal?.valeur_fonciere.toLocaleString(
+                                                'fr-FR'
+                                            )}{' '}
                                             €
                                         </Typography>
                                     </Grid>
@@ -131,7 +133,9 @@ export const DealCards = () => {
                                         <Typography variant='tooltipTypo'>
                                             Surface :{' '}
                                             <Lighter>
-                                                {deal?.total_surface_reelle_bati.toLocaleString()}{' '}
+                                                {deal?.total_surface_reelle_bati.toLocaleString(
+                                                    'fr-FR'
+                                                )}{' '}
                                                 m²
                                             </Lighter>
                                         </Typography>
@@ -140,7 +144,9 @@ export const DealCards = () => {
                                         <Typography variant='tooltipTypo'>
                                             Prix / m² :{' '}
                                             <Lighter>
-                                                {deal?.prix_metre_carre.toLocaleString()}{' '}
+                                                {deal?.prix_metre_carre.toLocaleString(
+                                                    'fr-FR'
+                                                )}{' '}
                                                 €
                                             </Lighter>
                                         </Typography>
@@ -149,7 +155,9 @@ export const DealCards = () => {
                                         <Typography variant='tooltipTypo'>
                                             Pièces :{' '}
                                             <Lighter>
-                                                {deal?.total_nombre_pieces_principales.toLocaleString()}
+                                                {deal?.total_nombre_pieces_principales.toLocaleString(
+                                                    'fr-FR'
+                                                )}
                                             </Lighter>
                                         </Typography>
                                     </Grid>
@@ -157,7 +165,9 @@ export const DealCards = () => {
                                         <Typography variant='tooltipTypo'>
                                             Terrain :{' '}
                                             <Lighter>
-                                                {deal?.total_surface_terrain.toLocaleString()}{' '}
+                                                {deal?.total_surface_terrain.toLocaleString(
+                                                    'fr-FR'
+                                                )}{' '}
                                                 m²
                                             </Lighter>
                                         </Typography>

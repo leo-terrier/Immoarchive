@@ -1,6 +1,4 @@
-import express, { Response } from 'express'
-import functions from '@google-cloud/functions-framework'
-
+import express from 'express'
 import dotenv from 'dotenv'
 import cors from 'cors'
 import { getDeals } from './getDeals'
@@ -10,13 +8,17 @@ export const app = express()
 
 dotenv.config()
 
-app.use(cors())
+app.use(
+    process.env.NODE_ENV === 'production'
+        ? cors({ origin: 'https://immoarchive.netlify.app' })
+        : cors()
+)
 
 const port = process.env.PORT
 
 app.get('/deals', validators, checkValidators, getDeals)
 
-if (process.env.CLOUD_FUNCTION === 'false') {
+if (!process.env.CLOUD_FUNCTION) {
     app.listen(port, () => {
         // eslint-disable-next-line no-console
         console.log(

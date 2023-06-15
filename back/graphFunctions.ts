@@ -35,12 +35,12 @@ const histoData = ({ deals, prop, range }: GenerateHistoType) => {
     let barValue = step
     for (let i = 0; i < 10; i++) {
         const bar: Bar = {
-            name: barValue.toLocaleString(),
+            name: barValue.toLocaleString('fr-FR'),
             value: barValue,
             count: 0,
             tooltipProps: {
                 tooltipItems: [],
-                label: barValue.toString()
+                label: ''
             }
         }
         if (isRoomsHisto) {
@@ -51,13 +51,13 @@ const histoData = ({ deals, prop, range }: GenerateHistoType) => {
             barValue += step
         } else {
             if (i !== 0 && i !== 9) {
-                bar.tooltipProps.label = `${barValue.toLocaleString()} - ${(
-                    barValue + step
-                ).toLocaleString()}`
+                bar.tooltipProps.label = `${barValue.toLocaleString(
+                    'fr-FR'
+                )} - ${(barValue + step).toLocaleString('fr-FR')}`
                 barValue += step
             } else {
                 const label =
-                    (i === 0 ? '< ' : '> ') + barValue.toLocaleString()
+                    (i === 0 ? '< ' : '> ') + barValue.toLocaleString('fr-FR')
                 bar.name = label
                 bar.tooltipProps.label = label
             }
@@ -87,7 +87,7 @@ const histoData = ({ deals, prop, range }: GenerateHistoType) => {
             tooltipItems: [
                 {
                     name: 'Nombre de transactions',
-                    value: res.count.toLocaleString()
+                    value: res.count.toLocaleString('fr-FR')
                 },
                 {
                     name: 'Pourcentage',
@@ -183,12 +183,14 @@ const generatePricePerMeterIncreaseLine = (deals: StatsDealType[]) => {
             tooltipItems: [
                 {
                     name: 'Prix / m²',
-                    value: Math.floor(year.sum / year.count).toLocaleString(),
+                    value: Math.floor(year.sum / year.count).toLocaleString(
+                        'fr-FR'
+                    ),
                     unit: ' €'
                 },
                 {
                     name: 'Nombre de transactions',
-                    value: year.count.toLocaleString(),
+                    value: year.count.toLocaleString('fr-FR'),
                     color: '#f50057'
                 }
             ],

@@ -56,7 +56,10 @@ const CustomLegend = ({
                 }}
             >
                 <span style={{ whiteSpace: 'nowrap' }}>Prix moyen / m²</span>
-                <span> ({averagePricePerMeter?.toLocaleString() + ' €'})</span>
+                <span>
+                    {' '}
+                    ({averagePricePerMeter?.toLocaleString('fr-FR') + ' €'})
+                </span>
             </Typography>
         </Box>
     </Box>
@@ -86,7 +89,7 @@ export const PriceSurfaceScatter = () => {
                     name='Prix'
                     tickFormatter={(value) => {
                         if (!breakpointsSmall && value === 0) return ''
-                        else return value.toLocaleString() + ' €'
+                        else return value.toLocaleString('fr-FR') + ' €'
                     }}
                 />
                 <YAxis
@@ -105,7 +108,7 @@ export const PriceSurfaceScatter = () => {
                     mirror={!breakpointsSmall}
                     tickFormatter={(value) => {
                         if (!breakpointsSmall && value === 0) return ''
-                        else return value.toLocaleString() + ' m²'
+                        else return value.toLocaleString('fr-FR') + ' m²'
                     }}
                     width={80}
                 />

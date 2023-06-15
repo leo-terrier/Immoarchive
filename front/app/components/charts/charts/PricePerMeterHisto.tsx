@@ -35,14 +35,14 @@ export function PricePerMeterHisto() {
                     dataKey='name'
                     tickFormatter={(value) => {
                         if (!breakpointsSmall && value === 0) return ''
-                        else return value.toLocaleString() + unit
+                        else return value.toLocaleString('fr-FR') + unit
                     }}
                 />
                 <YAxis
                     mirror={!breakpointsSmall}
                     tickFormatter={(value) => {
                         if (!breakpointsSmall && value === 0) return ''
-                        else return value.toLocaleString()
+                        else return value.toLocaleString('fr-FR')
                     }}
                     allowDecimals={false}
                 />

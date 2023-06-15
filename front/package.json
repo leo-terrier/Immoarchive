@@ -7,8 +7,7 @@
         "build": "next build",
         "start": "next start",
         "lint": "next lint",
-        "format": "npx prettier --write",
-        "testDev": "start-server-and-test dev http://localhost:3000 cyo"
+        "format": "npx prettier --write"
     },
     "dependencies": {
         "@emotion/react": "^11.11.0",

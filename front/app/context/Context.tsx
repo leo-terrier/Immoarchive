@@ -75,7 +75,6 @@ export const AppContextProvider = ({
         },
         zoom: urlQueryParams.zoom ? parseInt(urlQueryParams.zoom, 10) : 18
     })
-
     const [queryParams, setQueryParams] = useState<QueryParamsType>({
         maxNbOfRooms: urlQueryParams.maxNbOfRooms || '',
         maxPrice: urlQueryParams.maxPrice || '',
@@ -115,7 +114,9 @@ export const AppContextProvider = ({
 
     const { isLoaded } = useJsApiLoader({
         id: 'google-map-script',
-        googleMapsApiKey: process.env.NEXT_PUBLIC_API_GMAP as string,
+        googleMapsApiKey: (process.env.NODE_ENV === 'development'
+            ? process.env.NEXT_PUBLIC_GMAP_DEV
+            : process.env.NEXT_PUBLIC_GMAP) as string,
         libraries: googleLibraries,
         mapIds: ['eb42d3e82f21e8de']
     })
@@ -186,11 +187,17 @@ export const AppContextProvider = ({
             if (queryParams.latn) {
                 setIsLoading(true)
                 const url =
-                    `${process.env.NEXT_PUBLIC_API}/deals` +
+                    `${
+                        process.env.NODE_ENV === 'development'
+                            ? process.env.NEXT_PUBLIC_API_DEV
+                            : process.env.NEXT_PUBLIC_API
+                    }/deals` +
                     '?' +
                     buildQueryString(queryParams)
-                // eslint-disable-next-line no-console
-                console.table(queryParams)
+                if (process.env.NODE_ENV === 'development') {
+                    // eslint-disable-next-line no-console
+                    console.table(queryParams)
+                }
                 try {
                     const res = await axios.get(url, {
                         cancelToken: source.token
