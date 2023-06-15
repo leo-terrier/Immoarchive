@@ -21,7 +21,7 @@ export const InfoBanner = () => {
         lat: string | number,
         lng: string | number
     ) => {
-        const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&result_type=locality|postal_code&key=${process.env.NEXT_PUBLIC_GMAP}
+        const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&result_type=locality|postal_code&key=${process.env.NEXT_PUBLIC_GEOCODING}
     `
         const {
             data: { results }
