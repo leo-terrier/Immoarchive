@@ -77,7 +77,7 @@ export const CurrentFilterBanner = () => {
                 >
                     <CircleIcon
                         fontSize='inherit'
-                        sx={{ marginBottom: '3.5%' }}
+                        sx={{ marginBottom: '5px' }}
                     />
                     {filterLabels[key]}
                     {key.includes('Year')
