@@ -16,7 +16,7 @@ Réutilisation de la base de données "DVF" rendant accessibles les valeurs fonc
 
 ### Formatage des données
 
-Le fichier de valeurs foncières ([notice descriptive](./notice-descriptive-du-fichier-dvf-20210809.pdf)) se présente comme un registre de tous les biens immobiliers ayant été cédés de 2018 à 2021, ainsi qu'une partie de 2017 et 2022. Le fichier ne comporte pas les cessions ayant eu lieu en Haut-Rhin, Bas-Rhin, Moselle et à Mayotte.
+Le fichier de valeurs foncières ([notice descriptive](./notice-descriptive-du-fichier-dvf-20210809.pdf)) se présente comme un registre de tous les bien immobiliers ayant été cédés de 2018 à 2021, ainsi qu'une partie de 2017 et 2022. Le fichier ne comporte pas les cessions ayant eu lieu en Haut-Rhin, Bas-Rhin, Moselle et à Mayotte.
 
 Le formatage des données a consisté :
 
@@ -29,7 +29,7 @@ Le formatage des données a consisté :
 
 Les requêtes des transactions immobilières se font toujours via les coordonnées géographiques correspondant aux bordures de la carte. D'autres filtres peuvent être ajoutés.
 
-<div display="flex" justify-content="center" margin="20px"><p width="60%"><img src="./screenshots/map.png"  max-width="100%" height="auto"></p></div>
+<p align="center"><img src="./screenshots/map.png"  width="auto" height="300" ></p>
 
 Les ID des transactions correspondant aux requêtes sont d'abord obtenues via BigQuery, où la base de données comporte un cluster par coordonnées géographiques. BigQuery permet de maintenir une bonne performance malgré des requêtes intensives. Toutefois, seules les IDs sont récupérées à ce stade, afin de se maintenir dans le free tiers en ne requêtant qu'une seule colonne.
 
@@ -45,10 +45,7 @@ Une cloud function reçoit les requêtes du frontend, requête BigQuery, requêt
 
 Elle est le point d'entrée de l'application. Les utilisateurs peuvent scroller la carte ou utiliser la barre de recherche pour rechercher des biens qui ont été vendus.
 
-<div style="display:flex; justify-content:center ; align-items:center ; margin:20px; gap:20px">
-<div style="width:20%"><img src="./screenshots/map-mobile.png"  max-width="100%" height="auto"></div>
-<div style="width:70%"><img src="./screenshots/map2.png"  max-width="100%" height="auto"></div>
-</div>
+<p align="center"><img src="./screenshots/map-mobile.png"  width="200" height="auto"><img src="./screenshots/map2.png"  width="400" height="auto"></p>
 
 Pour des raisons de performance du frontend et de limitation des requêtes trop intensives :
 
@@ -66,10 +63,7 @@ La carte permet de filtrer par :
 -   surface du terrain (ou jardin)
 -   année de la transaction
 
-<div style="display:flex; justify-content:center ; align-items:center ; margin:20px; gap:20px">
-<div style="width:20%"><img src="./screenshots/filter-mobile.png"  max-width="100%" height="auto"></div>
-<div style="width:70%"><img src="./screenshots/filter.png"  max-width="100%" height="auto"></div>
-</div>
+<p align="center"><img src="./screenshots/filter-mobile.png"  width="200" height="auto"><img src="./screenshots/filter.png"  width="400" height="auto"></p>
 
 A chaque requête, les filtres appliqués sont affichés à l'utilisateur.
 
@@ -79,15 +73,15 @@ A chaque requête, les filtres appliqués ainsi que les coordonnées des bordure
 
 Six graphiques permettent d'analyser les résultats à chaque requête, avec une limitation de 1500 transactions, au-delà duquel l'utilisateur doit zoomer ou filtrer davantage pour visualiser les graphiques.
 
-<div style="display:flex; justify-content:center ; margin:20px"><p style="width:70%"><img src="./screenshots/histo.png"  max-width="100%" height="auto"></p></div>
+<p align="center"><img src="./screenshots/histo.png"  width="auto" height="300" ></p>
 
 Quatre histogrammes (prix au mètre carré, valeur foncière, surface, nombre de pièces) permettent d'apprécier la typologie des transactions.
 
-<div style="display:flex; justify-content:center ; margin:20px"><p style="width:70%"><img src="./screenshots/scatter.png"  max-width="100%" height="auto"></p></div>
+<p align="center"><img src="./screenshots/scatter.png"  width="auto" height="300" ></p>
 
 Un diagramme de dispersion ("scatter chart") permet d'analyser les prix par rapport aux surfaces et d'identifier les transactions en les pointant sur la carte.
 
-<div style="display:flex; justify-content:center ; margin:20px"><p style="width:70%"><img src="./screenshots/line.png"  max-width="100%" height="auto"></p></div>
+<p align="center"><img src="./screenshots/line.png"  width="auto" height="300" ></p>
 
 Une courbe représente l'évolution du prix moyen au mètre carré sur six années.
 
@@ -95,7 +89,7 @@ Une courbe représente l'évolution du prix moyen au mètre carré sur six anné
 
 Un tableau affiche toutes les transactions de la carte et permet de trier les transactions selon les mêmes critères que ceux disponibles pour le filtre.
 
-<div style="display:flex; justify-content:center ; margin:20px"><p style="width:70%"><img src="./screenshots/table.png"  max-width="100%" height="auto"></p></div>
+<p align="center"><img src="./screenshots/table.png"  width="auto" height="300" ></p>
 
 Cliquer sur une ligne permet de pointer vers la transaction sur la carte.
 
