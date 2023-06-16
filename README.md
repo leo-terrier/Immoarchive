@@ -16,7 +16,7 @@ Réutilisation de la base de données "DVF" rendant accessibles les valeurs fonc
 
 ### Formatage des données
 
-Le fichier de valeurs foncières ([notice descriptive](./notice-descriptive-du-fichier-dvf-20210809.pdf)) se présente comme un registre de tous les bien immobiliers ayant été cédés de 2018 à 2021, ainsi qu'une partie de 2017 et 2022. Le fichier ne comporte pas les cessions ayant eu lieu en Haut-Rhin, Bas-Rhin, Moselle et à Mayotte.
+Le fichier de valeurs foncières ([notice descriptive](./notice-descriptive-du-fichier-dvf-20210809.pdf)) se présente comme un registre de tous les biens immobiliers ayant été cédés de 2018 à 2021, ainsi qu'une partie de 2017 et 2022. Le fichier ne comporte pas les cessions ayant eu lieu en Haut-Rhin, Bas-Rhin, Moselle et à Mayotte.
 
 Le formatage des données a consisté :
 
@@ -29,7 +29,7 @@ Le formatage des données a consisté :
 
 Les requêtes des transactions immobilières se font toujours via les coordonnées géographiques correspondant aux bordures de la carte. D'autres filtres peuvent être ajoutés.
 
-<img src="./screenshots/map.png"  width="auto" height="300px" style='margin: 20px auto; display:block'>
+<p align="center" margin="20px" height="100px"><img src="./screenshots/map.png" width="auto" height="100%" ></p>
 
 Les ID des transactions correspondant aux requêtes sont d'abord obtenues via BigQuery, où la base de données comporte un cluster par coordonnées géographiques. BigQuery permet de maintenir une bonne performance malgré des requêtes intensives. Toutefois, seules les IDs sont récupérées à ce stade, afin de se maintenir dans le free tiers en ne requêtant qu'une seule colonne.
 
@@ -37,7 +37,7 @@ Le reste des informations relatives aux transactions (prix, surface, etc...) est
 
 ### Requête de l'API
 
-Une cloud function reçoit les requêtes du frontend, requête BigQuery, requête le server MySql, formatte et retourne les données pour leur utilisation sur le frontend
+Une cloud function reçoit les requêtes du frontend, requête BigQuery, requête le server MySql, formate et retourne les données pour leur utilisation sur le frontend
 
 ## Implémentation frontend
 
@@ -45,9 +45,9 @@ Une cloud function reçoit les requêtes du frontend, requête BigQuery, requêt
 
 Elle est le point d'entrée de l'application. Les utilisateurs peuvent scroller la carte ou utiliser la barre de recherche pour rechercher des biens qui ont été vendus.
 
-<div style="display:flex; gap:20px; justify-content:center; height:300px;align-items:center; margin:20px 0">
-<img src="./screenshots/map-mobile.png"  width="auto" max-height="100%">
-<img src="./screenshots/map2.png"  width="auto" height="200px">
+<div style="display:flex; gap:20px; justify-content:center; height:300px ;align-items:center; margin:20px 0; width:100%">
+<img src="./screenshots/map-mobile.png"  width="auto" height="80%">
+<img src="./screenshots/map2.png"  width="auto" height="100%">
 </div>
 
 Pour des raisons de performance du frontend et de limitation des requêtes trop intensives :
