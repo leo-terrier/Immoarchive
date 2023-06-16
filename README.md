@@ -29,7 +29,7 @@ Le formatage des données a consisté :
 
 Les requêtes des transactions immobilières se font toujours via les coordonnées géographiques correspondant aux bordures de la carte. D'autres filtres peuvent être ajoutés.
 
-<p align="center" margin="20px" height="100px"><img src="./screenshots/map.png" width="auto" max-height="100%" ></p>
+<div style="display:flex; justify-content:center ; margin:20px"><p style="width:60%"><img src="./screenshots/map.png"  max-width="100%" height="auto"></p></div>
 
 Les ID des transactions correspondant aux requêtes sont d'abord obtenues via BigQuery, où la base de données comporte un cluster par coordonnées géographiques. BigQuery permet de maintenir une bonne performance malgré des requêtes intensives. Toutefois, seules les IDs sont récupérées à ce stade, afin de se maintenir dans le free tiers en ne requêtant qu'une seule colonne.
 
@@ -45,9 +45,9 @@ Une cloud function reçoit les requêtes du frontend, requête BigQuery, requêt
 
 Elle est le point d'entrée de l'application. Les utilisateurs peuvent scroller la carte ou utiliser la barre de recherche pour rechercher des biens qui ont été vendus.
 
-<div style="display:flex; gap:20px; justify-content:center; height:300px ;align-items:center; margin:20px 0; width:100%">
-<img src="./screenshots/map-mobile.png"  >
-<img src="./screenshots/map2.png">
+<div style="display:flex; justify-content:center ; align-items:center ; margin:20px; gap:20px">
+<div style="width:20%"><img src="./screenshots/map-mobile.png"  max-width="100%" height="auto"></div>
+<div style="width:70%"><img src="./screenshots/map2.png"  max-width="100%" height="auto"></div>
 </div>
 
 Pour des raisons de performance du frontend et de limitation des requêtes trop intensives :
@@ -66,10 +66,9 @@ La carte permet de filtrer par :
 -   surface du terrain (ou jardin)
 -   année de la transaction
 
-<div style="display:flex; gap:20px; justify-content:center; height:300px;align-items:center; margin:20px 0">
-<img src="./screenshots/filter-mobile.png"  width="auto" height="300px" >
-
-<img src="./screenshots/filter.png"  width="auto" height="250px" >
+<div style="display:flex; justify-content:center ; align-items:center ; margin:20px; gap:20px">
+<div style="width:20%"><img src="./screenshots/filter-mobile.png"  max-width="100%" height="auto"></div>
+<div style="width:70%"><img src="./screenshots/filter.png"  max-width="100%" height="auto"></div>
 </div>
 
 A chaque requête, les filtres appliqués sont affichés à l'utilisateur.
@@ -80,15 +79,15 @@ A chaque requête, les filtres appliqués ainsi que les coordonnées des bordure
 
 Six graphiques permettent d'analyser les résultats à chaque requête, avec une limitation de 1500 transactions, au-delà duquel l'utilisateur doit zoomer ou filtrer davantage pour visualiser les graphiques.
 
-<img src="./screenshots/histo.png"  width="auto" height="300px" style='margin: 20px auto; display:block'>
+<div style="display:flex; justify-content:center ; margin:20px"><p style="width:70%"><img src="./screenshots/histo.png"  max-width="100%" height="auto"></p></div>
 
 Quatre histogrammes (prix au mètre carré, valeur foncière, surface, nombre de pièces) permettent d'apprécier la typologie des transactions.
 
-<img src="./screenshots/scatter.png"  width="auto" height="300px" style='margin: 20px auto; display:block'>
+<div style="display:flex; justify-content:center ; margin:20px"><p style="width:70%"><img src="./screenshots/scatter.png"  max-width="100%" height="auto"></p></div>
 
 Un diagramme de dispersion ("scatter chart") permet d'analyser les prix par rapport aux surfaces et d'identifier les transactions en les pointant sur la carte.
 
-<img src="./screenshots/line.png"  width="auto" height="300px" style='margin: 20px auto; display:block'>
+<div style="display:flex; justify-content:center ; margin:20px"><p style="width:70%"><img src="./screenshots/line.png"  max-width="100%" height="auto"></p></div>
 
 Une courbe représente l'évolution du prix moyen au mètre carré sur six années.
 
@@ -96,7 +95,7 @@ Une courbe représente l'évolution du prix moyen au mètre carré sur six anné
 
 Un tableau affiche toutes les transactions de la carte et permet de trier les transactions selon les mêmes critères que ceux disponibles pour le filtre.
 
-<img src="./screenshots/table.png"  width="auto" height="300px" style='margin: 20px auto; display:block'>
+<div style="display:flex; justify-content:center ; margin:20px"><p style="width:70%"><img src="./screenshots/table.png"  max-width="100%" height="auto"></p></div>
 
 Cliquer sur une ligne permet de pointer vers la transaction sur la carte.
 
