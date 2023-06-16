@@ -1,0 +1,138 @@
+MYSQL DATABASE CREATION
+
+1/ Get data from https://www.data.gouv.fr/fr/datasets/demandes-de-valeurs-foncieres-geolocalisees/
+
+2/ Load data into a new table "raw" (TEXT format)
+
+3/ Create "formatted" table with following format
+
++---------------------------------+--------------+------+-----+---------+----------------+
+| Field                           | Type         | Null | Key | Default | Extra          |
++---------------------------------+--------------+------+-----+---------+----------------+
+| id                              | int          | NO   | PRI | NULL    | auto_increment |
+| id_mutation                     | varchar(255) | NO   |     | NULL    |                |
+| date_mutation                   | date         | NO   | MUL | NULL    |                |
+| valeur_fonciere                 | int          | NO   | MUL | NULL    |                |
+| prix_metre_carre                | int          | NO   | MUL | NULL    |                |
+| adresse_numero                  | varchar(255) | YES  |     | NULL    |                |
+| adresse_suffixe                 | varchar(255) | YES  |     | NULL    |                |
+| adresse_nom_voie                | varchar(255) | YES  |     | NULL    |                |
+| code_postal                     | varchar(255) | YES  |     | NULL    |                |
+| nom_commune                     | varchar(255) | YES  |     | NULL    |                |
+| code_departement                | varchar(255) | YES  |     | NULL    |                |
+| id_parcelle                     | varchar(255) | YES  |     | NULL    |                |
+| total_nombre_lots               | int          | NO   |     | NULL    |                |
+| code_type_local                 | varchar(255) | NO   |     | NULL    |                |
+| type_local                      | varchar(255) | YES  |     | NULL    |                |
+| total_surface_reelle_bati       | int          | NO   | MUL | NULL    |                |
+| total_nombre_pieces_principales | int          | NO   | MUL | NULL    |                |
+| code_nature_culture             | varchar(255) | YES  |     | NULL    |                |
+| nature_culture                  | varchar(255) | YES  |     | NULL    |                |
+| total_surface_terrain           | int          | NO   | MUL | NULL    |                |
+| latitude                        | decimal(7,5) | YES  | MUL | NULL    |                |
+| longitude                       | decimal(6,5) | YES  | MUL | NULL    |                |
+| total_nombre_locaux             | int          | NO   |     | NULL    |                |
++---------------------------------+--------------+------+-----+---------+----------------+
+
+
+4/ Insert and format data from "raw" to "formatted" as such :
+- Delete all lines which belong to a non-sale-only-transaction
+- Delete all lines which belong to a transaction with either a commercial local or no appartement or house
+- Delete all lines which belong to a transaction with parcels in different locations
+- Create new "price per meter square" column
+- Create new "total amount of locals" column
+- Remove typos
+
+SET SESSION group_concat_max_len = 1000000;
+
+INSERT INTO formatted
+(SELECT id_mutation,
+MAX(STR_TO_DATE(date_mutation, '%Y-%m-%d')) date_mutation,
+(CASE
+  WHEN GROUP_CONCAT(valeur_fonciere) REGEXP '[^0-9,]+' = 1 THEN NULL
+  ELSE CAST(MAX(valeur_fonciere) as INT) END) valeur_fonciere,
+MAX(adresse_numero) adresse_numero,
+MAX(adresse_suffixe) adresse_suffixe,
+MAX(adresse_nom_voie) adresse_nom_voie,
+MAX(code_postal) code_postal,
+MAX(nom_commune) nom_commune,
+MAX(code_departement) code_departement,
+MAX(id_parcelle) id_parcelle,
+(CASE
+  WHEN GROUP_CONCAT(nombre_lots) REGEXP '[^0-9,]+' = 1 THEN NULL
+  ELSE SUM(nombre_lots)
+END) total_nombre_lots,
+(CASE
+  WHEN GROUP_CONCAT(code_type_local) REGEXP '4' THEN 0
+  WHEN GROUP_CONCAT(code_type_local) NOT REGEXP '[12]' THEN 0
+  WHEN GROUP_CONCAT(code_type_local) REGEXP '2' THEN 2
+  ELSE 1
+END) AS code_type_local,
+(CASE WHEN GROUP_CONCAT(type_local) REGEXP 'appartement' THEN 'appartement' ELSE 'maison' END) AS type_local,
+(CASE
+  WHEN GROUP_CONCAT(surface_reelle_bati) REGEXP '[^0-9,]+' = 1 THEN NULL
+  ELSE SUM(surface_reelle_bati)
+END) total_surface_reelle_bati,
+(CASE
+  WHEN GROUP_CONCAT(nombre_pieces_principales) REGEXP '[^0-9,]+' = 1 THEN NULL
+  ELSE SUM(nombre_pieces_principales)
+END) total_nombre_pieces_principales,
+MAX(code_nature_culture) code_nature_culture,
+MAX(nature_culture) nature_culture,
+(CASE
+  WHEN GROUP_CONCAT(surface_terrain) REGEXP '[^0-9,]+'= 1 THEN NULL
+  ELSE SUM(surface_terrain)
+END) total_surface_terrain,
+(CASE
+  WHEN MAX(CASE WHEN latitude REGEXP '[a-zA-Z]+' THEN 1 ELSE 0 END) = 1 THEN NULL
+  ELSE MAX(latitude)
+END) latitude,
+(CASE
+  WHEN MAX(CASE WHEN longitude REGEXP '[a-zA-Z]+' THEN 1 ELSE 0 END) = 1 THEN NULL
+  ELSE MAX(longitude)
+END) longitude,
+SUM(CASE WHEN code_type_local IN ('1', '2') THEN 1 ELSE 0 END) AS total_nombre_locaux
+FROM raw
+GROUP BY id_mutation
+HAVING valeur_fonciere IS NOT NULL AND valeur_fonciere != 0
+AND total_nombre_lots IS NOT NULL AND total_nombre_lots != 0
+AND code_type_local > 0
+AND total_surface_reelle_bati IS NOT NULL AND total_surface_reelle_bati != 0
+AND total_nombre_pieces_principales IS NOT NULL AND total_nombre_pieces_principales != 0
+AND total_surface_terrain IS NOT NULL
+AND latitude IS NOT NULL AND latitude != ''
+AND longitude IS NOT NULL AND longitude != ''
+AND MAX(nature_mutation != 'Vente') = 0
+AND GROUP_CONCAT(DISTINCT REGEXP_SUBSTR(id_parcelle, '[0-9]+[A-Z]{1,2}')) NOT REGEXP(','));
+
+5/  Run some tests to verify that deleted rows are no longer here
+
+6/ Add database to cloud mysql server
+
+BIG QUERY DATABASE CREATION
+
+1/ Export data to csv and change quotes
+
+ mysql -u leoterrier -p --database=dealfinder --host=****  --port=**** --batch -e "select id,
+ date_mutation,
+valeur_fonciere,
+adresse_numero,
+adresse_suffixe,
+adresse_nom_voie,
+code_postal,
+nom_commune,
+total_nombre_lots,
+code_type_local,
+total_surface_reelle_bati,
+total_nombre_pieces_principales,
+total_surface_terrain,
+longitude,
+latitude,
+total_nombre_locaux,
+prix_metre_carre from transac limit 50000"| 's/\t/","/g;s/^/"/;s/\"/'/g;s/$/"/;s/\n//g' > /file.csv
+
+2/ import that data to big query via cloud bucket
+
+3/ Create new geopoints column "lnglat" from longitude latitude column, and then create a clustered table from original table with lnglat and then price as cluster (most efficient)
+
+create table dealfinder-358812.immoarchive.prix cluster by lnglat, valeur_fonciere as select * from dealfinder-358812.immoarchive.transactions;

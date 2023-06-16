@@ -2,17 +2,17 @@
 
 # All
 node_modules
-.env*
+
 
 
 #back
 datacleaning.sql
-*.txt
 # testing
 test.js
 structure.js
 /coverage
 *.sh
+.env
 
 #front
 .env.local
@@ -34,7 +34,6 @@ yarn-debug.log*
 yarn-error.log*
 
 # local env files
-.env*.local
 
 # vercel
 .vercel

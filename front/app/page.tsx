@@ -39,7 +39,7 @@ const Home = () => {
                     lg: '83%',
                     xl: '77%'
                 },
-                pb: 15,
+                pb: 7,
                 pt: {
                     xs: 1,
                     sm: 2

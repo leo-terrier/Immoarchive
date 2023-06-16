@@ -99,7 +99,7 @@ export const DealTable = () => {
     }, [order, orderBy, listedDeals, isClustered, length])
 
     return (
-        <Paper sx={{ backgroundColor: 'white', my: 15 }}>
+        <Paper sx={{ backgroundColor: 'white', my: 12 }}>
             <TableContainer>
                 <Table>
                     <TableHead>
