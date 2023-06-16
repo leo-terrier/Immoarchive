@@ -39,7 +39,7 @@ Le reste des informations relatives aux transactions (prix, surface, etc...) est
 
 Une cloud function reçoit les requêtes du frontend, requête BigQuery, requête le server MySql, formate et retourne les données pour leur utilisation sur le frontend
 
-## Implémentation frontend
+## Implémentation - frontend
 
 ### La carte
 
@@ -104,7 +104,7 @@ La totalité des tests a été effectuée via cypress.
 **Unit testing**: les composants ont été testés sur leur changement d'apparence en cas de variation du nombre de résultats.
 Les formulaires ont été testés de manière approfondie
 
-**E2E**: des requêtes ont été simulées dans des villes aléatoires afin de vérifier que chaque composant affiche les bons éléments (filtres actifs, graphiques, markers, etc...). L'intéraction des composants entre eux a également été testée (ex: pointer une transaction sur la carte depuis le tableau)
+**E2E**: des requêtes ont été simulées dans des villes aléatoires afin de vérifier que chaque composant affiche les bons éléments (graphiques, markers, etc...). L'intéraction des composants entre eux a également été testée (ex: pointer une transaction sur la carte depuis le tableau)
 
 ## Auteur
 
