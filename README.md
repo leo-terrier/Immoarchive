@@ -29,7 +29,7 @@ Le formatage des données a consisté :
 
 Les requêtes des transactions immobilières se font toujours via les coordonnées géographiques correspondant aux bordures de la carte. D'autres filtres peuvent être ajoutés.
 
-<div style="display:flex; justify-content:center ; margin:20px"><p style="width:60%"><img src="./screenshots/map.png"  max-width="100%" height="auto"></p></div>
+<div style="display:flex; justify-content:center ; margin:20px"><p style="width:60%"><img src="./screenshots/map.png"  style="max-width:100% ; height: auto"></p></div>
 
 Les ID des transactions correspondant aux requêtes sont d'abord obtenues via BigQuery, où la base de données comporte un cluster par coordonnées géographiques. BigQuery permet de maintenir une bonne performance malgré des requêtes intensives. Toutefois, seules les IDs sont récupérées à ce stade, afin de se maintenir dans le free tiers en ne requêtant qu'une seule colonne.
 
