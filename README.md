@@ -29,7 +29,7 @@ Le formatage des données a consisté :
 
 Les requêtes des transactions immobilières se font toujours via les coordonnées géographiques correspondant aux bordures de la carte. D'autres filtres peuvent être ajoutés.
 
-<p align="center" margin="20px" height="100px"><img src="./screenshots/map.png" width="auto" height="100%" ></p>
+<p align="center" margin="20px" height="100px"><img src="./screenshots/map.png" width="auto" max-height="100%" ></p>
 
 Les ID des transactions correspondant aux requêtes sont d'abord obtenues via BigQuery, où la base de données comporte un cluster par coordonnées géographiques. BigQuery permet de maintenir une bonne performance malgré des requêtes intensives. Toutefois, seules les IDs sont récupérées à ce stade, afin de se maintenir dans le free tiers en ne requêtant qu'une seule colonne.
 
@@ -46,8 +46,8 @@ Une cloud function reçoit les requêtes du frontend, requête BigQuery, requêt
 Elle est le point d'entrée de l'application. Les utilisateurs peuvent scroller la carte ou utiliser la barre de recherche pour rechercher des biens qui ont été vendus.
 
 <div style="display:flex; gap:20px; justify-content:center; height:300px ;align-items:center; margin:20px 0; width:100%">
-<img src="./screenshots/map-mobile.png"  width="auto" height="80%">
-<img src="./screenshots/map2.png"  width="auto" height="100%">
+<img src="./screenshots/map-mobile.png"  >
+<img src="./screenshots/map2.png">
 </div>
 
 Pour des raisons de performance du frontend et de limitation des requêtes trop intensives :
