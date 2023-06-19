@@ -1,7 +1,7 @@
 import { defineConfig } from 'cypress'
 
 export default defineConfig({
-  projectId: 'm7wuo9',
+    projectId: 'm7wuo9',
     component: {
         devServer: {
             framework: 'next',
@@ -10,6 +10,6 @@ export default defineConfig({
     },
     defaultCommandTimeout: 10000,
     e2e: {
-        baseUrl: 'http://localhost:3000'
+        baseUrl: 'http://localhost:3001'
     }
 })
