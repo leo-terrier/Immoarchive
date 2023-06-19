@@ -16,6 +16,20 @@ jobs:
                   working-directory: back
             - name: Start servers in the background
               run: npm run dev &
+              env:
+                  IS_DEV: true
+                  NEXT_PUBLIC_IS_DEV: true
+                  CYPRESS_RECORD_KEY: ${{secrets.CYPRESS_RECORD_KEY}}
+                  GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+                  DB_HOST: ${{secrets.DB_HOST}}
+                  DB_NAME: ${{secrets.DB_NAME}}
+                  DB_PASSWORD: ${{secrets.DB_PASSWORD}}
+                  DB_PORT: ${{secrets.DB_PORT}}
+                  DB_USER: ${{secrets.DB_USER}}
+                  NEXT_PUBLIC_API_DEV: ${{secrets.NEXT_PUBLIC_API_DEV}}
+                  NEXT_PUBLIC_GEOCODING: ${{secrets.NEXT_PUBLIC_GEOCODING}}
+                  NEXT_PUBLIC_GMAP: ${{secrets.NEXT_PUBLIC_GMAP}}
+                  PORT: ${{secrets.PORT}}
             - name: Unit tests
               uses: cypress-io/github-action@v5
               with:
