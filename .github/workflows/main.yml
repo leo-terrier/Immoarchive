@@ -8,11 +8,13 @@ jobs:
         steps:
             - name: Checkout
               uses: actions/checkout@v3
-            - name: Unit tests
+            - name: E2E tests
               uses: cypress-io/github-action@v5
               with:
                   working-directory: front
-                  component: true
+                  start: npm run dev, cd ../back && node index.js
+                  wait-on: 'http://localhost:3000'
+                  record: true
               env:
                   CYPRESS_RECORD_KEY: ${{secrets.CYPRESS_RECORD_KEY}}
                   GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
@@ -26,12 +28,11 @@ jobs:
                   NEXT_PUBLIC_GEOCODING: ${{secrets.NEXT_PUBLIC_GEOCODING}}
                   NEXT_PUBLIC_GMAP: ${{secrets.NEXT_PUBLIC_GMAP}}
                   PORT: ${{secrets.PORT}}
-            - name: E2E tests
+            - name: Unit tests
               uses: cypress-io/github-action@v5
               with:
                   working-directory: front
-                  install: false
-                  record: true
+                  component: true
               env:
                   CYPRESS_RECORD_KEY: ${{secrets.CYPRESS_RECORD_KEY}}
                   GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
