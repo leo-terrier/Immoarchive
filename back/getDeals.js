@@ -65,7 +65,7 @@ function getDeals(req, res) {
             query += additionalQueryArr.join(' AND ');
         }
         query += ` LIMIT ${graphLimit}`;
-        const bigquery = new bigquery_1.BigQuery();
+        const bigquery = new bigquery_1.BigQuery({});
         const [job, meta] = yield bigquery.createQueryJob({
             query: query,
             params: parametrizedFilters
@@ -129,3 +129,4 @@ function getDeals(req, res) {
     });
 }
 exports.getDeals = getDeals;
+const test = 0;

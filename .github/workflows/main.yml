@@ -29,6 +29,8 @@ jobs:
                   NEXT_PUBLIC_GEOCODING: ${{secrets.NEXT_PUBLIC_GEOCODING}}
                   NEXT_PUBLIC_GMAP: ${{secrets.NEXT_PUBLIC_GMAP}}
                   PORT: ${{secrets.PORT}}
+                  GOOGLE_APPLICATION_CREDENTIALS: ${{secrets.GOOGLE_APPLICATION_CREDENTIALS}}
+
             - name: E2E tests
               uses: cypress-io/github-action@v5
               with:
