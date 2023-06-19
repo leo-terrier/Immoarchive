@@ -8,8 +8,15 @@ jobs:
         steps:
             - name: Checkout
               uses: actions/checkout@v3
-            - name: Unit test (comp)
+            - name: Unit tests
               uses: cypress-io/github-action@v5
               with:
                   working-directory: front
                   component: true
+                  env: IS_DEV=true, NEXT_PUBLIC_IS_DEV=true,  DB_HOST=${{secrets.DB_HOST}}, DB_NAME=${{secrets.DB_NAME}}, DB_PASSWORD=${{secrets.DB_PASSWORD}}, DB_PORT=${{secrets.DB_PORT}}, DB_USER=${{secrets.DB_USER}}, NEXT_PUBLIC_API=${{secrets.NEXT_PUBLIC_API}}, NEXT_PUBLIC_GEOCODING=${{secrets.NEXT_PUBLIC_GEOCODING}}, NEXT_PUBLIC_GMAP=${{secrets.NEXT_PUBLIC_GMAP}}, PORT=${{secrets.PORT}}
+            - name: E2E tests
+              uses: cypress-io/github-action@v5
+              with:
+                  working-directory: front
+                  install: false
+                  env: IS_DEV=true, NEXT_PUBLIC_IS_DEV=true,  DB_HOST=${{secrets.DB_HOST}}, DB_NAME=${{secrets.DB_NAME}}, DB_PASSWORD=${{secrets.DB_PASSWORD}}, DB_PORT=${{secrets.DB_PORT}}, DB_USER=${{secrets.DB_USER}}, NEXT_PUBLIC_API=${{secrets.NEXT_PUBLIC_API}}, NEXT_PUBLIC_GEOCODING=${{secrets.NEXT_PUBLIC_GEOCODING}}, NEXT_PUBLIC_GMAP=${{secrets.NEXT_PUBLIC_GMAP}}, PORT=${{secrets.PORT}}
