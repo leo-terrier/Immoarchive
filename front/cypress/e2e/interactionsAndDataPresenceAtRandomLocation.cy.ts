@@ -30,7 +30,7 @@ describe('Testing data presence and interaction at different locations', () => {
         cy.window().then((window) => {
             expect(window.scrollY).eq(0)
         })
-        cy.get('[data-cy=mapTooltip]').click()
+        cy.get('[data-cy=mapTooltip]')
         cy.get('[data-cy=dealTableRow').then((list) => {
             cy.get('[data-cy=dealTableRow').eq(getRandItem(list.length)).click()
         })

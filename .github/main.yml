@@ -1,0 +1,23 @@
+name: Cypress Tests
+
+on: push
+
+jobs:
+    cypress-run:
+        runs-on: ubuntu-22.04
+        steps:
+            - name: Checkout
+              uses: actions/checkout
+            - name: Unit test (comp)
+              uses: actions/checkout
+                component: true
+            - name: E2E
+              uses: cypress-io/github-action@v5
+              with:
+                  start: npm run dev
+                  wait-on: 'http://localhost:3000'
+                  install: false
+                  env: IS_DEV=true, NEXT_PUBLIC_IS_DEV=true,  DB_HOST=${{secret.DB_HOST}}, DB_NAME=${{secret.DB_NAME}}, DB_PASSWORD=${{secret.DB_PASSWORD}}, DB_PORT=${{secret.DB_PORT}}, DB_USER=${{secret.DB_USER}}, NEXT_PUBLIC_API=${{secret.NEXT_PUBLIC_API}}, NEXT_PUBLIC_GEOCODING=${{secret.NEXT_PUBLIC_GEOCODING}}, NEXT_PUBLIC_GMAP=${{secret.NEXT_PUBLIC_GMAP}}, PORT=${{secret.PORT}}
+
+
+
