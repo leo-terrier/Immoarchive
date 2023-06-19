@@ -8,14 +8,13 @@ jobs:
         steps:
             - name: Checkout
               uses: actions/checkout@v3
-            - name: Install root dependencies
-              uses: bahmutov/npm-install@v1
             - name: Install backend dependencies
               uses: bahmutov/npm-install@v1
               with:
                   working-directory: back
-            - name: Start servers in the background
-              run: npm run dev &
+            - name: Run backend server
+              working-directory: back
+              run: node index.js
               env:
                   IS_DEV: true
                   NEXT_PUBLIC_IS_DEV: true
@@ -30,11 +29,13 @@ jobs:
                   NEXT_PUBLIC_GEOCODING: ${{secrets.NEXT_PUBLIC_GEOCODING}}
                   NEXT_PUBLIC_GMAP: ${{secrets.NEXT_PUBLIC_GMAP}}
                   PORT: ${{secrets.PORT}}
-            - name: Unit tests
-              uses: cypress-io/github-action@v5
+            - name: Install frontend dependencies
+              uses: bahmutov/npm-install@v1
               with:
                   working-directory: front
-                  component: true
+            - name: Run frontend
+              working-directory: front
+              run: node index.js
               env:
                   IS_DEV: true
                   NEXT_PUBLIC_IS_DEV: true
@@ -70,3 +71,10 @@ jobs:
                   NEXT_PUBLIC_GEOCODING: ${{secrets.NEXT_PUBLIC_GEOCODING}}
                   NEXT_PUBLIC_GMAP: ${{secrets.NEXT_PUBLIC_GMAP}}
                   PORT: ${{secrets.PORT}}
+            - name: unit tests
+              uses: cypress-io/github-action@v5
+              with:
+                  install: false
+                  working-directory: front
+                  record: true
+                  component: true
