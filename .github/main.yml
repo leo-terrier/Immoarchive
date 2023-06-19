@@ -7,12 +7,12 @@ jobs:
         runs-on: ubuntu-22.04
         steps:
             - name: Checkout
-              uses: actions/checkout
+              uses: actions/checkout@v3
             - name: Unit test (comp)
-              uses: cypress-io/github-action
+              uses: cypress-io/github-action@v5
                   component: true
             - name: E2E
-              uses: cypress-io/github-action
+              uses: cypress-io/github-action@v5
               with:
                   start: npm run dev
                   wait-on: 'http://localhost:3000'
