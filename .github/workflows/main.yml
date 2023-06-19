@@ -34,7 +34,7 @@ jobs:
               with:
                   working-directory: front
                   start: npm run dev
-                  wait-on: 'http://localhost:3000'
+                  wait-on: 'http://localhost:3001'
                   record: true
               env:
                   IS_DEV: true
