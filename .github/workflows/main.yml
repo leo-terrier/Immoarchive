@@ -14,28 +14,7 @@ jobs:
                   working-directory: back
             - name: Run backend server
               working-directory: back
-              run: node index.js
-              env:
-                  IS_DEV: true
-                  NEXT_PUBLIC_IS_DEV: true
-                  CYPRESS_RECORD_KEY: ${{secrets.CYPRESS_RECORD_KEY}}
-                  GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
-                  DB_HOST: ${{secrets.DB_HOST}}
-                  DB_NAME: ${{secrets.DB_NAME}}
-                  DB_PASSWORD: ${{secrets.DB_PASSWORD}}
-                  DB_PORT: ${{secrets.DB_PORT}}
-                  DB_USER: ${{secrets.DB_USER}}
-                  NEXT_PUBLIC_API_DEV: ${{secrets.NEXT_PUBLIC_API_DEV}}
-                  NEXT_PUBLIC_GEOCODING: ${{secrets.NEXT_PUBLIC_GEOCODING}}
-                  NEXT_PUBLIC_GMAP: ${{secrets.NEXT_PUBLIC_GMAP}}
-                  PORT: ${{secrets.PORT}}
-            - name: Install frontend dependencies
-              uses: bahmutov/npm-install@v1
-              with:
-                  working-directory: front
-            - name: Run frontend
-              working-directory: front
-              run: node index.js
+              run: node index.js &
               env:
                   IS_DEV: true
                   NEXT_PUBLIC_IS_DEV: true
@@ -53,8 +32,8 @@ jobs:
             - name: E2E tests
               uses: cypress-io/github-action@v5
               with:
-                  install: false
                   working-directory: front
+                  start: npm run dev
                   wait-on: 'http://localhost:3000'
                   record: true
               env:
@@ -78,3 +57,17 @@ jobs:
                   working-directory: front
                   record: true
                   component: true
+              env:
+                  IS_DEV: true
+                  NEXT_PUBLIC_IS_DEV: true
+                  CYPRESS_RECORD_KEY: ${{secrets.CYPRESS_RECORD_KEY}}
+                  GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+                  DB_HOST: ${{secrets.DB_HOST}}
+                  DB_NAME: ${{secrets.DB_NAME}}
+                  DB_PASSWORD: ${{secrets.DB_PASSWORD}}
+                  DB_PORT: ${{secrets.DB_PORT}}
+                  DB_USER: ${{secrets.DB_USER}}
+                  NEXT_PUBLIC_API_DEV: ${{secrets.NEXT_PUBLIC_API_DEV}}
+                  NEXT_PUBLIC_GEOCODING: ${{secrets.NEXT_PUBLIC_GEOCODING}}
+                  NEXT_PUBLIC_GMAP: ${{secrets.NEXT_PUBLIC_GMAP}}
+                  PORT: ${{secrets.PORT}}
