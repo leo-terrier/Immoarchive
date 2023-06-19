@@ -162,4 +162,4 @@ export async function getDeals(req: Request, res: Response) {
     }
 }
 
-const test = ''
+const test = null
