@@ -11,8 +11,8 @@ jobs:
             - name: E2E tests
               uses: cypress-io/github-action@v5
               with:
-                  working-directory: front
-                  start: npm run dev, node index.js --prefix back
+                  working-directory: ./front
+                  start: npm run dev, node index.js --prefix ./back
                   wait-on: 'http://localhost:3000'
                   record: true
               env:
