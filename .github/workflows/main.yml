@@ -22,9 +22,10 @@ jobs:
                   working-directory: front
                   component: true
               env:
+                  IS_DEV: true
+                  NEXT_PUBLIC_IS_DEV: true
                   CYPRESS_RECORD_KEY: ${{secrets.CYPRESS_RECORD_KEY}}
                   GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
-                  NEXT_PUBLIC_IS_DEV: ${{secrets.NEXT_PUBLIC_IS_DEV}}
                   DB_HOST: ${{secrets.DB_HOST}}
                   DB_NAME: ${{secrets.DB_NAME}}
                   DB_PASSWORD: ${{secrets.DB_PASSWORD}}
