@@ -61,7 +61,7 @@ export const ClipboardButton = () => {
             {breakpointsSm && (
                 <Typography
                     component={'label'}
-                    htmlFor='clipboard'
+                    htmlFor='clipboardInput'
                     fontSize='45px'
                     fontWeight='bold'
                     whiteSpace={'nowrap'}

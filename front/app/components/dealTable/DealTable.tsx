@@ -26,7 +26,7 @@ export const DealTable = () => {
     const [order, setOrder] = useState<Order>('desc')
     const [orderBy, setOrderBy] =
         useState<keyof ListedDealType>('date_mutation')
-    const [rowsPerPage, setRowsPerPage] = useState(50)
+    const [rowsPerPage, setRowsPerPage] = useState(25)
     const [page, setPage] = useState(0)
 
     const headerColumns: { name: string; field: keyof ListedDealType }[] = [

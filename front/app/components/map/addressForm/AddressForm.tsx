@@ -120,6 +120,7 @@ export const AddressForm = ({
                 aria-label={`Addresse / Point d'intérêt`}
                 InputLabelProps={{
                     shrink: false,
+                    htmlFor: 'addressFormInput',
                     sx: {
                         height: '100%',
                         mt: -1,
