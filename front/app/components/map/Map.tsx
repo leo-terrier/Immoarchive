@@ -56,7 +56,6 @@ const Map: React.FC = () => {
 
     const onLoad = useCallback(function callback(map: google.maps.Map) {
         mapRef.current = map as google.maps.Map
-        handleBoundsChange()
     }, [])
 
     const handleBoundsChange = React.useCallback(() => {
@@ -129,6 +128,7 @@ const Map: React.FC = () => {
                     center={mapParams.center}
                     zoom={mapParams.zoom}
                     onLoad={onLoad}
+                    onTilesLoaded={handleBoundsChange}
                     onZoomChanged={isMobile ? () => {} : handleBoundsChange}
                     onDrag={isMobile ? () => {} : handleBoundsChange}
                     onBoundsChanged={isMobile ? handleBoundsChange : () => {}}

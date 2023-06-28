@@ -7,7 +7,7 @@ const nextConfig = {
     eslint: {
         dirs: ['utils', 'app'] // Only run ESLint on the 'pages' and 'utils' directories during production builds (next build)
     },
-    reactStrictMode: true
+    reactStrictMode: false
 }
 
 module.exports = nextConfig
