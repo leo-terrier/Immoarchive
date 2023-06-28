@@ -71,7 +71,7 @@ A chaque requête, les filtres appliqués ainsi que les coordonnées des bordure
 
 ### Graphiques
 
-Six graphiques permettent d'analyser les résultats à chaque requête, avec une limitation de 1500 transactions, au-delà duquel l'utilisateur doit zoomer ou filtrer davantage pour visualiser les graphiques.
+Six graphiques permettent d'analyser les résultats à chaque requête, avec une limitation de 1500 transactions, au-delà de laquelle l'utilisateur doit zoomer ou filtrer davantage pour visualiser les graphiques.
 
 <p align="center"><img src="./screenshots/histo.png"  width="auto" height="300" ></p>
 

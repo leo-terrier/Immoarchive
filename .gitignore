@@ -19,6 +19,8 @@ structure.js
 
 .next/
 /out/
+front/cypress/screenshots/**/*
+front/cypress/videos/**/*
 
 # other
 /.pnp
