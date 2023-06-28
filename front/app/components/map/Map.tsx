@@ -60,7 +60,7 @@ const Map: React.FC = () => {
     }, [])
 
     const handleBoundsChange = React.useCallback(() => {
-        if (mapRef.current !== null) {
+        if (mapRef.current?.getBounds()) {
             if (timeoutRef.current) {
                 clearTimeout(timeoutRef.current)
             }
