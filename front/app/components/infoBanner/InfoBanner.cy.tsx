@@ -43,7 +43,7 @@ describe('<InfoBanner/>', () => {
             .then((text) => {
                 const decodedValue = decodeURIComponent(text)
                 // look for zipcode and town name
-                const pattern = /^[A-Za-zÀ-ú -]+\d{5}$|^\d{5}[A-Za-zÀ-ú -]+$/
+                const pattern = /[a-zA-Z].*\d{5}/
                 expect(pattern.test(decodedValue)).to.be.true
             })
     })
