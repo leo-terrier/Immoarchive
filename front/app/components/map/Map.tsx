@@ -89,10 +89,6 @@ const Map: React.FC = () => {
 
     const mapOptions: google.maps.MapOptions = {
         disableDefaultUI: true, // Disabled most controls as it was causing chrome to raise accessibility "issues" (missing label for formfield)
-        //mapTypeControl: breakpointsMedium ? true : false,
-        //scaleControl: true,
-        //rotateControl: true,
-        //fullscreenControl: false,
         zoomControl: true,
         streetViewControl: isMobile ? false : true,
         clickableIcons: false,

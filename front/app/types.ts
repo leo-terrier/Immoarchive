@@ -1,4 +1,4 @@
-export type ListedDealType = {
+export type BasicDealInfo = {
     id_mutation: string
     date_mutation: string
     adresse_numero: string
@@ -14,26 +14,11 @@ export type ListedDealType = {
     total_surface_terrain: number
     total_nombre_locaux: number
     prix_metre_carre: number
-    agglomerateIdx: number
-    lnglat: LatLng
 }
 
-export type AgglomeratedDealType = {
-    id_mutation: string
-    date_mutation: string
-    adresse_numero: string
-    adresse_suffixe: string
-    adresse_nom_voie: string
-    code_postal: string
-    nom_commune: string
-    code_type_local: string
-    total_nombre_lots: number
-    valeur_fonciere: number
-    total_surface_reelle_bati: number
-    total_nombre_pieces_principales: number
-    total_surface_terrain: number
-    total_nombre_locaux: number
-    prix_metre_carre: number
+export type ListedDealType = BasicDealInfo & {
+    agglomerateIdx: number
+    lnglat: LatLng
 }
 
 export type LatLng = {
@@ -43,7 +28,7 @@ export type LatLng = {
 
 export type AgglomeratedDealsObjType = {
     lnglat: LatLng
-    deals: AgglomeratedDealType[]
+    deals: BasicDealInfo[]
 }
 
 export type OpenDealsType = AgglomeratedDealsObjType & {

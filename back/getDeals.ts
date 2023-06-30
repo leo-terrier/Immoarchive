@@ -2,14 +2,12 @@ import { BigQuery } from '@google-cloud/bigquery'
 import { Request, Response } from 'express'
 import { queryDataBase } from './database'
 import {
-    StrNumberObjType,
     LatLng,
-    StringObjType,
     OriginalDealType,
     AgglomeratedDealsObjType,
     ListedDealType,
-    BigQueryResultType,
-    GraphDataType
+    GraphDataType,
+    ObjType
 } from './types'
 import {
     formatDealList,
@@ -21,7 +19,7 @@ import {
 import { generateGraphData } from './graphFunctions'
 
 export async function getDeals(req: Request, res: Response) {
-    const queryParams = req.query as StringObjType
+    const queryParams = req.query as ObjType<string>
     const isMobile = req.query.isMobile === 'true' ? true : false
 
     let graphData: GraphDataType = null
@@ -56,7 +54,7 @@ export async function getDeals(req: Request, res: Response) {
     const yDistance =
         parseFloat(queryParams.latn) - parseFloat(queryParams.lats)
 
-    const parametrizedFilters: StrNumberObjType = {
+    const parametrizedFilters: ObjType<string | number> = {
         lats: parseFloat(queryParams.lats) + 0.04 * yDistance,
         latn: parseFloat(queryParams.latn) - 0.07 * yDistance,
         lngw: parseFloat(queryParams.lngw) + 0.04 * xDistance,
@@ -94,7 +92,11 @@ export async function getDeals(req: Request, res: Response) {
 
     if (job) {
         const [rows] = await job.getQueryResults()
-        const length = rows.length
+        const length = (
+            rows as {
+                id: number
+            }[]
+        ).length
         isOverGraphLimit = length === graphLimit
         isClustered = length > mapLimit
         const mb =
@@ -106,9 +108,7 @@ export async function getDeals(req: Request, res: Response) {
         // // If graph limit passed, fetch 4 dispersed Ids for clusters, else fetch all transaction info from IDs retreived
 
         const idsToFetch = (
-            isOverGraphLimit
-                ? filterFourDispersedRows<BigQueryResultType>(rows)
-                : rows
+            isOverGraphLimit ? filterFourDispersedRows(rows) : rows
         )
             .map((e) => e.id)
             .join(', ')
@@ -126,9 +126,9 @@ export async function getDeals(req: Request, res: Response) {
                     clusteredDeals = sqlResult.map(formatForClusteredMarker)
                     graphData = null
                 } else if (isClustered) {
-                    clusteredDeals = filterFourDispersedRows<OriginalDealType>(
-                        sqlResult
-                    ).map(formatForClusteredMarker)
+                    clusteredDeals = filterFourDispersedRows(sqlResult).map(
+                        formatForClusteredMarker
+                    )
                     graphData = generateGraphData(sqlResult, isClustered)
                 } else {
                     const { agglomeratedDealsResult, listedDealsResult } =

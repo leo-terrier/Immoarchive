@@ -49,6 +49,7 @@ type InputProps = {
     name: string
     defaultValue: string
 }
+
 const CustomNumberTextField = (props: InputProps) => {
     const { label, name, defaultValue } = props
 
@@ -110,7 +111,7 @@ const CustomMinMaxFieldBoxes = ({
                 }}
             >
                 {label}
-                {minName.includes('Price') ? (
+                {minName.includes('Price') && (
                     <select
                         onChange={togglePricePerMeter}
                         value={isPricePerMeter ? 'm²' : 'total'}
@@ -118,8 +119,6 @@ const CustomMinMaxFieldBoxes = ({
                         <option value='m²'>/ m²</option>
                         <option value='total'>Total</option>
                     </select>
-                ) : (
-                    ''
                 )}
             </Typography>
             <CustomNumberTextField

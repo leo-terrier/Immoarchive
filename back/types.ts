@@ -1,8 +1,7 @@
-export type StrNumberObjType = { [key: string]: number | string }
-export type StringObjType = { [key: string]: string }
+export type ObjType<T> = { [key: string]: T }
 
 // // Results types
-export type OriginalDealType = {
+export type BasicDealInfo = {
     id_mutation: string
     date_mutation: string
     adresse_numero: string
@@ -18,61 +17,29 @@ export type OriginalDealType = {
     total_surface_terrain: number
     total_nombre_locaux: number
     prix_metre_carre: number
+}
+
+export type OriginalDealType = BasicDealInfo & {
     latitude: number
     longitude: number
 }
 
-export type AgglomeratedDealType = {
-    id_mutation: string
-    date_mutation: string
-    adresse_numero: string
-    adresse_suffixe: string
-    adresse_nom_voie: string
-    code_postal: string
-    nom_commune: string
-    code_type_local: string
-    total_nombre_lots: number
-    valeur_fonciere: number
-    total_surface_reelle_bati: number
-    total_nombre_pieces_principales: number
-    total_surface_terrain: number
-    total_nombre_locaux: number
-    prix_metre_carre: number
-}
-
-export type ListedDealType = {
-    id_mutation: string
-    date_mutation: string
-    adresse_numero: string
-    adresse_suffixe: string
-    adresse_nom_voie: string
-    code_postal: string
-    nom_commune: string
-    code_type_local: string
-    total_nombre_lots: number
-    valeur_fonciere: number
-    total_surface_reelle_bati: number
-    total_nombre_pieces_principales: number
-    total_surface_terrain: number
-    total_nombre_locaux: number
-    prix_metre_carre: number
+export type ListedDealType = BasicDealInfo & {
     agglomerateIdx: number
     lnglat: LatLng
 }
 export type AgglomeratedDealsObjType = {
     lnglat: LatLng
-    deals: AgglomeratedDealType[]
+    deals: BasicDealInfo[]
 }
 export type LatLng = {
     lat: number
     lng: number
 }
 
-export type BigQueryResultType = { id: number }[]
-
 // // Graph types
 
-// When isClustered, use default Original format, otherwise use ListedDealType to provide agglomeratedIdx
+// When isClustered, use default original format, otherwise use ListedDealType to provide agglomeratedIdx
 export type StatsDealType = ListedDealType | OriginalDealType
 
 export type GenerateHistoType = {

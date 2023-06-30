@@ -7,7 +7,7 @@ import HomeIcon from '@mui/icons-material/Home'
 import MapsHomeWorkIcon from '@mui/icons-material/MapsHomeWork'
 import { format } from 'date-fns'
 import { useAppContext } from '@/app/context/Context'
-import { AgglomeratedDealType, OpenDealsType } from '@/app/types'
+import { BasicDealInfo, OpenDealsType } from '@/app/types'
 import { CloseButton } from '@/app/components/common/CloseButton'
 import { Lighter } from '../../common/Lighter'
 import { TooltipContainer } from '../../common/TooltipContainer'
@@ -20,9 +20,7 @@ export const MapTooltip = () => {
 
     const indexRef = useRef<number>(openDeals?.selectedDealIdx || 0)
 
-    const [deal, setDeal] = useState<AgglomeratedDealType>(
-        {} as AgglomeratedDealType
-    )
+    const [deal, setDeal] = useState<BasicDealInfo>({} as BasicDealInfo)
 
     const handleNext = () => {
         indexRef.current++
