@@ -65,7 +65,7 @@ export const AddressForm = ({
 
     const renderSuggestions = () => {
         if (data.length > 0 && status === 'OK') {
-            const suggestions: SuggestionType[] = data.map((suggestion) => ({
+            const suggestions = data.map((suggestion) => ({
                 id: suggestion.place_id,
                 description: suggestion.terms
                     .filter((term) => term.value !== 'France')

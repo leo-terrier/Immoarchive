@@ -13,12 +13,6 @@ declare module '@mui/material/styles' {
         green: PaletteOptions['primary']
         ash: PaletteOptions['primary']
     }
-    interface PaletteColor {
-        darker?: string
-    }
-    interface SimplePaletteColorOptions {
-        darker?: string
-    }
 }
 declare module '@mui/material/Typography' {
     interface TypographyPropsVariantOverrides {
