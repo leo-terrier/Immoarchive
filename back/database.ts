@@ -3,7 +3,12 @@ import { format } from 'mysql2'
 import dotenv from 'dotenv'
 import path from 'path'
 
-dotenv.config({ path: path.resolve(__dirname, '.env') })
+dotenv.config({
+    path:
+        __dirname === 'dist'
+            ? path.resolve(__dirname, '../.env')
+            : path.resolve(__dirname, '.env')
+})
 
 const pool = mysql.createPool({
     host: process.env.DB_HOST as string,
