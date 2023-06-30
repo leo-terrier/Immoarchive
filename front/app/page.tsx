@@ -69,6 +69,8 @@ const Home = () => {
             <ChartsContainer />
             {breakpointsMedium ? <DealTable /> : <DealCards />}
             <ClipboardButton />
+            <img href='#' />
+            <img href='#' />
         </Box>
     )
 }

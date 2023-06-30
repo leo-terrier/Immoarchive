@@ -26,6 +26,7 @@ const pool = promise_1.default.createPool({
     database: process.env.DB_NAME,
     decimalNumbers: true
 });
+const str = '';
 pool.getConnection()
     .then(() => {
     // eslint-disable-next-line no-console
